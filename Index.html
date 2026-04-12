@@ -1,0 +1,1311 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Baymax – Asistente Personal de Salud</title>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700&display=swap" rel="stylesheet" />
+    <style>
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Nunito', sans-serif;
+            min-height: 100vh;
+            background: linear-gradient(160deg, #e8f4fd 0%, #f0f8ff 40%, #e8f0fb 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .app {
+            width: 100%;
+            max-width: 480px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+        }
+
+        /* ── BAYMAX ── */
+        .baymax-wrap {
+            position: relative;
+            width: 220px;
+            height: 240px;
+            margin-bottom: 6px;
+        }
+
+        .baymax-body {
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 170px;
+            height: 180px;
+            background: #fff;
+            border-radius: 85px 85px 65px 65px;
+            box-shadow: 0 10px 40px rgba(100, 181, 246, .25), inset 0 -5px 14px rgba(0, 0, 0, .04);
+            animation: breathe 3.2s ease-in-out infinite;
+            transition: background .4s;
+        }
+
+        .baymax-head {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 115px;
+            height: 106px;
+            background: #fff;
+            border-radius: 58px;
+            box-shadow: 0 5px 22px rgba(100, 181, 246, .22), inset 0 -4px 10px rgba(0, 0, 0, .04);
+            animation: breathe 3.2s ease-in-out infinite;
+            z-index: 2;
+            transition: background .4s;
+        }
+
+        .baymax-eyes {
+            position: absolute;
+            top: 46px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+
+        .eye {
+            width: 14px;
+            height: 6px;
+            background: #263238;
+            border-radius: 50%;
+            animation: blink 4.5s ease-in-out infinite;
+        }
+
+        .eye-line {
+            width: 30px;
+            height: 2px;
+            background: #263238;
+            border-radius: 2px;
+        }
+
+        .baymax-chest {
+            position: absolute;
+            bottom: 64px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 54px;
+            height: 54px;
+            background: radial-gradient(circle at 40% 38%, #90caf9, #1e88e5);
+            border-radius: 50%;
+            box-shadow: 0 0 22px rgba(30, 136, 229, .45);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            animation: pulse-chest 2s ease-in-out infinite;
+            cursor: pointer;
+            transition: transform .15s;
+        }
+
+        .baymax-chest:hover {
+            transform: translateX(-50%) scale(1.1);
+        }
+
+        .chest-inner {
+            width: 22px;
+            height: 22px;
+            background: rgba(255, 255, 255, .92);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            font-weight: 700;
+            color: #1565c0;
+        }
+
+        .baymax-arm-l {
+            position: absolute;
+            bottom: 84px;
+            left: 2px;
+            width: 30px;
+            height: 84px;
+            background: #fff;
+            border-radius: 15px;
+            box-shadow: 0 4px 14px rgba(0, 0, 0, .08);
+            transform-origin: top center;
+            animation: arm-l 3.2s ease-in-out infinite;
+        }
+
+        .baymax-arm-r {
+            position: absolute;
+            bottom: 84px;
+            right: 2px;
+            width: 30px;
+            height: 84px;
+            background: #fff;
+            border-radius: 15px;
+            box-shadow: 0 4px 14px rgba(0, 0, 0, .08);
+            transform-origin: top center;
+            animation: arm-r 3.2s ease-in-out infinite;
+        }
+
+        .baymax-foot {
+            position: absolute;
+            bottom: -20px;
+            width: 34px;
+            height: 34px;
+            background: #fff;
+            border-radius: 50%;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, .08);
+        }
+
+        .baymax-foot.left {
+            left: 36px;
+        }
+
+        .baymax-foot.right {
+            right: 36px;
+        }
+
+        /* ── ESTADOS ACTIVO / DORMIDO ── */
+        .app.sleeping .baymax-body,
+        .app.sleeping .baymax-head {
+            background: #e8eaf6;
+        }
+
+        .app.sleeping .baymax-chest {
+            background: radial-gradient(circle at 40% 38%, #b0bec5, #78909c);
+            box-shadow: 0 0 10px rgba(120, 144, 156, .3);
+        }
+
+        .app.sleeping .baymax-arm-l,
+        .app.sleeping .baymax-arm-r,
+        .app.sleeping .baymax-foot {
+            background: #e8eaf6;
+        }
+
+        .app.sleeping .eye {
+            background: #90a4ae;
+            animation: blink-sleep 6s ease-in-out infinite;
+        }
+
+        .app.sleeping .eye-line {
+            background: #90a4ae;
+        }
+
+        .app.listening .baymax-body,
+        .app.listening .baymax-head {
+            background: #fff;
+        }
+
+        /* ── ONDA DE VOZ ── */
+        .voice-ring {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 170px;
+            height: 180px;
+            border-radius: 85px 85px 65px 65px;
+            border: 3px solid rgba(66, 165, 245, .0);
+            pointer-events: none;
+            transition: border-color .3s;
+        }
+
+        .app.listening .voice-ring {
+            border-color: rgba(66, 165, 245, .5);
+            animation: voice-pulse 1s ease-in-out infinite;
+        }
+
+        .app.speaking .voice-ring {
+            border-color: rgba(102, 187, 106, .5);
+            animation: voice-pulse .6s ease-in-out infinite;
+        }
+
+        /* ── BADGE ── */
+        .scan-badge {
+            position: absolute;
+            top: 10px;
+            right: 12px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 3px;
+        }
+
+        .scan-ring {
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            border: 2px solid rgba(66, 165, 245, .25);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            animation: spin 4s linear infinite;
+        }
+
+        .scan-ring::before {
+            content: '';
+            position: absolute;
+            inset: -2px;
+            border-radius: 50%;
+            border: 2px solid transparent;
+            border-top-color: #42a5f5;
+        }
+
+        .heart-icon {
+            font-size: 15px;
+            animation: heartbeat 1.2s ease-in-out infinite;
+        }
+
+        /* ── MIC BUTTON ── */
+        .mic-area {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 6px;
+            margin-bottom: 10px;
+        }
+
+        .mic-btn {
+            width: 64px;
+            height: 64px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #42a5f5, #1565c0);
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 6px 20px rgba(21, 101, 192, .35);
+            transition: all .2s;
+            position: relative;
+        }
+
+        .mic-btn:hover {
+            transform: scale(1.07);
+        }
+
+        .mic-btn:active {
+            transform: scale(.95);
+        }
+
+        .mic-btn svg {
+            width: 28px;
+            height: 28px;
+            fill: none;
+            stroke: #fff;
+            stroke-width: 2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+
+        .app.listening .mic-btn {
+            background: linear-gradient(135deg, #ef5350, #b71c1c);
+            box-shadow: 0 6px 20px rgba(183, 28, 28, .4);
+            animation: mic-pulse .8s ease-in-out infinite;
+        }
+
+        .app.speaking .mic-btn {
+            background: linear-gradient(135deg, #66bb6a, #2e7d32);
+            box-shadow: 0 6px 20px rgba(46, 125, 50, .4);
+        }
+
+        .mic-label {
+            font-size: 11px;
+            color: #78909c;
+            font-weight: 600;
+            letter-spacing: .5px;
+        }
+
+        /* ── STATUS CHIP ── */
+        .status-chip {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            background: #fff;
+            border-radius: 20px;
+            padding: 5px 14px;
+            border: 1px solid rgba(144, 202, 249, .4);
+            box-shadow: 0 2px 10px rgba(100, 181, 246, .1);
+            margin-bottom: 14px;
+            font-size: 12px;
+            color: #546e7a;
+            font-weight: 600;
+            min-width: 200px;
+            justify-content: center;
+            transition: all .3s;
+        }
+
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            transition: background .3s, box-shadow .3s;
+        }
+
+        .state-standby .status-dot {
+            background: #ffa726;
+            box-shadow: 0 0 6px rgba(255, 167, 38, .6);
+            animation: blink-dot 2s ease-in-out infinite;
+        }
+
+        .state-listening .status-dot {
+            background: #ef5350;
+            box-shadow: 0 0 8px rgba(239, 83, 80, .7);
+            animation: blink-dot .6s ease-in-out infinite;
+        }
+
+        .state-speaking .status-dot {
+            background: #66bb6a;
+            box-shadow: 0 0 8px rgba(102, 187, 106, .7);
+        }
+
+        .state-sleeping .status-dot {
+            background: #90a4ae;
+            box-shadow: none;
+            animation: none;
+        }
+
+        /* ── BURBUJA ── */
+        .baymax-name {
+            font-size: 24px;
+            font-weight: 700;
+            color: #1565c0;
+            letter-spacing: 3px;
+            margin-bottom: 2px;
+        }
+
+        .baymax-sub {
+            font-size: 12px;
+            color: #78909c;
+            margin-bottom: 14px;
+        }
+
+        .bubble {
+            background: #fff;
+            border-radius: 20px;
+            padding: 16px 20px;
+            margin-bottom: 12px;
+            width: 100%;
+            box-shadow: 0 4px 22px rgba(100, 181, 246, .14);
+            border: 1px solid rgba(144, 202, 249, .3);
+            min-height: 72px;
+            position: relative;
+        }
+
+        .bubble::before {
+            content: '';
+            position: absolute;
+            top: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            border-left: 10px solid transparent;
+            border-right: 10px solid transparent;
+            border-bottom: 10px solid #fff;
+        }
+
+        .bubble-text {
+            font-size: 14px;
+            color: #37474f;
+            line-height: 1.65;
+            text-align: center;
+        }
+
+        /* ── TRANSCRIPT ── */
+        .transcript-box {
+            width: 100%;
+            background: rgba(255, 255, 255, .7);
+            border-radius: 14px;
+            padding: 10px 16px;
+            border: 1px dashed rgba(144, 202, 249, .5);
+            margin-bottom: 12px;
+            min-height: 36px;
+            font-size: 13px;
+            color: #78909c;
+            text-align: center;
+            font-style: italic;
+            transition: opacity .3s;
+        }
+
+        /* ── QUICK BUTTONS ── */
+        .quick-wrap {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            justify-content: center;
+            margin-bottom: 12px;
+            width: 100%;
+        }
+
+        .q-btn {
+            background: #fff;
+            border: 1.5px solid #90caf9;
+            color: #1565c0;
+            border-radius: 22px;
+            padding: 8px 15px;
+            font-size: 12px;
+            font-family: 'Nunito', sans-serif;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all .2s;
+            box-shadow: 0 2px 10px rgba(100, 181, 246, .1);
+        }
+
+        .q-btn:hover {
+            background: #e3f2fd;
+            border-color: #42a5f5;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 16px rgba(66, 165, 245, .22);
+        }
+
+        /* ── INPUT ROW ── */
+        .input-row {
+            display: flex;
+            gap: 10px;
+            width: 100%;
+            align-items: center;
+        }
+
+        .chat-input {
+            flex: 1;
+            padding: 13px 18px;
+            border: 1.5px solid rgba(144, 202, 249, .55);
+            border-radius: 26px;
+            font-size: 14px;
+            font-family: 'Nunito', sans-serif;
+            background: #fff;
+            color: #37474f;
+            outline: none;
+            transition: all .2s;
+            box-shadow: 0 2px 14px rgba(100, 181, 246, .1);
+        }
+
+        .chat-input:focus {
+            border-color: #42a5f5;
+            box-shadow: 0 0 0 3px rgba(66, 165, 245, .13);
+        }
+
+        .send-btn {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #42a5f5, #1565c0);
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all .2s;
+            box-shadow: 0 5px 16px rgba(21, 101, 192, .3);
+            flex-shrink: 0;
+        }
+
+        .send-btn:hover {
+            transform: scale(1.07);
+        }
+
+        .send-btn:active {
+            transform: scale(.96);
+        }
+
+        .send-btn svg {
+            width: 18px;
+            height: 18px;
+            fill: none;
+            stroke: #fff;
+            stroke-width: 2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+
+        .disclaimer {
+            font-size: 10px;
+            color: #b0bec5;
+            text-align: center;
+            margin-top: 12px;
+            line-height: 1.6;
+            max-width: 420px;
+        }
+
+        /* ── TYPING DOTS ── */
+        .typing-dots {
+            display: flex;
+            justify-content: center;
+            gap: 7px;
+            padding: 10px 0;
+        }
+
+        .dot {
+            width: 9px;
+            height: 9px;
+            border-radius: 50%;
+            background: #90caf9;
+            animation: typing 1.2s ease-in-out infinite;
+        }
+
+        .dot:nth-child(2) {
+            animation-delay: .22s;
+        }
+
+        .dot:nth-child(3) {
+            animation-delay: .44s;
+        }
+
+        /* ── KEYFRAMES ── */
+        @keyframes breathe {
+
+            0%,
+            100% {
+                transform: translateX(-50%) scaleY(1)
+            }
+
+            50% {
+                transform: translateX(-50%) scaleY(1.03)
+            }
+        }
+
+        @keyframes blink {
+
+            0%,
+            88%,
+            100% {
+                transform: scaleY(1)
+            }
+
+            94% {
+                transform: scaleY(0.08)
+            }
+        }
+
+        @keyframes blink-sleep {
+
+            0%,
+            100% {
+                transform: scaleY(1)
+            }
+
+            50% {
+                transform: scaleY(0.05)
+            }
+        }
+
+        @keyframes arm-l {
+
+            0%,
+            100% {
+                transform: rotate(-6deg)
+            }
+
+            50% {
+                transform: rotate(9deg)
+            }
+        }
+
+        @keyframes arm-r {
+
+            0%,
+            100% {
+                transform: rotate(6deg)
+            }
+
+            50% {
+                transform: rotate(-9deg)
+            }
+        }
+
+        @keyframes pulse-chest {
+
+            0%,
+            100% {
+                box-shadow: 0 0 22px rgba(30, 136, 229, .45)
+            }
+
+            50% {
+                box-shadow: 0 0 34px rgba(30, 136, 229, .75)
+            }
+        }
+
+        @keyframes typing {
+
+            0%,
+            100% {
+                opacity: .3;
+                transform: translateY(0)
+            }
+
+            50% {
+                opacity: 1;
+                transform: translateY(-5px)
+            }
+        }
+
+        @keyframes blink-dot {
+
+            0%,
+            100% {
+                opacity: 1
+            }
+
+            50% {
+                opacity: .3
+            }
+        }
+
+        @keyframes spin {
+            from {
+                transform: rotate(0deg)
+            }
+
+            to {
+                transform: rotate(360deg)
+            }
+        }
+
+        @keyframes heartbeat {
+
+            0%,
+            100% {
+                transform: scale(1)
+            }
+
+            30% {
+                transform: scale(1.22)
+            }
+
+            50% {
+                transform: scale(1)
+            }
+
+            70% {
+                transform: scale(1.16)
+            }
+        }
+
+        @keyframes voice-pulse {
+
+            0%,
+            100% {
+                transform: translate(-50%, -50%) scale(1);
+                opacity: 1
+            }
+
+            50% {
+                transform: translate(-50%, -50%) scale(1.06);
+                opacity: .6
+            }
+        }
+
+        @keyframes mic-pulse {
+
+            0%,
+            100% {
+                transform: scale(1)
+            }
+
+            50% {
+                transform: scale(1.08)
+            }
+        }
+
+        @keyframes talking-nod {
+            from {
+                transform: translateX(-50%) translateY(0)
+            }
+
+            to {
+                transform: translateX(-50%) translateY(-4px)
+            }
+        }
+
+        @keyframes happy-bounce {
+
+            0%,
+            100% {
+                transform: translateX(-50%) translateY(0)
+            }
+
+            50% {
+                transform: translateX(-50%) translateY(-14px)
+            }
+        }
+
+        .baymax-head.talking {
+            animation: talking-nod .35s ease-in-out infinite alternate;
+        }
+
+        .baymax-head.happy {
+            animation: happy-bounce .55s ease-in-out;
+        }
+
+        /* ── SLEEPING EYES ── */
+        .app.sleeping .eye {
+            height: 2px;
+            border-radius: 2px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <main class="app sleeping" id="app">
+
+        <div class="scan-badge" aria-hidden="true">
+            <div class="scan-ring"><span class="heart-icon">♡</span></div>
+        </div>
+
+        <div class="baymax-wrap" aria-hidden="true">
+            <div class="baymax-arm-l"></div>
+            <div class="baymax-arm-r"></div>
+            <div class="baymax-body">
+                <div class="voice-ring"></div>
+                <div class="baymax-chest" onclick="scanHealth()" title="Escaneo de bienestar" role="button">
+                    <div class="chest-inner">+</div>
+                </div>
+                <div class="baymax-foot left"></div>
+                <div class="baymax-foot right"></div>
+            </div>
+            <div class="baymax-head" id="baymaxHead">
+                <div class="baymax-eyes">
+                    <div class="eye"></div>
+                    <div class="eye-line"></div>
+                    <div class="eye"></div>
+                </div>
+            </div>
+        </div>
+
+        <h1 class="baymax-name">BAYMAX</h1>
+        <p class="baymax-sub">Asistente personal de salud</p>
+
+        <!-- Status chip -->
+        <div class="status-chip state-sleeping" id="statusChip">
+            <div class="status-dot"></div>
+            <span id="statusLabel">Esperando activación...</span>
+        </div>
+
+        <!-- Burbuja -->
+        <div class="bubble" role="status" aria-live="polite">
+            <div class="bubble-text" id="speechText">
+                Di <strong>"ay"</strong>, <strong>"auch"</strong> o <strong>"me duele"</strong> para activarme.<br />
+                Di <strong>"estoy satisfecho con mi cuidado"</strong> para desactivarme.
+            </div>
+        </div>
+
+        <!-- Transcript -->
+        <div class="transcript-box" id="transcriptBox">🎤 Escuchando el ambiente...</div>
+
+        <!-- Mic button -->
+        <div class="mic-area">
+            <button class="mic-btn" id="micBtn" onclick="toggleMic()" aria-label="Micrófono">
+                <svg viewBox="0 0 24 24">
+                    <rect x="9" y="2" width="6" height="11" rx="3" />
+                    <path d="M5 10a7 7 0 0 0 14 0" />
+                    <line x1="12" y1="19" x2="12" y2="22" />
+                    <line x1="8" y1="22" x2="16" y2="22" />
+                </svg>
+            </button>
+            <span class="mic-label" id="micLabel">ACTIVAR MICRÓFONO</span>
+        </div>
+
+        <!-- Quick buttons -->
+        <div class="quick-wrap">
+            <button class="q-btn" onclick="manualActivate('dolor de cabeza')">🤕 Cabeza</button>
+            <button class="q-btn" onclick="manualActivate('fiebre')">🌡️ Fiebre</button>
+            <button class="q-btn" onclick="manualActivate('cansancio')">😴 Cansancio</button>
+            <button class="q-btn" onclick="manualActivate('tos')">😷 Tos</button>
+            <button class="q-btn" onclick="manualActivate('consejos de salud')">💪 Consejos</button>
+            <button class="q-btn" onclick="manualActivate('dolor de estómago')">🤢 Estómago</button>
+            <button class="q-btn" onclick="manualActivate('insomnio')">🌙 Insomnio</button>
+            <button class="q-btn" onclick="manualActivate('ansiedad')">😰 Ansiedad</button>
+            <button class="q-btn" onclick="manualActivate('resfriado')">🤧 Resfriado</button>
+            <button class="q-btn" onclick="manualActivate('dolor de espalda')">🦴 Espalda</button>
+        </div>
+
+        <!-- Text input fallback -->
+        <div class="input-row">
+            <input class="chat-input" id="chatInput" type="text" placeholder="O escribe tu síntoma aquí..."
+                autocomplete="off" />
+            <button class="send-btn" onclick="sendText()" aria-label="Enviar">
+                <svg viewBox="0 0 24 24">
+                    <line x1="22" y1="2" x2="11" y2="13" />
+                    <polygon points="22 2 15 22 11 13 2 9 22 2" />
+                </svg>
+            </button>
+        </div>
+
+        <p class="disclaimer">⚕️ Baymax es informativo y no reemplaza atención médica profesional. Emergencias:
+            <strong>123</strong></p>
+    </main>
+
+    <script>
+        /* ══════════════════════════════════════════════════════
+           BASE DE CONOCIMIENTO
+        ══════════════════════════════════════════════════════ */
+        const KB = [
+            {
+                keywords: ['dolor de cabeza', 'cefalea', 'jaqueca', 'migraña', 'cabeza me duele', 'me duele la cabeza', 'head', 'cabeza'],
+                responses: [
+                    'He detectado dolor de cabeza. Mi protocolo recomienda: descansar en un lugar oscuro y tranquilo, hidratarte con al menos dos vasos de agua, y aplicar un paño frío en la frente. Si el dolor es muy intenso o no cede en pocas horas, por favor consulta a un médico.',
+                    'Dolor de cabeza registrado. Asegúrate de estar bien hidratado, evita las pantallas brillantes y descansa. Si va acompañado de fiebre alta o visión borrosa, acude a un médico sin demora. Tu bienestar es mi prioridad.',
+                    'He escaneado tu reporte: dolor de cabeza. Causas comunes son estrés, deshidratación o falta de sueño. Bebe agua, descansa y reduce el ruido ambiental. Si lleva más de 24 horas, te recomiendo visitar a un profesional.'
+                ]
+            },
+            {
+                keywords: ['fiebre', 'temperatura alta', 'calentura', 'febril', 'caliente', 'calor'],
+                responses: [
+                    'He detectado fiebre. Protocolo de atención: reposa, mantente muy hidratado, usa ropa ligera y aplica paños frescos en la frente. Si la temperatura supera 39 grados, dura más de 3 días o hay dificultad para respirar, acude de inmediato al médico.',
+                    'Fiebre registrada. Es la forma en que tu cuerpo lucha contra una infección. Descansa mucho, bebe líquidos frecuentemente. Si en adultos supera 39 grados, busca atención médica pronto.',
+                ]
+            },
+            {
+                keywords: ['cansancio', 'fatiga', 'agotado', 'sin energía', 'cansado', 'cansada', 'somnoliento', 'somnolencia'],
+                responses: [
+                    'He registrado cansancio. Mi protocolo incluye: dormir entre 7 y 9 horas por noche, mantener una alimentación equilibrada, hidratarte bien y hacer pausas activas. Si el agotamiento es extremo y constante, un médico puede ayudarte a descubrir la causa.',
+                    'Cansancio detectado. Causas frecuentes son falta de sueño, estrés o deshidratación. Descansa hoy y evalúa tus hábitos de sueño. Si persiste más de dos semanas, consulta a un profesional. Tu bienestar es mi prioridad.'
+                ]
+            },
+            {
+                keywords: ['tos', 'tosiendo', 'tos seca', 'tos con flema', 'carraspera'],
+                responses: [
+                    'Tos registrada. Mi protocolo sugiere: beber líquidos tibios con miel y limón, evitar el aire frío y seco. Si la tos lleva más de 2 semanas, hay sangre o dificultad para respirar, acude a un médico de inmediato.',
+                    'He detectado tos. Para aliviarla: inhala vapor de agua caliente, mantente hidratado. La miel es un excelente calmante natural. Si va acompañada de fiebre alta, consulta a un profesional pronto.'
+                ]
+            },
+            {
+                keywords: ['estómago', 'náuseas', 'vómito', 'diarrea', 'dolor abdominal', 'indigestión', 'gastritis', 'acidez', 'reflujo', 'colitis', 'nausea'],
+                responses: [
+                    'Malestar digestivo detectado. Mi protocolo: dieta blanda, mucha hidratación con agua y suero oral si hay vómito o diarrea. Evita lácteos y grasas. Si el dolor es agudo o los síntomas no ceden en 24 horas, consulta a un médico.',
+                    'He registrado síntomas gastrointestinales. Descansa el estómago unas horas, luego come en pequeñas porciones. El jengibre en infusión puede ayudar con las náuseas. Tu bienestar es mi prioridad.'
+                ]
+            },
+            {
+                keywords: ['insomnio', 'no puedo dormir', 'no duermo', 'sueño malo', 'desvelo', 'dificultad para dormir'],
+                responses: [
+                    'Insomnio detectado. Mi protocolo de sueño: mantén un horario fijo para dormir, evita pantallas 1 hora antes de acostarte, no consumas cafeína después de las 2 pm y crea un ambiente oscuro y fresco. Si llevas más de un mes así, un médico puede orientarte.',
+                    'Dificultad para dormir registrada. Prueba la respiración 4-7-8: inhala 4 segundos, aguanta 7, exhala 8. También puedes leer un libro físico antes de dormir. ¿Estás satisfecho con estos consejos?'
+                ]
+            },
+            {
+                keywords: ['ansiedad', 'estrés', 'nervioso', 'angustia', 'pánico', 'angustiado', 'estresado', 'ansioso'],
+                responses: [
+                    'Ansiedad detectada. Mi protocolo de calma: respira profundo contando hasta 4, retén 4 segundos y exhala en 6. Repite 5 veces. El ejercicio físico es muy efectivo para reducir el estrés. No estás solo.',
+                    'He registrado niveles elevados de estrés. Caminar 20 minutos al día, limitar las noticias y hablar con alguien de confianza ayudan mucho. Tu salud mental es tan importante como la física.'
+                ]
+            },
+            {
+                keywords: ['resfriado', 'gripe', 'resfrío', 'rinitis', 'nariz tapada', 'congestionado', 'estornudo'],
+                responses: [
+                    'Resfriado o gripe detectado. Mi protocolo: reposo absoluto, mucha hidratación, sopas calientes y vitamina C. Los lavados nasales con suero fisiológico ayudan a descongestionar. Si hay dificultad para respirar, consulta a un médico.',
+                    'Síntomas gripales registrados. Duerme todo lo que puedas, que es cuando tu sistema inmune trabaja mejor. La miel con jengibre es un excelente antigripal natural.'
+                ]
+            },
+            {
+                keywords: ['espalda', 'lumbar', 'cervical', 'columna', 'cuello', 'me duele la espalda'],
+                responses: [
+                    'Dolor de espalda detectado. Mi protocolo: aplica calor local durante 15 minutos, evita permanecer en la misma postura más de 1 hora, y realiza estiramientos suaves. Si el dolor irradia a las piernas, consulta a un médico.',
+                    'He registrado molestia en la espalda. Causas frecuentes: mala postura o sedentarismo. Caminar y nadar son excelentes para la espalda. Si el dolor lleva más de una semana, visita a un médico.'
+                ]
+            },
+            {
+                keywords: ['consejo', 'consejos', 'salud', 'bienestar', 'hábitos', 'saludable', 'mejorar', 'ayuda'],
+                responses: [
+                    'Mi protocolo de bienestar general: beber al menos 8 vasos de agua al día, dormir 7 a 9 horas, comer frutas y verduras, hacer 30 minutos de ejercicio moderado 5 veces por semana, y dedicar tiempo a actividades que te hagan feliz.',
+                    'He compilado mis mejores consejos de salud: muévete cada hora si trabajas sentado, reduce el azúcar, socializa con personas que te aporten energía, date 10 minutos de sol al día, y cuida tu salud mental.'
+                ]
+            },
+            {
+                keywords: ['emergencia', 'no puedo respirar', 'dificultad para respirar', 'dolor en el pecho', 'desmayo', 'pérdida de conciencia', 'sangrado abundante', 'convulsión'],
+                urgent: true,
+                responses: [
+                    'Alerta médica. He detectado síntomas de posible emergencia. Por favor llama al 123 o acude de inmediato al servicio de urgencias más cercano. No esperes. Tu vida es lo más importante.',
+                ]
+            },
+            {
+                keywords: ['hola', 'buenos días', 'buenas', 'hey', 'saludos', 'qué tal'],
+                responses: [
+                    'Hola. Soy Baymax, tu asistente personal de salud. Estoy aquí para ayudarte. ¿Cómo te sientes hoy?',
+                    'Buenos días. Soy Baymax. Tu bienestar es mi prioridad. ¿En qué puedo ayudarte?'
+                ]
+            },
+            {
+                keywords: ['gracias', 'bien', 'genial', 'excelente', 'perfecto', 'me ayudaste'],
+                responses: [
+                    'Me alegra haber sido útil. Cuídate mucho y recuerda mantenerte hidratado. ¿Estás satisfecho con tu atención médica?',
+                    'Es mi función ayudarte. Que tengas un excelente día. Estaré aquí si me necesitas.'
+                ]
+            }
+        ];
+
+        const SCAN_RESPONSES = [
+            'Escaneo de bienestar completado. Mis recomendaciones para hoy: uno, toma al menos 8 vasos de agua. Dos, realiza 30 minutos de movimiento. Tres, come al menos una fruta y una verdura. Cuatro, duerme entre 7 y 9 horas esta noche. ¿Estás satisfecho con tu atención médica?',
+            'Protocolo de bienestar activado. Para optimizar tu salud hoy: hidratarte bien, moverte un poco, comer con calma, y sonreír al menos una vez. La salud es un hábito, no un destino. Tu bienestar es mi prioridad.',
+        ];
+
+        const DEFAULT_RESPONSES = [
+            'He procesado tu consulta. No tengo información específica sobre ese tema, pero si tienes un síntoma persistente o preocupante, consulta siempre a un médico. ¿Puedes describir mejor cómo te sientes?',
+            'Para brindarte la mejor atención, ¿podrías ser más específico sobre tus síntomas? Tu bienestar es mi prioridad.',
+        ];
+
+        /* ── Frases de activación ── */
+        const WAKE_WORDS = ['ay', 'ayy', 'auch', 'ouch', 'me duele', 'me duele', 'auxilio', 'ay dios', 'ayuda', 'ow', 'aye'];
+        /* ── Frases de desactivación ── */
+        const SLEEP_WORDS = ['estoy satisfecho con mi cuidado', 'satisfecho con mi cuidado', 'gracias baymax adios', 'desactívate', 'apágate'];
+
+        /* ══════════════════════════════════════════════════════
+           ESTADO GLOBAL
+        ══════════════════════════════════════════════════════ */
+        let appState = 'sleeping';   // sleeping | standby | listening | speaking | responding
+        let recognition = null;
+        let micActive = false;
+        let busy = false;
+        let speechSynth = window.speechSynthesis;
+        let rcCounters = {};
+        let continuousListening = false;
+
+        const appEl = document.getElementById('app');
+        const head = document.getElementById('baymaxHead');
+        const speechEl = document.getElementById('speechText');
+        const transcriptEl = document.getElementById('transcriptBox');
+        const statusChip = document.getElementById('statusChip');
+        const statusLabel = document.getElementById('statusLabel');
+        const micBtn = document.getElementById('micBtn');
+        const micLabel = document.getElementById('micLabel');
+        const inputEl = document.getElementById('chatInput');
+
+        /* ══════════════════════════════════════════════════════
+           UTILIDADES UI
+        ══════════════════════════════════════════════════════ */
+        function setAppState(state) {
+            appState = state;
+            appEl.className = 'app';
+            statusChip.className = 'status-chip';
+
+            if (state === 'sleeping') {
+                appEl.classList.add('sleeping');
+                statusChip.classList.add('state-sleeping');
+                statusLabel.textContent = 'Esperando activación...';
+                micLabel.textContent = 'ACTIVAR MICRÓFONO';
+                transcriptEl.textContent = '🎤 Di "ay", "auch" o "me duele" para activarme';
+            } else if (state === 'standby') {
+                statusChip.classList.add('state-standby');
+                statusLabel.textContent = 'Baymax activo — escuchando';
+                micLabel.textContent = 'ESCUCHANDO';
+                transcriptEl.textContent = '🎤 Escuchando... habla con Baymax';
+            } else if (state === 'listening') {
+                appEl.classList.add('listening');
+                statusChip.classList.add('state-listening');
+                statusLabel.textContent = 'Procesando tu voz...';
+                micLabel.textContent = 'ESCUCHANDO';
+            } else if (state === 'speaking') {
+                appEl.classList.add('speaking');
+                statusChip.classList.add('state-speaking');
+                statusLabel.textContent = 'Baymax hablando...';
+                head.classList.add('talking');
+            } else if (state === 'responding') {
+                statusChip.classList.add('state-standby');
+                statusLabel.textContent = 'Procesando...';
+                head.classList.remove('talking');
+            }
+
+            if (state !== 'speaking') head.classList.remove('talking');
+        }
+
+        function showTyping() {
+            speechEl.innerHTML = `<div class="typing-dots"><div class="dot"></div><div class="dot"></div><div class="dot"></div></div>`;
+        }
+
+        function showReply(text) {
+            speechEl.textContent = text;
+            head.classList.add('happy');
+            setTimeout(() => head.classList.remove('happy'), 600);
+        }
+
+        /* ══════════════════════════════════════════════════════
+           MOTOR DE RESPUESTAS
+        ══════════════════════════════════════════════════════ */
+        function normalize(str) {
+            return str.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+        }
+
+        function findResponse(input) {
+            const n = normalize(input);
+            for (const entry of KB) {
+                for (const kw of entry.keywords) {
+                    if (n.includes(normalize(kw))) {
+                        const key = entry.keywords[0];
+                        if (!rcCounters[key]) rcCounters[key] = 0;
+                        const r = entry.responses[rcCounters[key] % entry.responses.length];
+                        rcCounters[key]++;
+                        return r;
+                    }
+                }
+            }
+            if (!rcCounters['_def']) rcCounters['_def'] = 0;
+            const r = DEFAULT_RESPONSES[rcCounters['_def'] % DEFAULT_RESPONSES.length];
+            rcCounters['_def']++;
+            return r;
+        }
+
+        function isWakeWord(text) {
+            const n = normalize(text);
+            return WAKE_WORDS.some(w => n.includes(normalize(w)));
+        }
+
+        function isSleepWord(text) {
+            const n = normalize(text);
+            return SLEEP_WORDS.some(w => n.includes(normalize(w)));
+        }
+
+        /* ══════════════════════════════════════════════════════
+           TEXT-TO-SPEECH
+        ══════════════════════════════════════════════════════ */
+        function speak(text, onEnd) {
+            speechSynth.cancel();
+            const utt = new SpeechSynthesisUtterance(text);
+            utt.lang = 'es-ES';
+            utt.rate = 0.9;
+            utt.pitch = 0.85;
+            utt.volume = 1;
+
+            // Prefiere voz en español si está disponible
+            const voices = speechSynth.getVoices();
+            const esVoice = voices.find(v => v.lang.startsWith('es') && v.name.toLowerCase().includes('male'))
+                || voices.find(v => v.lang.startsWith('es'));
+            if (esVoice) utt.voice = esVoice;
+
+            utt.onstart = () => setAppState('speaking');
+            utt.onend = () => { if (onEnd) onEnd(); };
+            utt.onerror = () => { if (onEnd) onEnd(); };
+            speechSynth.speak(utt);
+        }
+
+        /* ══════════════════════════════════════════════════════
+           RESPONDER
+        ══════════════════════════════════════════════════════ */
+        function respond(input, fromVoice = false) {
+            if (busy) return;
+            busy = true;
+
+            setAppState('responding');
+            showTyping();
+            transcriptEl.textContent = `💬 "${input}"`;
+
+            const delay = 600 + Math.random() * 500;
+            setTimeout(() => {
+                const reply = findResponse(input);
+                showReply(reply);
+                speak(reply, () => {
+                    busy = false;
+                    if (continuousListening && appState !== 'sleeping') {
+                        setAppState('standby');
+                        restartRecognition();
+                    } else {
+                        setAppState('standby');
+                    }
+                });
+            }, delay);
+        }
+
+        /* ══════════════════════════════════════════════════════
+           ACTIVAR / DESACTIVAR BAYMAX
+        ══════════════════════════════════════════════════════ */
+        function activateBaymax(trigger) {
+            setAppState('standby');
+            const greeting = `Hola. Soy Baymax, tu asistente personal de salud. He detectado que necesitas atención. ¿Qué síntoma tienes?`;
+            showReply(greeting);
+            speak(greeting, () => {
+                busy = false;
+                setAppState('standby');
+                if (continuousListening) restartRecognition();
+            });
+        }
+
+        function deactivateBaymax() {
+            speechSynth.cancel();
+            const bye = 'Tu cuidado ha sido mi honor. Hasta pronto. Llámame cuando me necesites.';
+            showReply(bye);
+            speak(bye, () => {
+                busy = false;
+                setAppState('sleeping');
+                speechEl.innerHTML = 'Di <strong>"ay"</strong>, <strong>"auch"</strong> o <strong>"me duele"</strong> para activarme.<br/>Di <strong>"estoy satisfecho con mi cuidado"</strong> para desactivarme.';
+                transcriptEl.textContent = '🎤 Baymax en espera...';
+            });
+        }
+
+        /* ══════════════════════════════════════════════════════
+           SPEECH RECOGNITION
+        ══════════════════════════════════════════════════════ */
+        const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+        let recognizing = false;
+
+        function buildRecognition() {
+            if (!SpeechRecognition) return null;
+            const r = new SpeechRecognition();
+            r.lang = 'es-ES';
+            r.continuous = false;
+            r.interimResults = true;
+            r.maxAlternatives = 3;
+
+            r.onstart = () => {
+                recognizing = true;
+                setAppState('listening');
+            };
+
+            r.onresult = (e) => {
+                let interim = '', final = '';
+                for (let i = e.resultIndex; i < e.results.length; i++) {
+                    const t = e.results[i][0].transcript;
+                    if (e.results[i].isFinal) final += t;
+                    else interim += t;
+                }
+
+                const display = final || interim;
+                transcriptEl.textContent = `🎤 "${display}"`;
+
+                if (final) {
+                    const text = final.trim().toLowerCase();
+
+                    // Desactivación
+                    if (isSleepWord(text)) {
+                        deactivateBaymax();
+                        return;
+                    }
+
+                    // Activación (si estaba dormido)
+                    if (appState === 'sleeping' || appState === 'standby') {
+                        if (isWakeWord(text) && appState === 'sleeping') {
+                            activateBaymax(text);
+                            return;
+                        }
+                        if (appState !== 'sleeping') {
+                            respond(text, true);
+                            return;
+                        }
+                        // Mientras duerme y no es wake word, solo mostrar transcript
+                        setAppState('sleeping');
+                    }
+                }
+            };
+
+            r.onerror = (e) => {
+                recognizing = false;
+                if (e.error === 'no-speech' || e.error === 'aborted') {
+                    if (continuousListening && micActive) setTimeout(restartRecognition, 500);
+                } else {
+                    transcriptEl.textContent = `⚠️ Error de micrófono: ${e.error}. Verifica los permisos.`;
+                    micActive = false;
+                    continuousListening = false;
+                    micLabel.textContent = 'ACTIVAR MICRÓFONO';
+                }
+            };
+
+            r.onend = () => {
+                recognizing = false;
+                if (continuousListening && micActive && appState !== 'speaking' && appState !== 'responding' && !busy) {
+                    setTimeout(restartRecognition, 300);
+                }
+            };
+
+            return r;
+        }
+
+        function restartRecognition() {
+            if (!micActive || recognizing || busy || appState === 'speaking' || appState === 'responding') return;
+            if (!recognition) recognition = buildRecognition();
+            try { recognition.start(); } catch (e) { /* ya iniciado */ }
+        }
+
+        /* ══════════════════════════════════════════════════════
+           TOGGLE MICRÓFONO
+        ══════════════════════════════════════════════════════ */
+        function toggleMic() {
+            if (!SpeechRecognition) {
+                transcriptEl.textContent = '⚠️ Tu navegador no soporta reconocimiento de voz. Usa Chrome o Edge.';
+                return;
+            }
+
+            if (micActive) {
+                // Apagar mic
+                micActive = false;
+                continuousListening = false;
+                if (recognition) { try { recognition.stop(); } catch (e) { } }
+                micLabel.textContent = 'ACTIVAR MICRÓFONO';
+                if (appState !== 'speaking') setAppState('sleeping');
+                transcriptEl.textContent = '🎤 Micrófono apagado';
+                showReply('Di "ay", "auch" o "me duele" para activarme. Di "estoy satisfecho con mi cuidado" para desactivarme.');
+                return;
+            }
+
+            // Encender mic
+            micActive = true;
+            continuousListening = true;
+            recognition = buildRecognition();
+            micLabel.textContent = 'APAGAR MICRÓFONO';
+            transcriptEl.textContent = '🎤 Micrófono activo — di "ay" o "auch" para activarme';
+
+            if (appState === 'sleeping') {
+                speechEl.innerHTML = 'Micrófono activo. Di <strong>"ay"</strong> o <strong>"auch"</strong> para activarme.';
+            }
+
+            try { recognition.start(); }
+            catch (e) { transcriptEl.textContent = '⚠️ No se pudo iniciar el micrófono. Verifica los permisos del navegador.'; }
+        }
+
+        /* ══════════════════════════════════════════════════════
+           ACCIONES MANUALES
+        ══════════════════════════════════════════════════════ */
+        function manualActivate(symptom) {
+            if (appState === 'sleeping') {
+                setAppState('standby');
+            }
+            respond(symptom, false);
+        }
+
+        function scanHealth() {
+            if (busy) return;
+            busy = true;
+            if (appState === 'sleeping') setAppState('standby');
+            setAppState('responding');
+            showTyping();
+            setTimeout(() => {
+                const r = SCAN_RESPONSES[Math.floor(Math.random() * SCAN_RESPONSES.length)];
+                showReply(r);
+                speak(r, () => {
+                    busy = false;
+                    setAppState('standby');
+                    if (continuousListening) restartRecognition();
+                });
+            }, 800);
+        }
+
+        function sendText() {
+            const val = inputEl.value.trim();
+            if (!val) return;
+            inputEl.value = '';
+            if (appState === 'sleeping') setAppState('standby');
+            if (isSleepWord(val.toLowerCase())) { deactivateBaymax(); return; }
+            respond(val, false);
+        }
+
+        inputEl.addEventListener('keydown', e => {
+            if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); sendText(); }
+        });
+
+        /* ── Cargar voces cuando estén disponibles ── */
+        if (speechSynth.onvoiceschanged !== undefined) {
+            speechSynth.onvoiceschanged = () => speechSynth.getVoices();
+        }
+    </script>
+
+</body>
+
+</html>
