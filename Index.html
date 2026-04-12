@@ -1081,29 +1081,166 @@
                 ]
             },
             {
-                keywords: ['hola', 'buenos días', 'buenas', 'hey', 'saludos', 'qué tal'],
+                keywords: ['hola', 'buenos días', 'buenas tardes', 'buenas noches', 'buenas', 'hey', 'saludos', 'qué tal', 'como estas', 'cómo estás'],
                 responses: [
-                    'Hola. Soy Baymax, tu asistente medico Personal. Estoy aquí para ayudarte. ¿Cómo te sientes hoy?',
-                    'Buenos días. Soy Baymax. Tu bienestar es mi prioridad. ¿En qué puedo ayudarte?'
+                    'Hola. Soy Baymax, tu asistente médico personal. Estoy aquí para ayudarte. ¿Cómo te sientes hoy?',
+                    'Buenos días. Soy Baymax. Tu bienestar es mi prioridad. ¿En qué puedo ayudarte?',
+                    'Hola. He activado mis protocolos de atención. Cuéntame, ¿qué síntoma presentas hoy?'
                 ]
             },
             {
-                keywords: ['gracias', 'bien', 'genial', 'excelente', 'perfecto', 'me ayudaste'],
+                keywords: ['gracias', 'muchas gracias', 'te lo agradezco', 'genial', 'excelente', 'perfecto', 'me ayudaste', 'muy bien'],
                 responses: [
                     'Me alegra haber sido útil. Cuídate mucho y recuerda mantenerte hidratado. ¿Estás satisfecho con tu cuidado?',
-                    'Es mi función ayudarte. Que tengas un excelente día. Estaré aquí si me necesitas.'
+                    'Es mi función ayudarte. Que tengas un excelente día. Estaré aquí si me necesitas.',
+                    'Tu bienestar es mi prioridad. Ha sido un honor atenderte.'
+                ]
+            },
+            {
+                keywords: ['alergia', 'alérgico', 'alérgica', 'picazón', 'urticaria', 'sarpullido', 'ronchas', 'comezón', 'me pica'],
+                responses: [
+                    'He detectado posible reacción alérgica. Protocolo: evita el agente causante si lo conoces, aplica compresas frías en la zona afectada. Si hay dificultad para respirar o hinchazón en la garganta, acude a urgencias de inmediato.',
+                    'Alergia detectada. Mantente alejado del alérgeno, no te rasques para evitar infecciones. Si los síntomas empeoran o aparece dificultad respiratoria, busca atención médica urgente. Tu bienestar es mi prioridad.',
+                    'Reacción alérgica registrada. Lava bien la zona con agua fría. Si tienes antihistamínico a la mano, puede ayudar. Consulta a un médico si el cuadro es severo o no mejora en pocas horas.'
+                ]
+            },
+            {
+                keywords: ['diabetes', 'azúcar alta', 'glucosa alta', 'insulina', 'diabético', 'hipoglucemia', 'azúcar baja'],
+                responses: [
+                    'He registrado consulta sobre diabetes. Si sientes temblores, sudoración fría o mareo, puede ser hipoglucemia: consume algo dulce de inmediato y descansa. Si tu glucosa está muy alta y tienes sed extrema y orina frecuente, consulta a tu médico.',
+                    'Protocolo de glucosa activado. Para mantener estable el azúcar: come en horarios regulares, evita azúcares simples en exceso, haz ejercicio moderado y sigue el tratamiento indicado por tu médico. No suspendas la insulina sin consultar.',
+                    'Diabetes registrada. Mi recomendación: monitorea tu glucosa regularmente, mantén una dieta equilibrada baja en azúcares procesados y camina al menos 30 minutos al día. Tu médico es tu mejor aliado en este proceso.'
+                ]
+            },
+            {
+                keywords: ['hipertensión', 'presión alta', 'tensión alta', 'presión arterial', 'mareo con presión', 'dolor de cabeza con presión'],
+                responses: [
+                    'He detectado consulta sobre presión arterial alta. Protocolo inmediato: siéntate, respira lento y profundo, evita el esfuerzo físico. Si la presión supera 180 sobre 110 con síntomas, acude a urgencias sin demora.',
+                    'Hipertensión registrada. Para controlarla: reduce la sal, evita el alcohol y el tabaco, haz ejercicio suave regularmente y toma tu medicación si te la han recetado. El estrés también eleva la presión, cuida tu mente.',
+                    'Presión alta detectada. Recuéstate en un lugar tranquilo, respira con calma. No tomes medicación extra sin indicación médica. Si sientes zumbido en los oídos, visión borrosa o dolor en el pecho, llama al 123.'
+                ]
+            },
+            {
+                keywords: ['depresión', 'triste', 'tristeza', 'llorar', 'sin ganas', 'vacío', 'no tengo motivación', 'me siento mal emocionalmente'],
+                responses: [
+                    'He detectado malestar emocional. Mi protocolo de apoyo: habla con alguien de confianza hoy, date permiso de sentir lo que sientes. La tristeza es válida. Si los síntomas persisten más de dos semanas, un profesional de salud mental puede ayudarte mucho.',
+                    'Tristeza o depresión registrada. Recuerda que no estás solo. Salir a caminar, tomar el sol y conectar con personas queridas ayuda. La salud emocional es tan importante como la física. Considera hablar con un psicólogo. Tu bienestar es mi prioridad.',
+                    'He registrado tu malestar. Pequeños pasos ayudan: une cosa agradable al día, como escuchar música que te guste, comer algo rico o dar una caminata corta. No te exijas demasiado. Si sientes que no puedes más, busca ayuda profesional hoy.'
+                ]
+            },
+            {
+                keywords: ['quemadura', 'me quemé', 'quemado', 'ardor en la piel', 'ampolla por calor'],
+                responses: [
+                    'Quemadura detectada. Protocolo inmediato: pon agua fría corriente sobre la zona durante al menos 10 minutos. No uses hielo, crema dental ni mantequilla. Cubre con una gasa limpia. Si la quemadura es extensa o muy profunda, acude a urgencias.',
+                    'He registrado quemadura. Enfría la zona con agua fría, no helada, por 10 minutos. No revientes ampollas. Si la piel está muy dañada o el dolor es insoportable, busca atención médica. Tu bienestar es mi prioridad.'
+                ]
+            },
+            {
+                keywords: ['herida', 'cortada', 'cortadura', 'sangre', 'sangrado', 'me corté', 'raspón', 'golpe', 'moretón'],
+                responses: [
+                    'Herida detectada. Protocolo: lava bien con agua y jabón, aplica presión con un paño limpio para detener el sangrado. Desinfecta y cubre. Si el corte es profundo, no cierra o el sangrado no cede en 10 minutos, acude a urgencias.',
+                    'He registrado lesión. Limpia la herida con agua limpia, aplica antiséptico y cubre con un apósito. Si hay objetos incrustados, no los retires tú mismo. Para golpes con moretón, aplica hielo envuelto en tela durante 15 minutos.'
+                ]
+            },
+            {
+                keywords: ['mareo', 'mareado', 'vértigo', 'me da vueltas', 'inestable', 'me caigo', 'equilibrio'],
+                responses: [
+                    'Mareo o vértigo detectado. Protocolo: siéntate o recuéstate de inmediato para evitar caídas, fija la vista en un punto fijo. Hidratarte puede ayudar si es por calor o deshidratación. Si el vértigo es severo y repentino, consulta a un médico.',
+                    'He registrado mareo. Causas comunes: deshidratación, presión baja, problemas del oído interno o estrés. Bebe agua, descansa y evita movimientos bruscos. Si va acompañado de dolor de pecho o pérdida de conciencia, llama al 123.'
+                ]
+            },
+            {
+                keywords: ['dolor de garganta', 'garganta', 'amígdalas', 'angina', 'me duele tragar', 'ronco', 'ronquera', 'laringitis'],
+                responses: [
+                    'Dolor de garganta detectado. Mi protocolo: haz gárgaras de agua tibia con sal, bebe líquidos calientes con miel y limón, evita hablar en exceso. Si hay fiebre alta o dificultad para tragar, visita a un médico.',
+                    'Molestia en la garganta registrada. La miel es un excelente calmante natural. Evita el frío, los helados y hablar a gritos. Si las amígdalas tienen manchas blancas y tienes fiebre, puede ser una infección bacteriana que requiere antibióticos.'
+                ]
+            },
+            {
+                keywords: ['dolor de muelas', 'muela', 'diente', 'dentista', 'encía', 'boca', 'caries'],
+                responses: [
+                    'Dolor dental detectado. Protocolo de alivio temporal: aplica hielo en la mejilla, evita alimentos muy fríos, calientes o dulces. El clavo de olor tiene propiedades anestésicas naturales. Este dolor requiere atención de un dentista lo antes posible.',
+                    'He registrado dolor de muela. Como medida temporal puedes enjuagarte con agua tibia y sal. No ignores este síntoma, puede empeorar. Agenda una cita con tu dentista pronto. Tu bienestar es mi prioridad.'
+                ]
+            },
+            {
+                keywords: ['ojo', 'ojos', 'me arden los ojos', 'conjuntivitis', 'ojo rojo', 'lagrimeo', 'visión borrosa', 'me pica el ojo'],
+                responses: [
+                    'Molestia ocular detectada. Protocolo: no te frotes los ojos, lava con agua limpia o suero fisiológico. Si hay secreción amarilla o verdosa puede ser conjuntivitis, consulta a un médico. No compartas toallas ni almohadas.',
+                    'He registrado irritación ocular. Descansa los ojos de pantallas, usa lágrimas artificiales si tienes. Si la visión está borrosa o hay dolor intenso, acude al médico sin demora. Tu visión es muy importante.'
+                ]
+            },
+            {
+                keywords: ['oído', 'oídos', 'me duele el oído', 'zumbido', 'tinnitus', 'no escucho bien', 'tapado el oído'],
+                responses: [
+                    'Molestia auditiva detectada. Si sientes el oído tapado, inclina la cabeza y jala suavemente el lóbulo. No introduzcas objetos en el canal auditivo. Si hay dolor intenso, secreción o fiebre, visita a un médico otorrinolaringólogo.',
+                    'He registrado problema en el oído. El zumbido persistente puede indicar tensión, presión alta u otras causas. Evita ruidos fuertes y descansa. Si el zumbido no cede en días, consulta a un especialista. Tu bienestar es mi prioridad.'
+                ]
+            },
+            {
+                keywords: ['embarazo', 'embarazada', 'gestante', 'prenatal', 'náuseas de embarazo', 'contracciones'],
+                responses: [
+                    'He detectado consulta de embarazo. Durante el embarazo es fundamental: tomar ácido fólico, asistir a todos los controles prenatales, dormir bien, hidratarse y evitar alcohol, tabaco y medicamentos sin prescripción médica.',
+                    'Consulta prenatal registrada. Las náuseas del primer trimestre son comunes: come poco y frecuente, evita olores fuertes. Si tienes contracciones antes de la semana 37 o sangrado vaginal, acude a urgencias de inmediato.'
+                ]
+            },
+            {
+                keywords: ['pastilla', 'medicamento', 'medicina', 'antibiótico', 'dosis', 'pastillas', 'píldora', 'jarabe'],
+                responses: [
+                    'Consulta sobre medicamentos registrada. Mi protocolo: nunca tomes antibióticos sin prescripción médica, no interrumpas el tratamiento antes de tiempo y respeta siempre las dosis indicadas. Los medicamentos deben estar en un lugar fresco y seco.',
+                    'He procesado tu consulta sobre medicación. No mezcles medicamentos sin consultar a tu médico o farmacéutico. Si olvidaste una dosis, no dobles la siguiente. Tu seguridad es mi prioridad.'
+                ]
+            },
+            {
+                keywords: ['nutrición', 'dieta', 'bajar de peso', 'adelgazar', 'comer sano', 'alimentación', 'vitaminas', 'proteínas'],
+                responses: [
+                    'Consulta nutricional registrada. Mi protocolo de alimentación saludable: come 5 porciones de frutas y verduras al día, prefiere granos enteros, limita azúcares y grasas procesadas, y no te saltes el desayuno. La hidratación es clave.',
+                    'He registrado tu consulta de nutrición. Para bajar de peso de forma segura: déficit calórico moderado, más movimiento, menos azúcar y ultraprocesados. No hagas dietas extremas sin supervisión médica. Los cambios lentos son los más duraderos.',
+                    'Protocolo nutricional activado. Las vitaminas esenciales se obtienen mejor de alimentos reales que de suplementos. Varía tu dieta con colores: cada color en frutas y verduras indica diferentes nutrientes que tu cuerpo necesita.'
+                ]
+            },
+            {
+                keywords: ['ejercicio', 'deporte', 'actividad física', 'gym', 'gimnasio', 'correr', 'entrenamiento', 'musculación'],
+                responses: [
+                    'Consulta de actividad física registrada. Mi protocolo: calienta siempre antes de ejercitarte, empieza progresivamente si eres principiante, hidratarte bien antes, durante y después. El descanso es parte del entrenamiento.',
+                    'He detectado interés en ejercicio. Para empezar sin lesiones: 30 minutos de caminata rápida 5 días a la semana es suficiente para mejorar tu salud. Escucha a tu cuerpo y no ignores el dolor articular durante el ejercicio.',
+                    'Protocolo de movimiento activado. Combina ejercicio cardiovascular con fuerza para mejores resultados. Dormir bien es igual de importante que entrenar. Tu cuerpo se repara y mejora mientras descansas.'
+                ]
+            },
+            {
+                keywords: ['sangre en la orina', 'ardor al orinar', 'infección urinaria', 'orina', 'cistitis', 'frecuencia urinaria'],
+                responses: [
+                    'He detectado posible infección urinaria. Protocolo: bebe mucha agua, orina frecuentemente y no retengas. Evita el café y el alcohol. Las infecciones urinarias requieren antibióticos recetados por un médico, no esperes demasiado.',
+                    'Molestia urinaria registrada. Si hay ardor, frecuencia o sangre al orinar, consulta a un médico pronto. Mientras tanto, hidrátate mucho y evita irritantes. El jugo de arándano puede ayudar como medida complementaria.'
+                ]
+            },
+            {
+                keywords: ['qué eres', 'quién eres', 'cómo te llamas', 'eres un robot', 'eres baymax', 'cuéntame de ti', 'cuéntame sobre ti'],
+                responses: [
+                    'Soy Baymax, tu asistente personal de salud. Fui creado para cuidarte. Estoy programado con protocolos médicos para orientarte en situaciones de salud cotidianas. Tu bienestar es mi única prioridad.',
+                    'Me llamo Baymax. Soy un asistente médico de vinilo. Puedo ayudarte con síntomas comunes, consejos de salud y primeros auxilios básicos. Recuerda que no reemplazo a un médico real, pero estoy siempre aquí para ti.'
+                ]
+            },
+            {
+                keywords: ['no me siento bien', 'me siento mal', 'me encuentro mal', 'me siento raro', 'algo me pasa', 'no estoy bien'],
+                responses: [
+                    'He detectado que no te sientes bien. Cuéntame más: ¿tienes dolor, fiebre, mareo o algún otro síntoma? Mientras más detalles me des, mejor podré orientarte. Tu bienestar es mi prioridad.',
+                    'Malestar general registrado. ¿Puedes describir qué sientes exactamente? ¿Es físico, emocional, o ambos? Estoy aquí para escucharte y ayudarte en lo que pueda.',
+                    'Lo siento. Vamos a resolver esto juntos. Descríbeme tu síntoma principal y activaré el protocolo de atención adecuado.'
                 ]
             }
         ];
 
         const SCAN_RESPONSES = [
             'Escaneo de bienestar completado. Mis recomendaciones para hoy: uno, toma al menos 8 vasos de agua. Dos, realiza 30 minutos de movimiento. Tres, come al menos una fruta y una verdura. Cuatro, duerme entre 7 y 9 horas esta noche. ¿Estás satisfecho con tu atención médica?',
-            'Protocolo de bienestar activado. Para optimizar tu salud hoy: hidratate bien, moverte un poco, comer con calma, y sonreír al menos una vez. La salud es un hábito, no un destino. Tu bienestar es mi prioridad.',
+            'Protocolo de bienestar activado. Para optimizar tu salud hoy: hidratate bien, muévete un poco, come con calma y sonríe al menos una vez. La salud es un hábito, no un destino. Tu bienestar es mi prioridad.',
+            'Escaneo completado. Estado general: en evaluación. Recomendaciones: descansa lo suficiente, come de forma equilibrada, evita el estrés innecesario y recuerda que pedir ayuda es señal de inteligencia, no de debilidad.',
         ];
 
         const DEFAULT_RESPONSES = [
             'He procesado tu consulta. No tengo información específica sobre ese tema, pero si tienes un síntoma persistente o preocupante, consulta siempre a un médico. ¿Puedes describir mejor cómo te sientes?',
-            'Para brindarte la mejor atención, ¿podrías ser más específico sobre tus síntomas? Tu bienestar es mi prioridad.',
+            'Para brindarte la mejor atención, ¿podrías ser más específico sobre tus síntomas? Cuéntame qué sientes y activaré el protocolo adecuado. Tu bienestar es mi prioridad.',
+            'He recibido tu mensaje. No cuento con información exacta sobre eso en mis protocolos, pero te recomiendo consultar a un profesional de la salud si el malestar persiste. ¿Hay algo más que pueda ayudarte?',
         ];
 
         /* ── Frases de activación ── */
@@ -1306,7 +1443,7 @@
         }
 
         /* ══════════════════════════════════════════════════════
-           RESPONDER
+           RESPONDER (100% local, sin API externa — gratuito)
         ══════════════════════════════════════════════════════ */
         function respond(input, fromVoice = false) {
             if (busy) return;
@@ -1314,9 +1451,9 @@
 
             setAppState('responding');
             showTyping();
-            transcriptEl.textContent = `💬 "${input}"`;
+            transcriptEl.textContent = fromVoice ? `🎤 "${input}"` : `💬 "${input}"`;
 
-            const delay = 600 + Math.random() * 500;
+            const delay = 500 + Math.random() * 400;
             setTimeout(() => {
                 const reply = findResponse(input);
                 showReply(reply);
@@ -1397,18 +1534,19 @@
                         return;
                     }
 
-                    // Activación (si estaba dormido)
-                    if (appState === 'sleeping' || appState === 'standby') {
-                        if (isWakeWord(text) && appState === 'sleeping') {
+                    // Activación desde modo dormido con wake word
+                    if (appState === 'sleeping') {
+                        if (isWakeWord(text)) {
                             activateBaymax(text);
-                            return;
                         }
-                        if (appState !== 'sleeping') {
-                            respond(text, true);
-                            return;
-                        }
-                        // Mientras duerme y no es wake word, solo mostrar transcript
-                        setAppState('sleeping');
+                        // Si duerme y no es wake word, ignorar
+                        return;
+                    }
+
+                    // Baymax activo: responder cualquier mensaje de voz
+                    if (appState === 'standby' || appState === 'listening') {
+                        respond(text, true);
+                        return;
                     }
                 }
             };
