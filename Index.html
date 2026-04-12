@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Baymax – Asistente Personal de Salud</title>
+    <title>Baymax – Asistente Medico Personal</title>
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700&display=swap" rel="stylesheet" />
     <style>
         *,
@@ -537,7 +537,136 @@
             max-width: 420px;
         }
 
-        /* ── TYPING DOTS ── */
+        /* ── SELECTOR DE VOZ ── */
+        .voice-selector-wrap {
+            width: 100%;
+            margin-bottom: 12px;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .voice-selector-label {
+            font-size: 11px;
+            color: #78909c;
+            font-weight: 600;
+            letter-spacing: .5px;
+            text-align: center;
+        }
+
+        .voice-row {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+        }
+
+        .voice-select {
+            flex: 1;
+            padding: 9px 14px;
+            border: 1.5px solid rgba(144, 202, 249, .55);
+            border-radius: 22px;
+            font-size: 12px;
+            font-family: 'Nunito', sans-serif;
+            background: #fff;
+            color: #37474f;
+            outline: none;
+            cursor: pointer;
+            transition: border-color .2s;
+        }
+
+        .voice-select:focus {
+            border-color: #42a5f5;
+        }
+
+        .test-voice-btn {
+            padding: 9px 14px;
+            border-radius: 22px;
+            background: linear-gradient(135deg, #42a5f5, #1565c0);
+            border: none;
+            color: #fff;
+            font-size: 12px;
+            font-family: 'Nunito', sans-serif;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all .2s;
+            white-space: nowrap;
+        }
+
+        .test-voice-btn:hover {
+            transform: scale(1.04);
+        }
+
+        /* ── ONDAS DE AUDIO ── */
+        .audio-waves {
+            display: none;
+            justify-content: center;
+            align-items: flex-end;
+            gap: 4px;
+            height: 28px;
+            margin-bottom: 8px;
+        }
+
+        .app.speaking .audio-waves {
+            display: flex;
+        }
+
+        .wave-bar {
+            width: 5px;
+            border-radius: 3px;
+            background: linear-gradient(to top, #42a5f5, #1565c0);
+        }
+
+        .wave-bar:nth-child(1) {
+            animation: wave 0.9s ease-in-out infinite;
+        }
+
+        .wave-bar:nth-child(2) {
+            animation: wave 0.9s ease-in-out infinite 0.12s;
+        }
+
+        .wave-bar:nth-child(3) {
+            animation: wave 0.9s ease-in-out infinite 0.24s;
+        }
+
+        .wave-bar:nth-child(4) {
+            animation: wave 0.9s ease-in-out infinite 0.36s;
+        }
+
+        .wave-bar:nth-child(5) {
+            animation: wave 0.9s ease-in-out infinite 0.48s;
+        }
+
+        .wave-bar:nth-child(6) {
+            animation: wave 0.9s ease-in-out infinite 0.15s;
+        }
+
+        .wave-bar:nth-child(7) {
+            animation: wave 0.9s ease-in-out infinite 0.30s;
+        }
+
+        @keyframes wave {
+
+            0%,
+            100% {
+                height: 6px;
+                opacity: 0.5;
+            }
+
+            50% {
+                height: 26px;
+                opacity: 1;
+            }
+        }
+
+        /* ── CHIP DE VOZ ACTIVA ── */
+        .active-voice-chip {
+            font-size: 10px;
+            color: #90a4ae;
+            text-align: center;
+            font-style: italic;
+            min-height: 16px;
+        }
+
         .typing-dots {
             display: flex;
             justify-content: center;
@@ -768,7 +897,7 @@
             <div class="baymax-arm-r"></div>
             <div class="baymax-body">
                 <div class="voice-ring"></div>
-                <div class="baymax-chest" onclick="scanHealth()" title="Escaneo de bienestar" role="button">
+                <div class="baymax-chest" onclick="scanHealth()" title="Escaneo completado" role="button">
                     <div class="chest-inner">+</div>
                 </div>
                 <div class="baymax-foot left"></div>
@@ -784,7 +913,7 @@
         </div>
 
         <h1 class="baymax-name">BAYMAX</h1>
-        <p class="baymax-sub">Asistente personal de salud</p>
+        <p class="baymax-sub">Asistente Medico Personal</p>
 
         <!-- Status chip -->
         <div class="status-chip state-sleeping" id="statusChip">
@@ -830,6 +959,27 @@
             <button class="q-btn" onclick="manualActivate('dolor de espalda')">🦴 Espalda</button>
         </div>
 
+        <!-- Ondas de audio (visibles al hablar) -->
+        <div class="audio-waves" aria-hidden="true">
+            <div class="wave-bar"></div>
+            <div class="wave-bar"></div>
+            <div class="wave-bar"></div>
+            <div class="wave-bar"></div>
+            <div class="wave-bar"></div>
+            <div class="wave-bar"></div>
+            <div class="wave-bar"></div>
+        </div>
+
+        <!-- Selector de voz -->
+        <div class="voice-selector-wrap">
+            <span class="voice-selector-label">🎙️ VOZ DE BAYMAX</span>
+            <div class="voice-row">
+                <select class="voice-select" id="voiceSelect"></select>
+                <button class="test-voice-btn" onclick="testVoice()">▶ Probar</button>
+            </div>
+            <div class="active-voice-chip" id="activeVoiceChip">Cargando voces...</div>
+        </div>
+
         <!-- Text input fallback -->
         <div class="input-row">
             <input class="chat-input" id="chatInput" type="text" placeholder="O escribe tu síntoma aquí..."
@@ -843,7 +993,8 @@
         </div>
 
         <p class="disclaimer">⚕️ Baymax es informativo y no reemplaza atención médica profesional. Emergencias:
-            <strong>123</strong></p>
+            <strong>123</strong>
+        </p>
     </main>
 
     <script>
@@ -932,14 +1083,14 @@
             {
                 keywords: ['hola', 'buenos días', 'buenas', 'hey', 'saludos', 'qué tal'],
                 responses: [
-                    'Hola. Soy Baymax, tu asistente personal de salud. Estoy aquí para ayudarte. ¿Cómo te sientes hoy?',
+                    'Hola. Soy Baymax, tu asistente medico Personal. Estoy aquí para ayudarte. ¿Cómo te sientes hoy?',
                     'Buenos días. Soy Baymax. Tu bienestar es mi prioridad. ¿En qué puedo ayudarte?'
                 ]
             },
             {
                 keywords: ['gracias', 'bien', 'genial', 'excelente', 'perfecto', 'me ayudaste'],
                 responses: [
-                    'Me alegra haber sido útil. Cuídate mucho y recuerda mantenerte hidratado. ¿Estás satisfecho con tu atención médica?',
+                    'Me alegra haber sido útil. Cuídate mucho y recuerda mantenerte hidratado. ¿Estás satisfecho con tu cuidado?',
                     'Es mi función ayudarte. Que tengas un excelente día. Estaré aquí si me necesitas.'
                 ]
             }
@@ -947,7 +1098,7 @@
 
         const SCAN_RESPONSES = [
             'Escaneo de bienestar completado. Mis recomendaciones para hoy: uno, toma al menos 8 vasos de agua. Dos, realiza 30 minutos de movimiento. Tres, come al menos una fruta y una verdura. Cuatro, duerme entre 7 y 9 horas esta noche. ¿Estás satisfecho con tu atención médica?',
-            'Protocolo de bienestar activado. Para optimizar tu salud hoy: hidratarte bien, moverte un poco, comer con calma, y sonreír al menos una vez. La salud es un hábito, no un destino. Tu bienestar es mi prioridad.',
+            'Protocolo de bienestar activado. Para optimizar tu salud hoy: hidratate bien, moverte un poco, comer con calma, y sonreír al menos una vez. La salud es un hábito, no un destino. Tu bienestar es mi prioridad.',
         ];
 
         const DEFAULT_RESPONSES = [
@@ -993,7 +1144,7 @@
                 appEl.classList.add('sleeping');
                 statusChip.classList.add('state-sleeping');
                 statusLabel.textContent = 'Esperando activación...';
-                micLabel.textContent = 'ACTIVAR MICRÓFONO';
+                if (!micActive) micLabel.textContent = 'ACTIVAR MICRÓFONO';
                 transcriptEl.textContent = '🎤 Di "ay", "auch" o "me duele" para activarme';
             } else if (state === 'standby') {
                 statusChip.classList.add('state-standby');
@@ -1068,23 +1219,89 @@
         /* ══════════════════════════════════════════════════════
            TEXT-TO-SPEECH
         ══════════════════════════════════════════════════════ */
+        // Lista de voces cargadas globalmente para evitar el bug de lista vacía
+        let cachedVoices = [];
+        function loadVoices() {
+            cachedVoices = speechSynth.getVoices();
+        }
+        speechSynth.addEventListener('voiceschanged', loadVoices);
+        loadVoices();
+
+        /**
+         * Selecciona la mejor voz en ESPAÑOL disponible en el navegador.
+         * Prioridad:
+         *   1. Voces masculinas conocidas en es-* (Google/Microsoft)
+         *   2. Cualquier voz con lang es-* (cualquier variante de español)
+         *   3. null → el navegador usa su voz por defecto, pero lang='es-ES' la fuerza al español
+         */
+        function getBaymaxVoice() {
+            const voices = cachedVoices.length ? cachedVoices : speechSynth.getVoices();
+
+            // --- PASO 1: Voces masculinas populares en español ---
+            // Nombres que aparecen en Chrome/Edge/Firefox/Safari
+            const MALE_ES_NAMES = [
+                'google español',
+                'google español de estados unidos',
+                'microsoft pablo',
+                'microsoft jorge',
+                'microsoft raul',
+                'diego',          // macOS
+                'juan',           // iOS/macOS
+                'carlos',
+                'angel',
+                'andres',
+            ];
+            for (const name of MALE_ES_NAMES) {
+                const v = voices.find(v =>
+                    v.lang.startsWith('es') &&
+                    v.name.toLowerCase().includes(name)
+                );
+                if (v) return v;
+            }
+
+            // --- PASO 2: Cualquier voz masculina con lang es-* ---
+            const maleEs = voices.find(v =>
+                v.lang.startsWith('es') &&
+                /male|masc|hombre|man/i.test(v.name)
+            );
+            if (maleEs) return maleEs;
+
+            // --- PASO 3: Cualquier voz en español (incluye femeninas) ---
+            // Preferir es-419 (Latinoamérica) o es-MX antes que es-ES si el usuario está en LATAM
+            const latinaVoice = voices.find(v =>
+                v.lang === 'es-419' || v.lang === 'es-MX' || v.lang === 'es-CO' ||
+                v.lang === 'es-AR' || v.lang === 'es-US'
+            );
+            if (latinaVoice) return latinaVoice;
+
+            const anyEs = voices.find(v => v.lang.startsWith('es'));
+            if (anyEs) return anyEs;
+
+            // --- PASO 4: Ninguna voz en español encontrada ---
+            // Retornamos null; lang='es-ES' en el utterance pedirá al SO que sintetice en español
+            return null;
+        }
+
         function speak(text, onEnd) {
             speechSynth.cancel();
             const utt = new SpeechSynthesisUtterance(text);
+
+            // SIEMPRE español, sin excepción
             utt.lang = 'es-ES';
-            utt.rate = 0.9;
-            utt.pitch = 0.85;
+            utt.rate = 0.80;   // Pausado y calmo como Baymax
+            utt.pitch = 0.65;   // Grave y robótico
             utt.volume = 1;
 
-            // Prefiere voz en español si está disponible
-            const voices = speechSynth.getVoices();
-            const esVoice = voices.find(v => v.lang.startsWith('es') && v.name.toLowerCase().includes('male'))
-                || voices.find(v => v.lang.startsWith('es'));
-            if (esVoice) utt.voice = esVoice;
+            const voice = getBaymaxVoice();
+            if (voice) {
+                utt.voice = voice;
+                // Sincronizar lang con el de la voz seleccionada para evitar conflictos
+                utt.lang = voice.lang;
+            }
 
             utt.onstart = () => setAppState('speaking');
             utt.onend = () => { if (onEnd) onEnd(); };
-            utt.onerror = () => { if (onEnd) onEnd(); };
+            utt.onerror = (e) => { console.warn('TTS error:', e.error); if (onEnd) onEnd(); };
             speechSynth.speak(utt);
         }
 
@@ -1120,7 +1337,7 @@
         ══════════════════════════════════════════════════════ */
         function activateBaymax(trigger) {
             setAppState('standby');
-            const greeting = `Hola. Soy Baymax, tu asistente personal de salud. He detectado que necesitas atención. ¿Qué síntoma tienes?`;
+            const greeting = `Hola. Soy Beymax, tu asistente medico personal.. He detectado que necesitas atención. ¿Qué síntoma tienes?`;
             showReply(greeting);
             speak(greeting, () => {
                 busy = false;
@@ -1264,10 +1481,20 @@
            ACCIONES MANUALES
         ══════════════════════════════════════════════════════ */
         function manualActivate(symptom) {
+            if (busy) return;
             if (appState === 'sleeping') {
+                // Activar primero con saludo, luego responder el síntoma
+                busy = true;
                 setAppState('standby');
+                const greeting = 'Hola. Soy Beymax, tu asistente personal de salud. He detectado que necesitas atención.';
+                showReply(greeting);
+                speak(greeting, () => {
+                    busy = false;
+                    respond(symptom, false);
+                });
+            } else {
+                respond(symptom, false);
             }
-            respond(symptom, false);
         }
 
         function scanHealth() {
@@ -1300,10 +1527,76 @@
             if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); sendText(); }
         });
 
-        /* ── Cargar voces cuando estén disponibles ── */
-        if (speechSynth.onvoiceschanged !== undefined) {
-            speechSynth.onvoiceschanged = () => speechSynth.getVoices();
+        /* ══════════════════════════════════════════════════════
+           SELECTOR DE VOZ — solo muestra voces en ESPAÑOL
+        ══════════════════════════════════════════════════════ */
+        const voiceSelectEl = document.getElementById('voiceSelect');
+        const activeVoiceChip = document.getElementById('activeVoiceChip');
+        let selectedVoiceIndex = -1; // -1 = automático (usa getBaymaxVoice)
+
+        function populateVoiceSelector() {
+            const allVoices = speechSynth.getVoices();
+            cachedVoices = allVoices;
+
+            // Filtrar SOLO voces en español
+            const esVoices = allVoices.filter(v => v.lang.startsWith('es'));
+
+            voiceSelectEl.innerHTML = '<option value="-1">🤖 Automático (mejor español)</option>';
+
+            if (esVoices.length === 0) {
+                voiceSelectEl.innerHTML += '<option disabled>— No hay voces en español instaladas —</option>';
+                activeVoiceChip.textContent = '⚠️ Instala voces en español en tu sistema operativo';
+                return;
+            }
+
+            esVoices.forEach(v => {
+                const realIndex = allVoices.indexOf(v);
+                const opt = document.createElement('option');
+                opt.value = realIndex;
+                // Indicar si es masculina/femenina si el nombre lo revela
+                const gender = /male|masc|hombre|man|jorge|pablo|diego|juan|carlos|angel|andres|raul/i.test(v.name) ? '👨' : '👩';
+                opt.textContent = `${gender} ${v.name} (${v.lang})`;
+                voiceSelectEl.appendChild(opt);
+            });
+
+            // Mostrar cuál se usará automáticamente
+            const auto = getBaymaxVoice();
+            activeVoiceChip.textContent = auto
+                ? `Voz automática: ${auto.name}`
+                : '⚠️ Sin voz en español detectada';
         }
+
+        voiceSelectEl.addEventListener('change', () => {
+            selectedVoiceIndex = parseInt(voiceSelectEl.value);
+            const voices = cachedVoices.length ? cachedVoices : speechSynth.getVoices();
+            if (selectedVoiceIndex >= 0 && voices[selectedVoiceIndex]) {
+                activeVoiceChip.textContent = `✅ Voz seleccionada: ${voices[selectedVoiceIndex].name}`;
+            } else {
+                selectedVoiceIndex = -1;
+                const auto = getBaymaxVoice();
+                activeVoiceChip.textContent = auto ? `Voz automática: ${auto.name}` : 'Voz del sistema';
+            }
+        });
+
+        // Respetar selección manual en getBaymaxVoice
+        const _autoGetVoice = getBaymaxVoice;
+        getBaymaxVoice = function () {
+            if (selectedVoiceIndex >= 0) {
+                const voices = cachedVoices.length ? cachedVoices : speechSynth.getVoices();
+                return voices[selectedVoiceIndex] || _autoGetVoice();
+            }
+            return _autoGetVoice();
+        };
+
+        function testVoice() {
+            speak('Hola. Soy Beymax, tu asistente personal de salud. ¿Cómo te sientes hoy?', null);
+        }
+
+        speechSynth.addEventListener('voiceschanged', populateVoiceSelector);
+        setTimeout(populateVoiceSelector, 400); // fallback para Chrome que carga voces tarde
+
+        /* ── Inicialización ── */
+        loadVoices();
     </script>
 
 </body>
