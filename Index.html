@@ -924,7 +924,7 @@
         <!-- Burbuja -->
         <div class="bubble" role="status" aria-live="polite">
             <div class="bubble-text" id="speechText">
-                Di <strong>"ay"</strong>, <strong>"auch"</strong> o <strong>"me duele"</strong> para activarme.<br />
+                Puedes <strong>decirme </strong>tus <strong>sintomas</strong><br />
                 Di <strong>"estoy satisfecho con mi cuidado"</strong> para desactivarme.
             </div>
         </div>
@@ -1282,7 +1282,7 @@
                 statusChip.classList.add('state-sleeping');
                 statusLabel.textContent = 'Esperando activación...';
                 if (!micActive) micLabel.textContent = 'ACTIVAR MICRÓFONO';
-                transcriptEl.textContent = '🎤 Di "ay", "auch" o "me duele" para activarme';
+                transcriptEl.textContent = '🎤 Puedes contarme tus sintomas';
             } else if (state === 'standby') {
                 statusChip.classList.add('state-standby');
                 statusLabel.textContent = 'Baymax activo — escuchando';
@@ -1490,7 +1490,7 @@
             speak(bye, () => {
                 busy = false;
                 setAppState('sleeping');
-                speechEl.innerHTML = 'Di <strong>"ay"</strong>, <strong>"auch"</strong> o <strong>"me duele"</strong> para activarme.<br/>Di <strong>"estoy satisfecho con mi cuidado"</strong> para desactivarme.';
+                speechEl.innerHTML = 'Puedes <strong>contarme</strong>, <strong>tus</strong>sintomas<br/>Di <strong>"estoy satisfecho con mi cuidado"</strong> para desactivarme.';
                 transcriptEl.textContent = '🎤 Baymax en espera...';
             });
         }
@@ -1596,7 +1596,7 @@
                 micLabel.textContent = 'ACTIVAR MICRÓFONO';
                 if (appState !== 'speaking') setAppState('sleeping');
                 transcriptEl.textContent = '🎤 Micrófono apagado';
-                showReply('Di "ay", "auch" o "me duele" para activarme. Di "estoy satisfecho con mi cuidado" para desactivarme.');
+                showReply('Puedes contarme tus sintomas. Di "Estoy satisfecho con mi cuidado" para desactivarme.');
                 return;
             }
 
@@ -1605,7 +1605,7 @@
             continuousListening = true;
             recognition = buildRecognition();
             micLabel.textContent = 'APAGAR MICRÓFONO';
-            transcriptEl.textContent = '🎤 Micrófono activo — di "ay" o "auch" para activarme';
+            transcriptEl.textContent = '🎤 Micrófono activo — Puedes contarme tus sintomas';
 
             if (appState === 'sleeping') {
                 speechEl.innerHTML = 'Micrófono activo. Di <strong>"ay"</strong> o <strong>"auch"</strong> para activarme.';
@@ -1624,7 +1624,7 @@
                 // Activar primero con saludo, luego responder el síntoma
                 busy = true;
                 setAppState('standby');
-                const greeting = 'Hola. Soy Beymax, tu asistente personal de salud. He detectado que necesitas atención.';
+                const greeting = 'Hola. Soy Beymax, tu asistente medico personal. He detectado que necesitas atención.';
                 showReply(greeting);
                 speak(greeting, () => {
                     busy = false;
@@ -1727,7 +1727,7 @@
         };
 
         function testVoice() {
-            speak('Hola. Soy Beymax, tu asistente personal de salud. ¿Cómo te sientes hoy?', null);
+            speak('Hola. Soy Beymax, tu asistente medico persona. ¿Cómo te sientes hoy?', null);
         }
 
         speechSynth.addEventListener('voiceschanged', populateVoiceSelector);
