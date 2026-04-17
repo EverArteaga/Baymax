@@ -4,9 +4,45 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Baymax – Asistente Medico Personal</title>
-    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700&display=swap" rel="stylesheet" />
+    <title>Baymax – Asistente Médico Personal</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap"
+        rel="stylesheet" />
     <style>
+        :root {
+            --bg1: #e8f4fd;
+            --bg2: #f0f8ff;
+            --bg3: #e8f0fb;
+            --card: #fff;
+            --card-border: rgba(144, 202, 249, .35);
+            --text: #37474f;
+            --text-muted: #78909c;
+            --blue: #1565c0;
+            --blue2: #42a5f5;
+            --blue-pale: #e3f2fd;
+            --green: #2e7d32;
+            --green2: #66bb6a;
+            --red: #b71c1c;
+            --red2: #ef5350;
+            --shadow: rgba(100, 181, 246, .18);
+            --bx-body: #fff;
+            --bx-shadow: rgba(100, 181, 246, .25);
+        }
+
+        body.dark {
+            --bg1: #061220;
+            --bg2: #0a1a30;
+            --bg3: #071525;
+            --card: rgba(14, 28, 52, .93);
+            --card-border: rgba(66, 165, 245, .18);
+            --text: #cfd8dc;
+            --text-muted: #546e7a;
+            --blue-pale: rgba(21, 101, 192, .2);
+            --shadow: rgba(0, 0, 0, .5);
+            --bx-body: #c8d5e6;
+            --bx-shadow: rgba(0, 0, 0, .55);
+        }
+
         *,
         *::before,
         *::after {
@@ -18,28 +54,70 @@
         body {
             font-family: 'Nunito', sans-serif;
             min-height: 100vh;
-            background: linear-gradient(160deg, #e8f4fd 0%, #f0f8ff 40%, #e8f0fb 100%);
+            background: linear-gradient(160deg, var(--bg1) 0%, var(--bg2) 45%, var(--bg3) 100%);
             display: flex;
             align-items: center;
             justify-content: center;
             padding: 20px;
+            transition: background .4s;
         }
 
         .app {
             width: 100%;
-            max-width: 480px;
+            max-width: 500px;
             display: flex;
             flex-direction: column;
             align-items: center;
-            position: relative;
+        }
+
+        /* ── TOP CONTROLS ── */
+        .top-controls {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+            margin-bottom: 8px;
+            align-items: center;
+        }
+
+        .top-brand {
+            font-family: 'Space Mono', monospace;
+            font-size: 9px;
+            color: var(--text-muted);
+            letter-spacing: 2.5px;
+            text-transform: uppercase;
+        }
+
+        .top-right {
+            display: flex;
+            gap: 6px;
+        }
+
+        .icon-btn {
+            background: var(--card);
+            border: 1px solid var(--card-border);
+            border-radius: 50%;
+            width: 36px;
+            height: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 15px;
+            cursor: pointer;
+            transition: all .2s;
+            box-shadow: 0 2px 8px var(--shadow);
+        }
+
+        .icon-btn:hover {
+            transform: scale(1.12);
+            background: var(--blue-pale);
         }
 
         /* ── BAYMAX ── */
         .baymax-wrap {
             position: relative;
-            width: 220px;
-            height: 240px;
-            margin-bottom: 6px;
+            width: 240px;
+            height: 265px;
+            margin-bottom: 2px;
         }
 
         .baymax-body {
@@ -47,11 +125,11 @@
             bottom: 0;
             left: 50%;
             transform: translateX(-50%);
-            width: 170px;
-            height: 180px;
-            background: #fff;
-            border-radius: 85px 85px 65px 65px;
-            box-shadow: 0 10px 40px rgba(100, 181, 246, .25), inset 0 -5px 14px rgba(0, 0, 0, .04);
+            width: 178px;
+            height: 188px;
+            background: var(--bx-body);
+            border-radius: 89px 89px 70px 70px;
+            box-shadow: 0 12px 44px var(--bx-shadow), inset 0 -5px 14px rgba(0, 0, 0, .04);
             animation: breathe 3.2s ease-in-out infinite;
             transition: background .4s;
         }
@@ -61,11 +139,11 @@
             top: 0;
             left: 50%;
             transform: translateX(-50%);
-            width: 115px;
-            height: 106px;
-            background: #fff;
-            border-radius: 58px;
-            box-shadow: 0 5px 22px rgba(100, 181, 246, .22), inset 0 -4px 10px rgba(0, 0, 0, .04);
+            width: 120px;
+            height: 112px;
+            background: var(--bx-body);
+            border-radius: 62px;
+            box-shadow: 0 5px 22px var(--bx-shadow), inset 0 -4px 10px rgba(0, 0, 0, .04);
             animation: breathe 3.2s ease-in-out infinite;
             z-index: 2;
             transition: background .4s;
@@ -73,11 +151,11 @@
 
         .baymax-eyes {
             position: absolute;
-            top: 46px;
+            top: 47px;
             left: 50%;
             transform: translateX(-50%);
             display: flex;
-            gap: 20px;
+            gap: 22px;
             align-items: center;
         }
 
@@ -90,7 +168,7 @@
         }
 
         .eye-line {
-            width: 30px;
+            width: 32px;
             height: 2px;
             background: #263238;
             border-radius: 2px;
@@ -98,12 +176,12 @@
 
         .baymax-chest {
             position: absolute;
-            bottom: 64px;
+            bottom: 68px;
             left: 50%;
             transform: translateX(-50%);
-            width: 54px;
-            height: 54px;
-            background: radial-gradient(circle at 40% 38%, #90caf9, #1e88e5);
+            width: 56px;
+            height: 56px;
+            background: radial-gradient(circle at 38% 36%, #90caf9, #1e88e5);
             border-radius: 50%;
             box-shadow: 0 0 22px rgba(30, 136, 229, .45);
             display: flex;
@@ -115,12 +193,12 @@
         }
 
         .baymax-chest:hover {
-            transform: translateX(-50%) scale(1.1);
+            transform: translateX(-50%) scale(1.12);
         }
 
         .chest-inner {
-            width: 22px;
-            height: 22px;
+            width: 24px;
+            height: 24px;
             background: rgba(255, 255, 255, .92);
             border-radius: 50%;
             display: flex;
@@ -133,12 +211,12 @@
 
         .baymax-arm-l {
             position: absolute;
-            bottom: 84px;
-            left: 2px;
-            width: 30px;
-            height: 84px;
-            background: #fff;
-            border-radius: 15px;
+            bottom: 88px;
+            left: 1px;
+            width: 31px;
+            height: 86px;
+            background: var(--bx-body);
+            border-radius: 16px;
             box-shadow: 0 4px 14px rgba(0, 0, 0, .08);
             transform-origin: top center;
             animation: arm-l 3.2s ease-in-out infinite;
@@ -146,12 +224,12 @@
 
         .baymax-arm-r {
             position: absolute;
-            bottom: 84px;
-            right: 2px;
-            width: 30px;
-            height: 84px;
-            background: #fff;
-            border-radius: 15px;
+            bottom: 88px;
+            right: 1px;
+            width: 31px;
+            height: 86px;
+            background: var(--bx-body);
+            border-radius: 16px;
             box-shadow: 0 4px 14px rgba(0, 0, 0, .08);
             transform-origin: top center;
             animation: arm-r 3.2s ease-in-out infinite;
@@ -160,62 +238,31 @@
         .baymax-foot {
             position: absolute;
             bottom: -20px;
-            width: 34px;
-            height: 34px;
-            background: #fff;
+            width: 35px;
+            height: 35px;
+            background: var(--bx-body);
             border-radius: 50%;
             box-shadow: 0 4px 12px rgba(0, 0, 0, .08);
         }
 
         .baymax-foot.left {
-            left: 36px;
+            left: 37px;
         }
 
         .baymax-foot.right {
-            right: 36px;
+            right: 37px;
         }
 
-        /* ── ESTADOS ACTIVO / DORMIDO ── */
-        .app.sleeping .baymax-body,
-        .app.sleeping .baymax-head {
-            background: #e8eaf6;
-        }
-
-        .app.sleeping .baymax-chest {
-            background: radial-gradient(circle at 40% 38%, #b0bec5, #78909c);
-            box-shadow: 0 0 10px rgba(120, 144, 156, .3);
-        }
-
-        .app.sleeping .baymax-arm-l,
-        .app.sleeping .baymax-arm-r,
-        .app.sleeping .baymax-foot {
-            background: #e8eaf6;
-        }
-
-        .app.sleeping .eye {
-            background: #90a4ae;
-            animation: blink-sleep 6s ease-in-out infinite;
-        }
-
-        .app.sleeping .eye-line {
-            background: #90a4ae;
-        }
-
-        .app.listening .baymax-body,
-        .app.listening .baymax-head {
-            background: #fff;
-        }
-
-        /* ── ONDA DE VOZ ── */
+        /* Onda de voz */
         .voice-ring {
             position: absolute;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            width: 170px;
-            height: 180px;
-            border-radius: 85px 85px 65px 65px;
-            border: 3px solid rgba(66, 165, 245, .0);
+            width: 178px;
+            height: 188px;
+            border-radius: 89px 89px 70px 70px;
+            border: 3px solid rgba(66, 165, 245, 0);
             pointer-events: none;
             transition: border-color .3s;
         }
@@ -230,11 +277,11 @@
             animation: voice-pulse .6s ease-in-out infinite;
         }
 
-        /* ── BADGE ── */
+        /* BADGE */
         .scan-badge {
             position: absolute;
             top: 10px;
-            right: 12px;
+            right: 14px;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -267,79 +314,88 @@
             animation: heartbeat 1.2s ease-in-out infinite;
         }
 
-        /* ── MIC BUTTON ── */
-        .mic-area {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 6px;
-            margin-bottom: 10px;
+        /* ESTADOS */
+        .app.sleeping .baymax-body,
+        .app.sleeping .baymax-head {
+            background: #e8eaf6;
         }
 
-        .mic-btn {
-            width: 64px;
-            height: 64px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, #42a5f5, #1565c0);
-            border: none;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 6px 20px rgba(21, 101, 192, .35);
-            transition: all .2s;
-            position: relative;
+        .app.sleeping .baymax-chest {
+            background: radial-gradient(circle at 40% 38%, #b0bec5, #78909c);
+            box-shadow: 0 0 10px rgba(120, 144, 156, .3);
         }
 
-        .mic-btn:hover {
-            transform: scale(1.07);
+        .app.sleeping .baymax-arm-l,
+        .app.sleeping .baymax-arm-r,
+        .app.sleeping .baymax-foot {
+            background: #e8eaf6;
         }
 
-        .mic-btn:active {
-            transform: scale(.95);
+        .app.sleeping .eye {
+            background: #90a4ae;
+            animation: blink-sleep 6s ease-in-out infinite;
         }
 
-        .mic-btn svg {
-            width: 28px;
-            height: 28px;
-            fill: none;
-            stroke: #fff;
-            stroke-width: 2;
-            stroke-linecap: round;
-            stroke-linejoin: round;
+        .app.sleeping .eye-line {
+            background: #90a4ae;
         }
 
-        .app.listening .mic-btn {
-            background: linear-gradient(135deg, #ef5350, #b71c1c);
-            box-shadow: 0 6px 20px rgba(183, 28, 28, .4);
-            animation: mic-pulse .8s ease-in-out infinite;
+        .app.sleeping .eye {
+            height: 2px;
+            border-radius: 2px;
         }
 
-        .app.speaking .mic-btn {
-            background: linear-gradient(135deg, #66bb6a, #2e7d32);
-            box-shadow: 0 6px 20px rgba(46, 125, 50, .4);
+        .app.worried .baymax-body,
+        .app.worried .baymax-head {
+            background: #fffde7;
         }
 
-        .mic-label {
+        .app.worried .baymax-chest {
+            background: radial-gradient(circle at 40% 38%, #ffcc80, #e65100);
+            box-shadow: 0 0 22px rgba(230, 81, 0, .45);
+        }
+
+        .app.happy .baymax-chest {
+            background: radial-gradient(circle at 40% 38%, #a5d6a7, #2e7d32);
+            box-shadow: 0 0 22px rgba(46, 125, 50, .5);
+        }
+
+        .app.emergency-state .baymax-chest {
+            background: radial-gradient(circle at 40% 38%, #ef9a9a, #c62828);
+            box-shadow: 0 0 26px rgba(198, 40, 40, .6);
+            animation: pulse-chest .5s ease-in-out infinite;
+        }
+
+        /* TÍTULO */
+        .baymax-name {
+            font-family: 'Space Mono', monospace;
+            font-size: 26px;
+            font-weight: 700;
+            color: var(--blue);
+            letter-spacing: 4px;
+            margin-bottom: 2px;
+        }
+
+        .baymax-sub {
             font-size: 11px;
-            color: #78909c;
-            font-weight: 600;
+            color: var(--text-muted);
+            margin-bottom: 12px;
             letter-spacing: .5px;
         }
 
-        /* ── STATUS CHIP ── */
+        /* STATUS CHIP */
         .status-chip {
             display: flex;
             align-items: center;
             gap: 6px;
-            background: #fff;
+            background: var(--card);
             border-radius: 20px;
             padding: 5px 14px;
-            border: 1px solid rgba(144, 202, 249, .4);
-            box-shadow: 0 2px 10px rgba(100, 181, 246, .1);
-            margin-bottom: 14px;
+            border: 1px solid var(--card-border);
+            box-shadow: 0 2px 10px var(--shadow);
+            margin-bottom: 12px;
             font-size: 12px;
-            color: #546e7a;
+            color: var(--text-muted);
             font-weight: 600;
             min-width: 200px;
             justify-content: center;
@@ -376,29 +432,15 @@
             animation: none;
         }
 
-        /* ── BURBUJA ── */
-        .baymax-name {
-            font-size: 24px;
-            font-weight: 700;
-            color: #1565c0;
-            letter-spacing: 3px;
-            margin-bottom: 2px;
-        }
-
-        .baymax-sub {
-            font-size: 12px;
-            color: #78909c;
-            margin-bottom: 14px;
-        }
-
+        /* BURBUJA */
         .bubble {
-            background: #fff;
-            border-radius: 20px;
+            background: var(--card);
+            border-radius: 22px;
             padding: 16px 20px;
             margin-bottom: 12px;
             width: 100%;
-            box-shadow: 0 4px 22px rgba(100, 181, 246, .14);
-            border: 1px solid rgba(144, 202, 249, .3);
+            box-shadow: 0 4px 22px var(--shadow);
+            border: 1px solid var(--card-border);
             min-height: 72px;
             position: relative;
         }
@@ -411,262 +453,21 @@
             transform: translateX(-50%);
             border-left: 10px solid transparent;
             border-right: 10px solid transparent;
-            border-bottom: 10px solid #fff;
+            border-bottom: 10px solid var(--card);
         }
 
         .bubble-text {
             font-size: 14px;
-            color: #37474f;
+            color: var(--text);
             line-height: 1.65;
             text-align: center;
         }
 
-        /* ── TRANSCRIPT ── */
-        .transcript-box {
-            width: 100%;
-            background: rgba(255, 255, 255, .7);
-            border-radius: 14px;
-            padding: 10px 16px;
-            border: 1px dashed rgba(144, 202, 249, .5);
-            margin-bottom: 12px;
-            min-height: 36px;
-            font-size: 13px;
-            color: #78909c;
-            text-align: center;
-            font-style: italic;
-            transition: opacity .3s;
+        .bubble-text strong {
+            color: var(--blue);
         }
 
-        /* ── QUICK BUTTONS ── */
-        .quick-wrap {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-            justify-content: center;
-            margin-bottom: 12px;
-            width: 100%;
-        }
-
-        .q-btn {
-            background: #fff;
-            border: 1.5px solid #90caf9;
-            color: #1565c0;
-            border-radius: 22px;
-            padding: 8px 15px;
-            font-size: 12px;
-            font-family: 'Nunito', sans-serif;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all .2s;
-            box-shadow: 0 2px 10px rgba(100, 181, 246, .1);
-        }
-
-        .q-btn:hover {
-            background: #e3f2fd;
-            border-color: #42a5f5;
-            transform: translateY(-2px);
-            box-shadow: 0 5px 16px rgba(66, 165, 245, .22);
-        }
-
-        /* ── INPUT ROW ── */
-        .input-row {
-            display: flex;
-            gap: 10px;
-            width: 100%;
-            align-items: center;
-        }
-
-        .chat-input {
-            flex: 1;
-            padding: 13px 18px;
-            border: 1.5px solid rgba(144, 202, 249, .55);
-            border-radius: 26px;
-            font-size: 14px;
-            font-family: 'Nunito', sans-serif;
-            background: #fff;
-            color: #37474f;
-            outline: none;
-            transition: all .2s;
-            box-shadow: 0 2px 14px rgba(100, 181, 246, .1);
-        }
-
-        .chat-input:focus {
-            border-color: #42a5f5;
-            box-shadow: 0 0 0 3px rgba(66, 165, 245, .13);
-        }
-
-        .send-btn {
-            width: 48px;
-            height: 48px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, #42a5f5, #1565c0);
-            border: none;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all .2s;
-            box-shadow: 0 5px 16px rgba(21, 101, 192, .3);
-            flex-shrink: 0;
-        }
-
-        .send-btn:hover {
-            transform: scale(1.07);
-        }
-
-        .send-btn:active {
-            transform: scale(.96);
-        }
-
-        .send-btn svg {
-            width: 18px;
-            height: 18px;
-            fill: none;
-            stroke: #fff;
-            stroke-width: 2;
-            stroke-linecap: round;
-            stroke-linejoin: round;
-        }
-
-        .disclaimer {
-            font-size: 10px;
-            color: #b0bec5;
-            text-align: center;
-            margin-top: 12px;
-            line-height: 1.6;
-            max-width: 420px;
-        }
-
-        /* ── SELECTOR DE VOZ ── */
-        .voice-selector-wrap {
-            width: 100%;
-            margin-bottom: 12px;
-            display: flex;
-            flex-direction: column;
-            gap: 6px;
-        }
-
-        .voice-selector-label {
-            font-size: 11px;
-            color: #78909c;
-            font-weight: 600;
-            letter-spacing: .5px;
-            text-align: center;
-        }
-
-        .voice-row {
-            display: flex;
-            gap: 8px;
-            align-items: center;
-        }
-
-        .voice-select {
-            flex: 1;
-            padding: 9px 14px;
-            border: 1.5px solid rgba(144, 202, 249, .55);
-            border-radius: 22px;
-            font-size: 12px;
-            font-family: 'Nunito', sans-serif;
-            background: #fff;
-            color: #37474f;
-            outline: none;
-            cursor: pointer;
-            transition: border-color .2s;
-        }
-
-        .voice-select:focus {
-            border-color: #42a5f5;
-        }
-
-        .test-voice-btn {
-            padding: 9px 14px;
-            border-radius: 22px;
-            background: linear-gradient(135deg, #42a5f5, #1565c0);
-            border: none;
-            color: #fff;
-            font-size: 12px;
-            font-family: 'Nunito', sans-serif;
-            font-weight: 700;
-            cursor: pointer;
-            transition: all .2s;
-            white-space: nowrap;
-        }
-
-        .test-voice-btn:hover {
-            transform: scale(1.04);
-        }
-
-        /* ── ONDAS DE AUDIO ── */
-        .audio-waves {
-            display: none;
-            justify-content: center;
-            align-items: flex-end;
-            gap: 4px;
-            height: 28px;
-            margin-bottom: 8px;
-        }
-
-        .app.speaking .audio-waves {
-            display: flex;
-        }
-
-        .wave-bar {
-            width: 5px;
-            border-radius: 3px;
-            background: linear-gradient(to top, #42a5f5, #1565c0);
-        }
-
-        .wave-bar:nth-child(1) {
-            animation: wave 0.9s ease-in-out infinite;
-        }
-
-        .wave-bar:nth-child(2) {
-            animation: wave 0.9s ease-in-out infinite 0.12s;
-        }
-
-        .wave-bar:nth-child(3) {
-            animation: wave 0.9s ease-in-out infinite 0.24s;
-        }
-
-        .wave-bar:nth-child(4) {
-            animation: wave 0.9s ease-in-out infinite 0.36s;
-        }
-
-        .wave-bar:nth-child(5) {
-            animation: wave 0.9s ease-in-out infinite 0.48s;
-        }
-
-        .wave-bar:nth-child(6) {
-            animation: wave 0.9s ease-in-out infinite 0.15s;
-        }
-
-        .wave-bar:nth-child(7) {
-            animation: wave 0.9s ease-in-out infinite 0.30s;
-        }
-
-        @keyframes wave {
-
-            0%,
-            100% {
-                height: 6px;
-                opacity: 0.5;
-            }
-
-            50% {
-                height: 26px;
-                opacity: 1;
-            }
-        }
-
-        /* ── CHIP DE VOZ ACTIVA ── */
-        .active-voice-chip {
-            font-size: 10px;
-            color: #90a4ae;
-            text-align: center;
-            font-style: italic;
-            min-height: 16px;
-        }
-
+        /* TYPING */
         .typing-dots {
             display: flex;
             justify-content: center;
@@ -690,7 +491,946 @@
             animation-delay: .44s;
         }
 
-        /* ── KEYFRAMES ── */
+        /* TRANSCRIPT */
+        .transcript-box {
+            width: 100%;
+            background: rgba(255, 255, 255, .6);
+            border-radius: 14px;
+            padding: 9px 16px;
+            border: 1px dashed rgba(144, 202, 249, .5);
+            margin-bottom: 10px;
+            min-height: 34px;
+            font-size: 13px;
+            color: var(--text-muted);
+            text-align: center;
+            font-style: italic;
+            transition: opacity .3s;
+        }
+
+        body.dark .transcript-box {
+            background: rgba(14, 28, 52, .7);
+        }
+
+        /* ONDAS */
+        .audio-waves {
+            display: none;
+            justify-content: center;
+            align-items: flex-end;
+            gap: 4px;
+            height: 26px;
+            margin-bottom: 8px;
+        }
+
+        .app.speaking .audio-waves {
+            display: flex;
+        }
+
+        .wave-bar {
+            width: 5px;
+            border-radius: 3px;
+            background: linear-gradient(to top, #42a5f5, #1565c0);
+        }
+
+        .wave-bar:nth-child(1) {
+            animation: wave .9s ease-in-out infinite;
+        }
+
+        .wave-bar:nth-child(2) {
+            animation: wave .9s ease-in-out infinite .12s;
+        }
+
+        .wave-bar:nth-child(3) {
+            animation: wave .9s ease-in-out infinite .24s;
+        }
+
+        .wave-bar:nth-child(4) {
+            animation: wave .9s ease-in-out infinite .36s;
+        }
+
+        .wave-bar:nth-child(5) {
+            animation: wave .9s ease-in-out infinite .48s;
+        }
+
+        .wave-bar:nth-child(6) {
+            animation: wave .9s ease-in-out infinite .15s;
+        }
+
+        .wave-bar:nth-child(7) {
+            animation: wave .9s ease-in-out infinite .30s;
+        }
+
+        @keyframes wave {
+
+            0%,
+            100% {
+                height: 6px;
+                opacity: .5
+            }
+
+            50% {
+                height: 24px;
+                opacity: 1
+            }
+        }
+
+        /* MIC */
+        .mic-area {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 6px;
+            margin-bottom: 10px;
+        }
+
+        .mic-btn {
+            width: 64px;
+            height: 64px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #42a5f5, #1565c0);
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 6px 20px rgba(21, 101, 192, .35);
+            transition: all .2s;
+        }
+
+        .mic-btn:hover {
+            transform: scale(1.07);
+        }
+
+        .mic-btn:active {
+            transform: scale(.95);
+        }
+
+        .mic-btn svg {
+            width: 28px;
+            height: 28px;
+            fill: none;
+            stroke: #fff;
+            stroke-width: 2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+
+        .app.listening .mic-btn {
+            background: linear-gradient(135deg, #ef5350, #b71c1c);
+            box-shadow: 0 6px 20px rgba(183, 28, 28, .4);
+            animation: mic-pulse .8s ease-in-out infinite;
+        }
+
+        .app.speaking .mic-btn {
+            background: linear-gradient(135deg, #66bb6a, #2e7d32);
+            box-shadow: 0 6px 20px rgba(46, 125, 50, .4);
+        }
+
+        .mic-label {
+            font-size: 11px;
+            color: var(--text-muted);
+            font-weight: 600;
+            letter-spacing: .5px;
+        }
+
+        /* ── TABS DE NAVEGACIÓN ── */
+        .tabs {
+            display: flex;
+            gap: 4px;
+            width: 100%;
+            background: var(--card);
+            border: 1px solid var(--card-border);
+            border-radius: 16px;
+            padding: 4px;
+            margin-bottom: 12px;
+            box-shadow: 0 2px 10px var(--shadow);
+        }
+
+        .tab {
+            flex: 1;
+            padding: 8px 4px;
+            border: none;
+            background: transparent;
+            border-radius: 12px;
+            font-family: 'Nunito', sans-serif;
+            font-size: 11px;
+            font-weight: 700;
+            color: var(--text-muted);
+            cursor: pointer;
+            transition: all .2s;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 2px;
+        }
+
+        .tab:hover {
+            background: var(--blue-pale);
+        }
+
+        .tab.active {
+            background: linear-gradient(135deg, #42a5f5, #1565c0);
+            color: #fff;
+            box-shadow: 0 3px 10px rgba(21, 101, 192, .3);
+        }
+
+        .tab-icon {
+            font-size: 14px;
+        }
+
+        /* ── PANELES ── */
+        .panel {
+            display: none;
+            width: 100%;
+            animation: fadeInUp .25s ease;
+        }
+
+        .panel.active {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        /* QUICK BUTTONS */
+        .quick-wrap {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 7px;
+            justify-content: center;
+            width: 100%;
+        }
+
+        .q-btn {
+            background: var(--card);
+            border: 1.5px solid #90caf9;
+            color: var(--blue);
+            border-radius: 22px;
+            padding: 8px 14px;
+            font-size: 12px;
+            font-family: 'Nunito', sans-serif;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all .2s;
+            box-shadow: 0 2px 8px var(--shadow);
+        }
+
+        .q-btn:hover {
+            background: var(--blue-pale);
+            border-color: #42a5f5;
+            transform: translateY(-2px);
+        }
+
+        /* MEDIDOR DE DOLOR */
+        .pain-panel {
+            background: var(--card);
+            border-radius: 16px;
+            border: 1px solid var(--card-border);
+            padding: 12px 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            box-shadow: 0 2px 10px var(--shadow);
+        }
+
+        .pain-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .pain-label {
+            font-size: 11px;
+            font-weight: 700;
+            color: var(--text-muted);
+            letter-spacing: .4px;
+        }
+
+        .pain-value {
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--blue);
+        }
+
+        .pain-slider {
+            width: 100%;
+            -webkit-appearance: none;
+            appearance: none;
+            height: 6px;
+            border-radius: 3px;
+            background: linear-gradient(to right, #42a5f5, #ef5350);
+            outline: none;
+            cursor: pointer;
+        }
+
+        .pain-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: var(--card);
+            border: 2px solid #42a5f5;
+            box-shadow: 0 2px 8px rgba(66, 165, 245, .3);
+            cursor: pointer;
+            transition: transform .15s;
+        }
+
+        .pain-slider::-webkit-slider-thumb:hover {
+            transform: scale(1.15);
+        }
+
+        .pain-emojis {
+            display: flex;
+            justify-content: space-between;
+            font-size: 11px;
+            color: var(--text-muted);
+        }
+
+        /* ── SIGNOS VITALES (nuevo) ── */
+        .vitals-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+        }
+
+        .vital-card {
+            background: var(--card);
+            border-radius: 14px;
+            border: 1px solid var(--card-border);
+            padding: 12px 14px;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            box-shadow: 0 2px 8px var(--shadow);
+            cursor: pointer;
+            transition: all .2s;
+        }
+
+        .vital-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 16px var(--shadow);
+        }
+
+        .vital-icon {
+            font-size: 20px;
+        }
+
+        .vital-label {
+            font-size: 10px;
+            font-weight: 700;
+            color: var(--text-muted);
+            letter-spacing: .5px;
+            text-transform: uppercase;
+        }
+
+        .vital-value {
+            font-size: 20px;
+            font-weight: 800;
+            color: var(--blue);
+            font-family: 'Space Mono', monospace;
+        }
+
+        .vital-unit {
+            font-size: 10px;
+            color: var(--text-muted);
+        }
+
+        .vital-input-row {
+            display: flex;
+            gap: 6px;
+            align-items: center;
+        }
+
+        .vital-input {
+            flex: 1;
+            padding: 7px 12px;
+            border: 1.5px solid var(--card-border);
+            border-radius: 22px;
+            font-size: 13px;
+            font-family: 'Nunito', sans-serif;
+            background: var(--card);
+            color: var(--text);
+            outline: none;
+            transition: border-color .2s;
+        }
+
+        .vital-input:focus {
+            border-color: #42a5f5;
+        }
+
+        body.dark .vital-input {
+            background: rgba(14, 28, 52, .8);
+        }
+
+        .vital-save-btn {
+            padding: 7px 14px;
+            border-radius: 22px;
+            background: linear-gradient(135deg, #42a5f5, #1565c0);
+            border: none;
+            color: #fff;
+            font-size: 12px;
+            font-family: 'Nunito', sans-serif;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all .2s;
+            white-space: nowrap;
+        }
+
+        .vital-save-btn:hover {
+            transform: scale(1.04);
+        }
+
+        /* HISTORIAL DE SIGNOS */
+        .vitals-history {
+            background: var(--card);
+            border-radius: 14px;
+            border: 1px solid var(--card-border);
+            padding: 10px 14px;
+            max-height: 150px;
+            overflow-y: auto;
+            font-size: 12px;
+            box-shadow: 0 2px 8px var(--shadow);
+        }
+
+        .vitals-history:empty::before {
+            content: 'Sin registros aún…';
+            color: var(--text-muted);
+            font-style: italic;
+        }
+
+        .vh-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 4px 0;
+            border-bottom: 1px solid var(--card-border);
+        }
+
+        .vh-row:last-child {
+            border-bottom: none;
+        }
+
+        .vh-time {
+            color: var(--text-muted);
+        }
+
+        .vh-val {
+            font-weight: 700;
+            color: var(--blue);
+        }
+
+        /* ── RECORDATORIOS (nuevo) ── */
+        .reminder-form {
+            background: var(--card);
+            border-radius: 16px;
+            border: 1px solid var(--card-border);
+            padding: 14px 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            box-shadow: 0 2px 10px var(--shadow);
+        }
+
+        .reminder-form label {
+            font-size: 11px;
+            font-weight: 700;
+            color: var(--text-muted);
+            letter-spacing: .4px;
+            text-transform: uppercase;
+        }
+
+        .rm-row {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .rm-input {
+            flex: 1;
+            min-width: 120px;
+            padding: 9px 14px;
+            border: 1.5px solid var(--card-border);
+            border-radius: 22px;
+            font-size: 13px;
+            font-family: 'Nunito', sans-serif;
+            background: var(--card);
+            color: var(--text);
+            outline: none;
+            transition: border-color .2s;
+        }
+
+        .rm-input:focus {
+            border-color: #42a5f5;
+        }
+
+        body.dark .rm-input {
+            background: rgba(14, 28, 52, .8);
+        }
+
+        .rm-select {
+            padding: 9px 14px;
+            border: 1.5px solid var(--card-border);
+            border-radius: 22px;
+            font-size: 12px;
+            font-family: 'Nunito', sans-serif;
+            background: var(--card);
+            color: var(--text);
+            outline: none;
+            cursor: pointer;
+        }
+
+        body.dark .rm-select {
+            background: rgba(14, 28, 52, .8);
+        }
+
+        .reminder-list {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            max-height: 160px;
+            overflow-y: auto;
+        }
+
+        .reminder-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--blue-pale);
+            border-radius: 12px;
+            padding: 8px 12px;
+            font-size: 12px;
+            color: var(--blue);
+        }
+
+        body.dark .reminder-item {
+            background: rgba(21, 101, 192, .2);
+            color: #90caf9;
+        }
+
+        .reminder-item .rm-del {
+            margin-left: auto;
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 14px;
+            color: #ef5350;
+            padding: 2px;
+        }
+
+        .rm-badge {
+            display: inline-block;
+            background: #ef5350;
+            color: #fff;
+            border-radius: 50%;
+            width: 18px;
+            height: 18px;
+            font-size: 10px;
+            font-weight: 700;
+            text-align: center;
+            line-height: 18px;
+            position: absolute;
+            top: -4px;
+            right: -4px;
+        }
+
+        .tab-wrap {
+            position: relative;
+            display: inline-block;
+        }
+
+        /* NOTIF TOAST */
+        .toast {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%) translateY(-80px);
+            background: linear-gradient(135deg, #42a5f5, #1565c0);
+            color: #fff;
+            padding: 12px 22px;
+            border-radius: 50px;
+            font-size: 13px;
+            font-weight: 700;
+            font-family: 'Nunito', sans-serif;
+            box-shadow: 0 6px 24px rgba(21, 101, 192, .4);
+            transition: transform .4s cubic-bezier(.34, 1.56, .64, 1);
+            z-index: 999;
+            white-space: nowrap;
+        }
+
+        .toast.show {
+            transform: translateX(-50%) translateY(0);
+        }
+
+        .toast.alarm {
+            background: linear-gradient(135deg, #ef5350, #b71c1c);
+        }
+
+        /* SELECTOR DE VOZ */
+        .voice-selector-wrap {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .voice-selector-label {
+            font-size: 11px;
+            color: var(--text-muted);
+            font-weight: 700;
+            letter-spacing: .5px;
+            text-align: center;
+            text-transform: uppercase;
+        }
+
+        .voice-row {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+        }
+
+        .voice-select {
+            flex: 1;
+            padding: 9px 14px;
+            border: 1.5px solid var(--card-border);
+            border-radius: 22px;
+            font-size: 12px;
+            font-family: 'Nunito', sans-serif;
+            background: var(--card);
+            color: var(--text);
+            outline: none;
+            cursor: pointer;
+        }
+
+        body.dark .voice-select {
+            background: rgba(14, 28, 52, .8);
+        }
+
+        .test-voice-btn {
+            padding: 9px 14px;
+            border-radius: 22px;
+            background: linear-gradient(135deg, #42a5f5, #1565c0);
+            border: none;
+            color: #fff;
+            font-size: 12px;
+            font-family: 'Nunito', sans-serif;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all .2s;
+            white-space: nowrap;
+        }
+
+        .test-voice-btn:hover {
+            transform: scale(1.04);
+        }
+
+        .active-voice-chip {
+            font-size: 10px;
+            color: var(--text-muted);
+            text-align: center;
+            font-style: italic;
+            min-height: 16px;
+        }
+
+        /* PANEL DE EMERGENCIA */
+        .sos-btn {
+            width: 100%;
+            padding: 12px;
+            background: linear-gradient(135deg, #ef5350, #b71c1c);
+            border: none;
+            border-radius: 14px;
+            color: #fff;
+            font-family: 'Nunito', sans-serif;
+            font-size: 13px;
+            font-weight: 700;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            box-shadow: 0 4px 18px rgba(183, 28, 28, .35);
+            transition: all .2s;
+            letter-spacing: .3px;
+        }
+
+        .sos-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(183, 28, 28, .45);
+        }
+
+        .emergency-panel {
+            display: none;
+            width: 100%;
+            background: #fff3f3;
+            border: 1.5px solid #ef9a9a;
+            border-radius: 16px;
+            padding: 14px 16px;
+            animation: fadeInUp .3s ease;
+        }
+
+        .emergency-panel.visible {
+            display: block;
+        }
+
+        body.dark .emergency-panel {
+            background: rgba(80, 10, 10, .5);
+            border-color: #b71c1c;
+        }
+
+        .emergency-title {
+            font-size: 13px;
+            font-weight: 700;
+            color: #c62828;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .emergency-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+        }
+
+        .emergency-card {
+            background: #fff;
+            border-radius: 12px;
+            padding: 10px 12px;
+            border: 1px solid #ffcdd2;
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+
+        body.dark .emergency-card {
+            background: rgba(60, 10, 10, .5);
+            border-color: #b71c1c33;
+        }
+
+        .ec-name {
+            font-size: 11px;
+            font-weight: 700;
+            color: #c62828;
+        }
+
+        .ec-num {
+            font-size: 17px;
+            font-weight: 700;
+            color: #b71c1c;
+            letter-spacing: 1px;
+            text-decoration: none;
+        }
+
+        .ec-num:hover {
+            text-decoration: underline;
+        }
+
+        .ec-desc {
+            font-size: 10px;
+            color: #888;
+        }
+
+        body.dark .ec-desc {
+            color: var(--text-muted);
+        }
+
+        /* HISTORIAL DE CONVERSACIÓN */
+        .history-panel {
+            width: 100%;
+            background: rgba(255, 255, 255, .75);
+            border-radius: 18px;
+            border: 1px solid var(--card-border);
+            padding: 10px 12px;
+            max-height: 180px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            scroll-behavior: smooth;
+            box-shadow: 0 2px 8px var(--shadow);
+        }
+
+        body.dark .history-panel {
+            background: rgba(14, 28, 52, .7);
+        }
+
+        .history-panel:empty::before {
+            content: 'El historial aparece aquí…';
+            font-size: 12px;
+            color: var(--text-muted);
+            text-align: center;
+            font-style: italic;
+            display: block;
+            padding: 8px 0;
+        }
+
+        .history-msg {
+            display: flex;
+            align-items: flex-end;
+            gap: 6px;
+        }
+
+        .history-msg.user {
+            flex-direction: row-reverse;
+        }
+
+        .history-bubble {
+            max-width: 80%;
+            padding: 7px 12px;
+            border-radius: 14px;
+            font-size: 12px;
+            line-height: 1.5;
+        }
+
+        .history-msg.bot .history-bubble {
+            background: #e3f2fd;
+            color: #0d47a1;
+            border-bottom-left-radius: 3px;
+        }
+
+        .history-msg.user .history-bubble {
+            background: #e8f5e9;
+            color: #1b5e20;
+            border-bottom-right-radius: 3px;
+        }
+
+        body.dark .history-msg.bot .history-bubble {
+            background: rgba(30, 55, 90, .9);
+            color: #90caf9;
+        }
+
+        body.dark .history-msg.user .history-bubble {
+            background: rgba(20, 60, 40, .9);
+            color: #a5d6a7;
+        }
+
+        .history-avatar {
+            font-size: 14px;
+            flex-shrink: 0;
+        }
+
+        /* INPUT */
+        .input-row {
+            display: flex;
+            gap: 10px;
+            width: 100%;
+            align-items: center;
+        }
+
+        .chat-input {
+            flex: 1;
+            padding: 13px 18px;
+            border: 1.5px solid var(--card-border);
+            border-radius: 26px;
+            font-size: 14px;
+            font-family: 'Nunito', sans-serif;
+            background: var(--card);
+            color: var(--text);
+            outline: none;
+            transition: all .2s;
+            box-shadow: 0 2px 14px var(--shadow);
+        }
+
+        .chat-input:focus {
+            border-color: #42a5f5;
+            box-shadow: 0 0 0 3px rgba(66, 165, 245, .13);
+        }
+
+        body.dark .chat-input {
+            background: rgba(14, 28, 52, .8);
+        }
+
+        .chat-input::placeholder {
+            color: var(--text-muted);
+        }
+
+        .send-btn {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #42a5f5, #1565c0);
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all .2s;
+            box-shadow: 0 5px 16px rgba(21, 101, 192, .3);
+            flex-shrink: 0;
+        }
+
+        .send-btn:hover {
+            transform: scale(1.07);
+        }
+
+        .send-btn svg {
+            width: 18px;
+            height: 18px;
+            fill: none;
+            stroke: #fff;
+            stroke-width: 2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+
+        /* SECCIÓN TOGGLE */
+        .section-toggle {
+            width: 100%;
+            background: none;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-family: 'Nunito', sans-serif;
+            font-size: 11px;
+            font-weight: 700;
+            color: var(--text-muted);
+            letter-spacing: .5px;
+            padding: 2px 4px;
+            margin-bottom: 4px;
+            transition: color .2s;
+            text-transform: uppercase;
+        }
+
+        .section-toggle:hover {
+            color: #42a5f5;
+        }
+
+        .toggle-arrow {
+            font-size: 10px;
+            transition: transform .25s;
+        }
+
+        .section-toggle.collapsed .toggle-arrow {
+            transform: rotate(-90deg);
+        }
+
+        /* DISCLAIMER */
+        .disclaimer {
+            font-size: 10px;
+            color: var(--text-muted);
+            text-align: center;
+            margin-top: 12px;
+            line-height: 1.6;
+            max-width: 420px;
+        }
+
+        /* BADGE de Baymax con IA */
+        .ai-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            background: linear-gradient(135deg, rgba(66, 165, 245, .15), rgba(21, 101, 192, .12));
+            border: 1px solid rgba(66, 165, 245, .3);
+            border-radius: 20px;
+            padding: 3px 10px;
+            margin-bottom: 10px;
+            font-size: 10px;
+            font-weight: 700;
+            color: var(--blue);
+            letter-spacing: .5px;
+        }
+
+        /* KEYFRAMES */
         @keyframes breathe {
 
             0%,
@@ -712,7 +1452,7 @@
             }
 
             94% {
-                transform: scaleY(0.08)
+                transform: scaleY(.08)
             }
         }
 
@@ -724,7 +1464,7 @@
             }
 
             50% {
-                transform: scaleY(0.05)
+                transform: scaleY(.05)
             }
         }
 
@@ -868,6 +1608,18 @@
             }
         }
 
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(6px)
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0)
+            }
+        }
+
         .baymax-head.talking {
             animation: talking-nod .35s ease-in-out infinite alternate;
         }
@@ -876,28 +1628,296 @@
             animation: happy-bounce .55s ease-in-out;
         }
 
-        /* ── SLEEPING EYES ── */
-        .app.sleeping .eye {
-            height: 2px;
-            border-radius: 2px;
+        /* DARK extras */
+        body.dark .baymax-name {
+            color: #90caf9;
+        }
+
+        body.dark .q-btn {
+            background: rgba(14, 28, 52, .8);
+            border-color: rgba(66, 165, 245, .3);
+            color: #90caf9;
+        }
+
+        body.dark .q-btn:hover {
+            background: rgba(30, 55, 90, .9);
+        }
+
+        body.dark .pain-panel,
+        .body.dark .vital-card,
+        .body.dark .reminder-form {
+            background: rgba(14, 28, 52, .8);
+        }
+
+        body.dark .ai-badge {
+            border-color: rgba(66, 165, 245, .25);
+            color: #90caf9;
+        }
+
+        body.dark .emergency-panel {
+            color: #ef9a9a;
+        }
+
+        body.dark .statusLabel {
+            color: #90caf9;
+        }
+
+        /* ── CÁMARA ── */
+        .camera-panel-inner {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            align-items: center;
+            width: 100%;
+        }
+
+        .camera-preview-wrap {
+            position: relative;
+            width: 100%;
+            border-radius: 16px;
+            overflow: hidden;
+            background: #0a0a0a;
+            box-shadow: 0 4px 22px var(--shadow);
+            border: 1px solid var(--card-border);
+            aspect-ratio: 4/3;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        #cameraVideo {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: none;
+            border-radius: 16px;
+        }
+
+        .camera-placeholder {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            color: #546e7a;
+        }
+
+        .camera-placeholder span {
+            font-size: 40px;
+        }
+
+        .camera-placeholder p {
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--text-muted);
+        }
+
+        .rec-badge {
+            display: none;
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background: #ef5350;
+            color: #fff;
+            font-size: 11px;
+            font-weight: 700;
+            padding: 3px 10px;
+            border-radius: 20px;
+            animation: blink-dot .7s ease-in-out infinite;
+            letter-spacing: 1px;
+        }
+
+        .camera-controls {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            justify-content: center;
+            width: 100%;
+        }
+
+        .cam-btn {
+            flex: 1;
+            min-width: 120px;
+            padding: 10px 14px;
+            border-radius: 22px;
+            border: none;
+            font-family: 'Nunito', sans-serif;
+            font-size: 13px;
+            font-weight: 700;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            transition: all .2s;
+            box-shadow: 0 3px 12px rgba(0, 0, 0, .12);
+        }
+
+        .cam-btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .cam-btn:active {
+            transform: scale(.96);
+        }
+
+        .cam-btn.primary {
+            background: linear-gradient(135deg, #42a5f5, #1565c0);
+            color: #fff;
+        }
+
+        .cam-btn.danger {
+            background: linear-gradient(135deg, #ef5350, #b71c1c);
+            color: #fff;
+        }
+
+        .cam-btn.success {
+            background: linear-gradient(135deg, #66bb6a, #2e7d32);
+            color: #fff;
+        }
+
+        .cam-btn.secondary {
+            background: var(--card);
+            color: var(--blue);
+            border: 1.5px solid #90caf9;
+        }
+
+        .cam-btn:disabled {
+            opacity: .45;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .camera-gallery {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .gallery-label {
+            font-size: 11px;
+            font-weight: 700;
+            color: var(--text-muted);
+            letter-spacing: .5px;
+            text-transform: uppercase;
+            text-align: center;
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 6px;
+            max-height: 200px;
+            overflow-y: auto;
+        }
+
+        .gallery-item {
+            position: relative;
+            border-radius: 10px;
+            overflow: hidden;
+            aspect-ratio: 1;
+            background: #0a0a0a;
+            cursor: pointer;
+            border: 1.5px solid var(--card-border);
+        }
+
+        .gallery-item img,
+        .gallery-item video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .gallery-item .gallery-del {
+            position: absolute;
+            top: 4px;
+            right: 4px;
+            background: rgba(0, 0, 0, .6);
+            color: #fff;
+            border: none;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            font-size: 10px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .gallery-item .gallery-dl {
+            position: absolute;
+            bottom: 4px;
+            right: 4px;
+            background: rgba(21, 101, 192, .8);
+            color: #fff;
+            border: none;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            font-size: 10px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .gallery-empty {
+            grid-column: 1/-1;
+            text-align: center;
+            font-size: 12px;
+            color: var(--text-muted);
+            padding: 16px;
+            font-style: italic;
+        }
+
+        .cam-info {
+            font-size: 11px;
+            color: var(--text-muted);
+            text-align: center;
+            line-height: 1.5;
+        }
+
+        .cam-switch-row {
+            display: flex;
+            gap: 8px;
+            justify-content: center;
         }
     </style>
 </head>
 
 <body>
 
+    <!-- TOAST -->
+    <div class="toast" id="toast">🔔 Recordatorio</div>
+
     <main class="app sleeping" id="app">
 
+        <!-- Top Controls -->
+        <div class="top-controls">
+            <span class="top-brand">⚕️ Baymax v2</span>
+            <div class="top-right">
+                <button class="icon-btn" onclick="toggleDark()" id="darkBtn" title="Modo oscuro">🌙</button>
+                <button class="icon-btn" onclick="exportHistory()" title="Exportar historial">💾</button>
+                <button class="icon-btn" onclick="clearHistory()" title="Limpiar historial">🗑️</button>
+            </div>
+        </div>
+
+        <!-- Badge IA -->
+        <div class="ai-badge">🤖 BAYMAX</div>
+
+        <!-- Scan badge -->
         <div class="scan-badge" aria-hidden="true">
             <div class="scan-ring"><span class="heart-icon">♡</span></div>
         </div>
 
+        <!-- Baymax SVG -->
         <div class="baymax-wrap" aria-hidden="true">
             <div class="baymax-arm-l"></div>
             <div class="baymax-arm-r"></div>
             <div class="baymax-body">
                 <div class="voice-ring"></div>
-                <div class="baymax-chest" onclick="scanHealth()" title="Escaneo completado" role="button">
+                <div class="baymax-chest" onclick="scanHealth()" title="Escaneo de bienestar" role="button">
                     <div class="chest-inner">+</div>
                 </div>
                 <div class="baymax-foot left"></div>
@@ -913,26 +1933,37 @@
         </div>
 
         <h1 class="baymax-name">BAYMAX</h1>
-        <p class="baymax-sub">Asistente Medico Personal</p>
+        <p class="baymax-sub">Asistente Médico Personal</p>
 
         <!-- Status chip -->
         <div class="status-chip state-sleeping" id="statusChip">
             <div class="status-dot"></div>
-            <span id="statusLabel">Esperando activación...</span>
+            <span id="statusLabel">Esperando activación…</span>
         </div>
 
         <!-- Burbuja -->
         <div class="bubble" role="status" aria-live="polite">
             <div class="bubble-text" id="speechText">
-                Puedes <strong>decirme </strong>tus <strong>sintomas</strong><br />
+                Puedes <strong>contarme</strong> tus <strong>síntomas</strong><br />
                 Di <strong>"estoy satisfecho con mi cuidado"</strong> para desactivarme.
             </div>
         </div>
 
-        <!-- Transcript -->
-        <div class="transcript-box" id="transcriptBox">🎤 Escuchando el ambiente...</div>
+        <!-- Ondas -->
+        <div class="audio-waves" aria-hidden="true">
+            <div class="wave-bar"></div>
+            <div class="wave-bar"></div>
+            <div class="wave-bar"></div>
+            <div class="wave-bar"></div>
+            <div class="wave-bar"></div>
+            <div class="wave-bar"></div>
+            <div class="wave-bar"></div>
+        </div>
 
-        <!-- Mic button -->
+        <!-- Transcript -->
+        <div class="transcript-box" id="transcriptBox">🎤 Puedes contarme tus síntomas…</div>
+
+        <!-- Mic -->
         <div class="mic-area">
             <button class="mic-btn" id="micBtn" onclick="toggleMic()" aria-label="Micrófono">
                 <svg viewBox="0 0 24 24">
@@ -945,44 +1976,280 @@
             <span class="mic-label" id="micLabel">ACTIVAR MICRÓFONO</span>
         </div>
 
-        <!-- Quick buttons -->
-        <div class="quick-wrap">
-            <button class="q-btn" onclick="manualActivate('dolor de cabeza')">🤕 Cabeza</button>
-            <button class="q-btn" onclick="manualActivate('fiebre')">🌡️ Fiebre</button>
-            <button class="q-btn" onclick="manualActivate('cansancio')">😴 Cansancio</button>
-            <button class="q-btn" onclick="manualActivate('tos')">😷 Tos</button>
-            <button class="q-btn" onclick="manualActivate('consejos de salud')">💪 Consejos</button>
-            <button class="q-btn" onclick="manualActivate('dolor de estómago')">🤢 Estómago</button>
-            <button class="q-btn" onclick="manualActivate('insomnio')">🌙 Insomnio</button>
-            <button class="q-btn" onclick="manualActivate('ansiedad')">😰 Ansiedad</button>
-            <button class="q-btn" onclick="manualActivate('resfriado')">🤧 Resfriado</button>
-            <button class="q-btn" onclick="manualActivate('dolor de espalda')">🦴 Espalda</button>
+        <!-- TABS -->
+        <div class="tabs">
+            <button class="tab active" onclick="switchTab('sintomas')" id="tab-sintomas">
+                <span class="tab-icon">🩺</span> Síntomas
+            </button>
+            <button class="tab" onclick="switchTab('vitales')" id="tab-vitales">
+                <span class="tab-icon">📊</span> Signos
+            </button>
+            <button class="tab" onclick="switchTab('recordatorios')" id="tab-recordatorios">
+                <span class="tab-icon tab-wrap">⏰ <span class="rm-badge" id="rmBadge"
+                        style="display:none">0</span></span> Alarmas
+            </button>
+            <button class="tab" onclick="switchTab('historial')" id="tab-historial">
+                <span class="tab-icon">💬</span> Historial
+            </button>
+            <button class="tab" onclick="switchTab('ajustes')" id="tab-ajustes">
+                <span class="tab-icon">⚙️</span> Ajustes
+            </button>
+            <button class="tab" onclick="switchTab('camara')" id="tab-camara">
+                <span class="tab-icon">📷</span> Cámara
+            </button>
         </div>
 
-        <!-- Ondas de audio (visibles al hablar) -->
-        <div class="audio-waves" aria-hidden="true">
-            <div class="wave-bar"></div>
-            <div class="wave-bar"></div>
-            <div class="wave-bar"></div>
-            <div class="wave-bar"></div>
-            <div class="wave-bar"></div>
-            <div class="wave-bar"></div>
-            <div class="wave-bar"></div>
-        </div>
-
-        <!-- Selector de voz -->
-        <div class="voice-selector-wrap">
-            <span class="voice-selector-label">🎙️ VOZ DE BAYMAX</span>
-            <div class="voice-row">
-                <select class="voice-select" id="voiceSelect"></select>
-                <button class="test-voice-btn" onclick="testVoice()">▶ Probar</button>
+        <!-- PANEL: SÍNTOMAS -->
+        <div class="panel active" id="panel-sintomas">
+            <div class="quick-wrap">
+                <button class="q-btn" onclick="manualActivate('dolor de cabeza')">🤕 Cabeza</button>
+                <button class="q-btn" onclick="manualActivate('fiebre')">🌡️ Fiebre</button>
+                <button class="q-btn" onclick="manualActivate('cansancio')">😴 Cansancio</button>
+                <button class="q-btn" onclick="manualActivate('tos')">😷 Tos</button>
+                <button class="q-btn" onclick="manualActivate('dolor de estómago')">🤢 Estómago</button>
+                <button class="q-btn" onclick="manualActivate('insomnio')">🌙 Insomnio</button>
+                <button class="q-btn" onclick="manualActivate('ansiedad')">😰 Ansiedad</button>
+                <button class="q-btn" onclick="manualActivate('resfriado')">🤧 Resfriado</button>
+                <button class="q-btn" onclick="manualActivate('dolor de espalda')">🦴 Espalda</button>
+                <button class="q-btn" onclick="manualActivate('presión alta')">💢 Presión</button>
+                <button class="q-btn" onclick="manualActivate('depresión')">💙 Ánimo</button>
+                <button class="q-btn" onclick="manualActivate('alergia')">🌿 Alergia</button>
+                <button class="q-btn" onclick="manualActivate('mareo')">😵 Mareo</button>
+                <button class="q-btn" onclick="manualActivate('dolor de garganta')">🗣️ Garganta</button>
+                <button class="q-btn" onclick="manualActivate('quemadura')">🔥 Quemadura</button>
+                <button class="q-btn" onclick="manualActivate('herida')">🩹 Herida</button>
+                <button class="q-btn" onclick="manualActivate('diabetes')">🩸 Glucosa</button>
+                <button class="q-btn" onclick="manualActivate('consejos de salud')">💪 Consejos</button>
             </div>
-            <div class="active-voice-chip" id="activeVoiceChip">Cargando voces...</div>
+
+            <!-- Medidor de dolor -->
+            <div class="pain-panel">
+                <button class="section-toggle" id="painToggle" onclick="toggleSection('painBody','painToggle')">
+                    🔢 Intensidad del dolor <span class="toggle-arrow">▼</span>
+                </button>
+                <div id="painBody">
+                    <div class="pain-header">
+                        <span class="pain-label">Desliza para indicar tu dolor</span>
+                        <span class="pain-value" id="painValue">Sin dolor 😊</span>
+                    </div>
+                    <input type="range" class="pain-slider" id="painSlider" min="0" max="10" value="0"
+                        oninput="updatePain(this.value)" />
+                    <div class="pain-emojis">
+                        <span>😊 Sin dolor</span><span>😐 Moderado</span>
+                        <span>😖 Severo</span><span>😱 Insoportable</span>
+                    </div>
+                    <button class="q-btn" style="width:100%;margin-top:6px;" onclick="reportPain()">
+                        📋 Reportar a Baymax
+                    </button>
+                </div>
+            </div>
+
+            <!-- SOS -->
+            <button class="sos-btn" onclick="toggleEmergency()">🚨 EMERGENCIA / NÚMEROS DE AYUDA</button>
+            <div class="emergency-panel" id="emergencyPanel">
+                <div class="emergency-title">🚑 Líneas de emergencia — Colombia</div>
+                <div class="emergency-grid">
+                    <div class="emergency-card"><span class="ec-name">🚒 Emergencias</span><a class="ec-num"
+                            href="tel:123">123</a><span class="ec-desc">Línea única</span></div>
+                    <div class="emergency-card"><span class="ec-name">🚑 Cruz Roja</span><a class="ec-num"
+                            href="tel:132">132</a><span class="ec-desc">Ambulancias</span></div>
+                    <div class="emergency-card"><span class="ec-name">🧠 Salud Mental</span><a class="ec-num"
+                            href="tel:106">106</a><span class="ec-desc">Crisis emocional</span></div>
+                    <div class="emergency-card"><span class="ec-name">👮 Policía</span><a class="ec-num"
+                            href="tel:112">112</a><span class="ec-desc">Seguridad</span></div>
+                    <div class="emergency-card"><span class="ec-name">🔥 Bomberos</span><a class="ec-num"
+                            href="tel:119">119</a><span class="ec-desc">Incendios</span></div>
+                    <div class="emergency-card"><span class="ec-name">☎️ Bienestar</span><a class="ec-num"
+                            href="tel:018000113113">018000</a><span class="ec-desc">Línea 113113</span></div>
+                </div>
+            </div>
         </div>
 
-        <!-- Text input fallback -->
-        <div class="input-row">
-            <input class="chat-input" id="chatInput" type="text" placeholder="O escribe tu síntoma aquí..."
+        <!-- PANEL: SIGNOS VITALES (nuevo) -->
+        <div class="panel" id="panel-vitales">
+            <div class="vitals-grid">
+                <div class="vital-card" id="vc-pressure" onclick="openVitalInput('pressure')">
+                    <span class="vital-icon">💢</span>
+                    <span class="vital-label">Presión Arterial</span>
+                    <span class="vital-value" id="vv-pressure">--/--</span>
+                    <span class="vital-unit">mmHg</span>
+                </div>
+                <div class="vital-card" id="vc-hr" onclick="openVitalInput('hr')">
+                    <span class="vital-icon">❤️</span>
+                    <span class="vital-label">Frecuencia Cardíaca</span>
+                    <span class="vital-value" id="vv-hr">--</span>
+                    <span class="vital-unit">lpm</span>
+                </div>
+                <div class="vital-card" id="vc-temp" onclick="openVitalInput('temp')">
+                    <span class="vital-icon">🌡️</span>
+                    <span class="vital-label">Temperatura</span>
+                    <span class="vital-value" id="vv-temp">--</span>
+                    <span class="vital-unit">°C</span>
+                </div>
+                <div class="vital-card" id="vc-glucose" onclick="openVitalInput('glucose')">
+                    <span class="vital-icon">🩸</span>
+                    <span class="vital-label">Glucosa</span>
+                    <span class="vital-value" id="vv-glucose">--</span>
+                    <span class="vital-unit">mg/dL</span>
+                </div>
+                <div class="vital-card" id="vc-weight" onclick="openVitalInput('weight')">
+                    <span class="vital-icon">⚖️</span>
+                    <span class="vital-label">Peso</span>
+                    <span class="vital-value" id="vv-weight">--</span>
+                    <span class="vital-unit">kg</span>
+                </div>
+                <div class="vital-card" id="vc-oxygen" onclick="openVitalInput('oxygen')">
+                    <span class="vital-icon">🫁</span>
+                    <span class="vital-label">Saturación O₂</span>
+                    <span class="vital-value" id="vv-oxygen">--</span>
+                    <span class="vital-unit">%</span>
+                </div>
+            </div>
+
+            <!-- Input de signo vital -->
+            <div class="reminder-form" id="vitalInputArea" style="display:none">
+                <label id="vitalInputLabel">Ingresa el valor</label>
+                <div class="vital-input-row">
+                    <input class="vital-input" id="vitalInputField" type="text" placeholder="ej: 120/80" />
+                    <button class="vital-save-btn" onclick="saveVital()">✔ Guardar</button>
+                    <button class="vital-save-btn" style="background:linear-gradient(135deg,#ef5350,#b71c1c);"
+                        onclick="cancelVitalInput()">✕</button>
+                </div>
+            </div>
+
+            <!-- Historial -->
+            <button class="section-toggle" onclick="toggleSection('vitalsHistPanel','vitalsHistToggle')"
+                id="vitalsHistToggle">
+                📋 Historial de registros <span class="toggle-arrow">▼</span>
+            </button>
+            <div class="vitals-history" id="vitalsHistPanel"></div>
+        </div>
+
+        <!-- PANEL: RECORDATORIOS (nuevo) -->
+        <div class="panel" id="panel-recordatorios">
+            <div class="reminder-form">
+                <label>➕ Nuevo recordatorio de medicamento</label>
+                <div class="rm-row">
+                    <input class="rm-input" id="rmMed" type="text" placeholder="Nombre del medicamento…" />
+                </div>
+                <div class="rm-row">
+                    <input class="rm-input" id="rmTime" type="time" />
+                    <select class="rm-select" id="rmRepeat">
+                        <option value="once">Una vez</option>
+                        <option value="daily">Diario</option>
+                        <option value="8h">Cada 8h</option>
+                        <option value="12h">Cada 12h</option>
+                    </select>
+                    <button class="vital-save-btn" onclick="addReminder()">+ Agregar</button>
+                </div>
+            </div>
+
+            <div class="reminder-list" id="reminderList">
+                <!-- JS populated -->
+            </div>
+
+            <p style="font-size:11px;color:var(--text-muted);text-align:center;line-height:1.5;">
+                ⚠️ Las alarmas solo suenan mientras esta página esté abierta.
+            </p>
+        </div>
+
+        <!-- PANEL: HISTORIAL -->
+        <div class="panel" id="panel-historial">
+            <button class="section-toggle" id="historyToggle" onclick="toggleSection('historyPanel','historyToggle')">
+                💬 Historial de sesión <span class="toggle-arrow">▼</span>
+            </button>
+            <div class="history-panel" id="historyPanel"></div>
+        </div>
+
+        <!-- PANEL: AJUSTES -->
+        <div class="panel" id="panel-ajustes">
+            <div class="voice-selector-wrap">
+                <span class="voice-selector-label">🎙️ Voz de Baymax</span>
+                <div class="voice-row">
+                    <select class="voice-select" id="voiceSelect"></select>
+                    <button class="test-voice-btn" onclick="testVoice()">▶ Probar</button>
+                </div>
+                <div class="active-voice-chip" id="activeVoiceChip">Cargando voces…</div>
+            </div>
+
+            <!-- Velocidad de habla -->
+            <div class="pain-panel">
+                <div class="pain-header">
+                    <span class="pain-label">🎚️ Velocidad de voz</span>
+                    <span class="pain-value" id="rateLabel">0.80×</span>
+                </div>
+                <input type="range" class="pain-slider" id="rateSlider" min="50" max="130" value="80"
+                    oninput="updateRate(this.value)" style="background:linear-gradient(to right,#42a5f5,#1565c0);" />
+                <div class="pain-emojis"><span>🐢 Lento</span><span>🚀 Rápido</span></div>
+            </div>
+
+            <!-- Tono de voz -->
+            <div class="pain-panel">
+                <div class="pain-header">
+                    <span class="pain-label">🎵 Tono de voz</span>
+                    <span class="pain-value" id="pitchLabel">0.65</span>
+                </div>
+                <input type="range" class="pain-slider" id="pitchSlider" min="30" max="120" value="65"
+                    oninput="updatePitch(this.value)" style="background:linear-gradient(to right,#1565c0,#90caf9);" />
+                <div class="pain-emojis"><span>🤖 Grave</span><span>🔔 Agudo</span></div>
+            </div>
+
+            <!-- Botones de ajuste extra -->
+            <div class="quick-wrap">
+                <button class="q-btn" onclick="resetSettings()">🔄 Restablecer ajustes</button>
+                <button class="q-btn" onclick="exportHistory()">💾 Exportar historial</button>
+            </div>
+        </div>
+
+        <!-- PANEL: CÁMARA -->
+        <div class="panel" id="panel-camara">
+            <div class="camera-panel-inner">
+
+                <!-- Vista previa -->
+                <div class="camera-preview-wrap">
+                    <video id="cameraVideo" autoplay playsinline muted></video>
+                    <div class="camera-placeholder" id="cameraPlaceholder">
+                        <span>📷</span>
+                        <p>Presiona "Activar Cámara" para comenzar</p>
+                    </div>
+                    <span class="rec-badge" id="recBadge">● REC</span>
+                </div>
+
+                <!-- Selector cámara frontal/trasera -->
+                <div class="cam-switch-row">
+                    <button class="cam-btn secondary" id="btnSwitchCam" onclick="switchCamera()" disabled>🔄 Cambiar
+                        cámara</button>
+                </div>
+
+                <!-- Controles principales -->
+                <div class="camera-controls">
+                    <button class="cam-btn primary" id="btnOpenCam" onclick="openCamera()">📷 Activar Cámara</button>
+                    <button class="cam-btn secondary" id="btnCloseCam" onclick="closeCamera()" disabled>✕
+                        Cerrar</button>
+                </div>
+
+                <div class="camera-controls">
+                    <button class="cam-btn success" id="btnPhoto" onclick="takePhoto()" disabled>📸 Tomar Foto</button>
+                    <button class="cam-btn danger" id="btnRecord" onclick="toggleRecord()" disabled>⏺ Grabar
+                        Video</button>
+                </div>
+
+                <!-- Galería -->
+                <div class="camera-gallery">
+                    <div class="gallery-label">📁 Galería de sesión</div>
+                    <div class="gallery-grid" id="cameraGallery">
+                        <div class="gallery-empty">Aquí aparecerán tus fotos y videos.</div>
+                    </div>
+                </div>
+
+                <p class="cam-info">⚠️ Las fotos y videos se guardan solo durante esta sesión.<br>Descárgalos antes de
+                    cerrar la página.</p>
+            </div>
+        </div>
+
+        <!-- Input texto -->
+        <div class="input-row" style="margin-top:10px;">
+            <input class="chat-input" id="chatInput" type="text" placeholder="O escribe tu síntoma aquí…"
                 autocomplete="off" />
             <button class="send-btn" onclick="sendText()" aria-label="Enviar">
                 <svg viewBox="0 0 24 24">
@@ -1003,261 +2270,142 @@
         ══════════════════════════════════════════════════════ */
         const KB = [
             {
-                keywords: ['dolor de cabeza', 'cefalea', 'jaqueca', 'migraña', 'cabeza me duele', 'me duele la cabeza', 'head', 'cabeza'],
-                responses: [
-                    'He detectado dolor de cabeza. Mi protocolo recomienda: descansar en un lugar oscuro y tranquilo, hidratarte con al menos dos vasos de agua, y aplicar un paño frío en la frente. Si el dolor es muy intenso o no cede en pocas horas, por favor consulta a un médico.',
+                keywords: ['dolor de cabeza', 'cefalea', 'jaqueca', 'migraña', 'cabeza me duele', 'me duele la cabeza', 'cabeza'],
+                responses: ['He detectado dolor de cabeza. Mi protocolo recomienda: descansar en un lugar oscuro y tranquilo, hidratarte con al menos dos vasos de agua, y aplicar un paño frío en la frente. Si el dolor es muy intenso o no cede en pocas horas, consulta a un médico.',
                     'Dolor de cabeza registrado. Asegúrate de estar bien hidratado, evita las pantallas brillantes y descansa. Si va acompañado de fiebre alta o visión borrosa, acude a un médico sin demora. Tu bienestar es mi prioridad.',
-                    'He escaneado tu reporte: dolor de cabeza. Causas comunes son estrés, deshidratación o falta de sueño. Bebe agua, descansa y reduce el ruido ambiental. Si lleva más de 24 horas, te recomiendo visitar a un profesional.'
-                ]
+                    'Cefalea detectada. Causas comunes son estrés, deshidratación o falta de sueño. Bebe agua, descansa y reduce el ruido ambiental. Si lleva más de 24 horas, te recomiendo visitar a un profesional.']
             },
             {
-                keywords: ['fiebre', 'temperatura alta', 'calentura', 'febril', 'caliente', 'calor'],
-                responses: [
-                    'He detectado fiebre. Protocolo de atención: reposa, mantente muy hidratado, usa ropa ligera y aplica paños frescos en la frente. Si la temperatura supera 39 grados, dura más de 3 días o hay dificultad para respirar, acude de inmediato al médico.',
-                    'Fiebre registrada. Es la forma en que tu cuerpo lucha contra una infección. Descansa mucho, bebe líquidos frecuentemente. Si en adultos supera 39 grados, busca atención médica pronto.',
-                ]
+                keywords: ['fiebre', 'temperatura alta', 'calentura', 'febril', 'caliente'],
+                responses: ['He detectado fiebre. Protocolo de atención: reposa, mantente muy hidratado, usa ropa ligera y aplica paños frescos en la frente. Si la temperatura supera 39 grados, dura más de 3 días o hay dificultad para respirar, acude de inmediato al médico.',
+                    'Fiebre registrada. Es la forma en que tu cuerpo lucha contra una infección. Descansa mucho, bebe líquidos frecuentemente. Si supera 39 grados, busca atención médica pronto.']
             },
             {
-                keywords: ['cansancio', 'fatiga', 'agotado', 'sin energía', 'cansado', 'cansada', 'somnoliento', 'somnolencia'],
-                responses: [
-                    'He registrado cansancio. Mi protocolo incluye: dormir entre 7 y 9 horas por noche, mantener una alimentación equilibrada, hidratarte bien y hacer pausas activas. Si el agotamiento es extremo y constante, un médico puede ayudarte a descubrir la causa.',
-                    'Cansancio detectado. Causas frecuentes son falta de sueño, estrés o deshidratación. Descansa hoy y evalúa tus hábitos de sueño. Si persiste más de dos semanas, consulta a un profesional. Tu bienestar es mi prioridad.'
-                ]
+                keywords: ['cansancio', 'fatiga', 'agotado', 'sin energía', 'cansado', 'cansada', 'somnoliento'],
+                responses: ['Cansancio detectado. Protocolo: dormir entre 7 y 9 horas por noche, alimentación equilibrada, hidratarte bien y hacer pausas activas. Si el agotamiento es extremo y constante, un médico puede ayudarte a descubrir la causa.',
+                    'Fatiga registrada. Causas frecuentes: falta de sueño, estrés o deshidratación. Descansa hoy y evalúa tus hábitos. Si persiste más de dos semanas, consulta a un profesional.']
             },
             {
                 keywords: ['tos', 'tosiendo', 'tos seca', 'tos con flema', 'carraspera'],
-                responses: [
-                    'Tos registrada. Mi protocolo sugiere: beber líquidos tibios con miel y limón, evitar el aire frío y seco. Si la tos lleva más de 2 semanas, hay sangre o dificultad para respirar, acude a un médico de inmediato.',
-                    'He detectado tos. Para aliviarla: inhala vapor de agua caliente, mantente hidratado. La miel es un excelente calmante natural. Si va acompañada de fiebre alta, consulta a un profesional pronto.'
-                ]
+                responses: ['Tos registrada. Mi protocolo sugiere: beber líquidos tibios con miel y limón, evitar el aire frío y seco. Si la tos lleva más de 2 semanas, hay sangre o dificultad para respirar, acude a un médico.',
+                    'He detectado tos. Para aliviarla: inhala vapor de agua caliente, mantente hidratado. La miel es un excelente calmante natural. Si va acompañada de fiebre alta, consulta pronto.']
             },
             {
-                keywords: ['estómago', 'náuseas', 'vómito', 'diarrea', 'dolor abdominal', 'indigestión', 'gastritis', 'acidez', 'reflujo', 'colitis', 'nausea'],
-                responses: [
-                    'Malestar digestivo detectado. Mi protocolo: dieta blanda, mucha hidratación con agua y suero oral si hay vómito o diarrea. Evita lácteos y grasas. Si el dolor es agudo o los síntomas no ceden en 24 horas, consulta a un médico.',
-                    'He registrado síntomas gastrointestinales. Descansa el estómago unas horas, luego come en pequeñas porciones. El jengibre en infusión puede ayudar con las náuseas. Tu bienestar es mi prioridad.'
-                ]
+                keywords: ['estómago', 'náuseas', 'vómito', 'diarrea', 'dolor abdominal', 'indigestión', 'gastritis', 'acidez', 'reflujo', 'nausea'],
+                responses: ['Malestar digestivo detectado. Dieta blanda, mucha hidratación con agua y suero oral si hay vómito o diarrea. Evita lácteos y grasas. Si el dolor es agudo o los síntomas no ceden en 24 horas, consulta a un médico.',
+                    'Síntomas gastrointestinales registrados. Descansa el estómago unas horas, luego come en pequeñas porciones. El jengibre en infusión puede ayudar con las náuseas.']
             },
             {
-                keywords: ['insomnio', 'no puedo dormir', 'no duermo', 'sueño malo', 'desvelo', 'dificultad para dormir'],
-                responses: [
-                    'Insomnio detectado. Mi protocolo de sueño: mantén un horario fijo para dormir, evita pantallas 1 hora antes de acostarte, no consumas cafeína después de las 2 pm y crea un ambiente oscuro y fresco. Si llevas más de un mes así, un médico puede orientarte.',
-                    'Dificultad para dormir registrada. Prueba la respiración 4-7-8: inhala 4 segundos, aguanta 7, exhala 8. También puedes leer un libro físico antes de dormir. ¿Estás satisfecho con estos consejos?'
-                ]
+                keywords: ['insomnio', 'no puedo dormir', 'no duermo', 'sueño malo', 'desvelo'],
+                responses: ['Insomnio detectado. Protocolo de sueño: mantén un horario fijo, evita pantallas 1 hora antes de acostarte, no consumas cafeína después de las 2pm y crea un ambiente oscuro y fresco. Si lleva más de un mes, un médico puede orientarte.',
+                    'Dificultad para dormir registrada. Prueba la respiración 4-7-8: inhala 4 segundos, aguanta 7, exhala 8. También puedes leer un libro físico antes de dormir.']
             },
             {
                 keywords: ['ansiedad', 'estrés', 'nervioso', 'angustia', 'pánico', 'angustiado', 'estresado', 'ansioso'],
-                responses: [
-                    'Ansiedad detectada. Mi protocolo de calma: respira profundo contando hasta 4, retén 4 segundos y exhala en 6. Repite 5 veces. El ejercicio físico es muy efectivo para reducir el estrés. No estás solo.',
-                    'He registrado niveles elevados de estrés. Caminar 20 minutos al día, limitar las noticias y hablar con alguien de confianza ayudan mucho. Tu salud mental es tan importante como la física.'
-                ]
+                responses: ['Ansiedad detectada. Protocolo de calma: respira profundo contando hasta 4, retén 4 segundos y exhala en 6. Repite 5 veces. El ejercicio físico es muy efectivo para reducir el estrés. No estás solo.',
+                    'Niveles elevados de estrés registrados. Caminar 20 minutos al día, limitar las noticias y hablar con alguien de confianza ayudan mucho. Tu salud mental es tan importante como la física.']
             },
             {
-                keywords: ['resfriado', 'gripe', 'resfrío', 'rinitis', 'nariz tapada', 'congestionado', 'estornudo'],
-                responses: [
-                    'Resfriado o gripe detectado. Mi protocolo: reposo absoluto, mucha hidratación, sopas calientes y vitamina C. Los lavados nasales con suero fisiológico ayudan a descongestionar. Si hay dificultad para respirar, consulta a un médico.',
-                    'Síntomas gripales registrados. Duerme todo lo que puedas, que es cuando tu sistema inmune trabaja mejor. La miel con jengibre es un excelente antigripal natural.'
-                ]
+                keywords: ['resfriado', 'gripe', 'resfrío', 'nariz tapada', 'congestionado', 'estornudo'],
+                responses: ['Resfriado detectado. Protocolo: reposo, mucha hidratación, sopas calientes y vitamina C. Los lavados nasales con suero fisiológico ayudan a descongestionar.',
+                    'Síntomas gripales registrados. Duerme todo lo que puedas, que es cuando tu sistema inmune trabaja mejor.']
             },
             {
                 keywords: ['espalda', 'lumbar', 'cervical', 'columna', 'cuello', 'me duele la espalda'],
-                responses: [
-                    'Dolor de espalda detectado. Mi protocolo: aplica calor local durante 15 minutos, evita permanecer en la misma postura más de 1 hora, y realiza estiramientos suaves. Si el dolor irradia a las piernas, consulta a un médico.',
-                    'He registrado molestia en la espalda. Causas frecuentes: mala postura o sedentarismo. Caminar y nadar son excelentes para la espalda. Si el dolor lleva más de una semana, visita a un médico.'
-                ]
+                responses: ['Dolor de espalda detectado. Protocolo: aplica calor local durante 15 minutos, evita la misma postura más de 1 hora, realiza estiramientos suaves. Si el dolor irradia a las piernas, consulta a un médico.',
+                    'Molestia en la espalda registrada. Causas frecuentes: mala postura o sedentarismo. Caminar y nadar son excelentes para la espalda.']
             },
             {
-                keywords: ['consejo', 'consejos', 'salud', 'bienestar', 'hábitos', 'saludable', 'mejorar', 'ayuda'],
-                responses: [
-                    'Mi protocolo de bienestar general: beber al menos 8 vasos de agua al día, dormir 7 a 9 horas, comer frutas y verduras, hacer 30 minutos de ejercicio moderado 5 veces por semana, y dedicar tiempo a actividades que te hagan feliz.',
-                    'He compilado mis mejores consejos de salud: muévete cada hora si trabajas sentado, reduce el azúcar, socializa con personas que te aporten energía, date 10 minutos de sol al día, y cuida tu salud mental.'
-                ]
-            },
-            {
-                keywords: ['emergencia', 'no puedo respirar', 'dificultad para respirar', 'dolor en el pecho', 'desmayo', 'pérdida de conciencia', 'sangrado abundante', 'convulsión'],
-                urgent: true,
-                responses: [
-                    'Alerta médica. He detectado síntomas de posible emergencia. Por favor llama al 123 o acude de inmediato al servicio de urgencias más cercano. No esperes. Tu vida es lo más importante.',
-                ]
-            },
-            {
-                keywords: ['hola', 'buenos días', 'buenas tardes', 'buenas noches', 'buenas', 'hey', 'saludos', 'qué tal', 'como estas', 'cómo estás'],
-                responses: [
-                    'Hola. Soy Baymax, tu asistente médico personal. Estoy aquí para ayudarte. ¿Cómo te sientes hoy?',
-                    'Buenos días. Soy Baymax. Tu bienestar es mi prioridad. ¿En qué puedo ayudarte?',
-                    'Hola. He activado mis protocolos de atención. Cuéntame, ¿qué síntoma presentas hoy?'
-                ]
-            },
-            {
-                keywords: ['gracias', 'muchas gracias', 'te lo agradezco', 'genial', 'excelente', 'perfecto', 'me ayudaste', 'muy bien'],
-                responses: [
-                    'Me alegra haber sido útil. Cuídate mucho y recuerda mantenerte hidratado. ¿Estás satisfecho con tu cuidado?',
-                    'Es mi función ayudarte. Que tengas un excelente día. Estaré aquí si me necesitas.',
-                    'Tu bienestar es mi prioridad. Ha sido un honor atenderte.'
-                ]
-            },
-            {
-                keywords: ['alergia', 'alérgico', 'alérgica', 'picazón', 'urticaria', 'sarpullido', 'ronchas', 'comezón', 'me pica'],
-                responses: [
-                    'He detectado posible reacción alérgica. Protocolo: evita el agente causante si lo conoces, aplica compresas frías en la zona afectada. Si hay dificultad para respirar o hinchazón en la garganta, acude a urgencias de inmediato.',
-                    'Alergia detectada. Mantente alejado del alérgeno, no te rasques para evitar infecciones. Si los síntomas empeoran o aparece dificultad respiratoria, busca atención médica urgente. Tu bienestar es mi prioridad.',
-                    'Reacción alérgica registrada. Lava bien la zona con agua fría. Si tienes antihistamínico a la mano, puede ayudar. Consulta a un médico si el cuadro es severo o no mejora en pocas horas.'
-                ]
-            },
-            {
-                keywords: ['diabetes', 'azúcar alta', 'glucosa alta', 'insulina', 'diabético', 'hipoglucemia', 'azúcar baja'],
-                responses: [
-                    'He registrado consulta sobre diabetes. Si sientes temblores, sudoración fría o mareo, puede ser hipoglucemia: consume algo dulce de inmediato y descansa. Si tu glucosa está muy alta y tienes sed extrema y orina frecuente, consulta a tu médico.',
-                    'Protocolo de glucosa activado. Para mantener estable el azúcar: come en horarios regulares, evita azúcares simples en exceso, haz ejercicio moderado y sigue el tratamiento indicado por tu médico. No suspendas la insulina sin consultar.',
-                    'Diabetes registrada. Mi recomendación: monitorea tu glucosa regularmente, mantén una dieta equilibrada baja en azúcares procesados y camina al menos 30 minutos al día. Tu médico es tu mejor aliado en este proceso.'
-                ]
-            },
-            {
-                keywords: ['hipertensión', 'presión alta', 'tensión alta', 'presión arterial', 'mareo con presión', 'dolor de cabeza con presión'],
-                responses: [
-                    'He detectado consulta sobre presión arterial alta. Protocolo inmediato: siéntate, respira lento y profundo, evita el esfuerzo físico. Si la presión supera 180 sobre 110 con síntomas, acude a urgencias sin demora.',
-                    'Hipertensión registrada. Para controlarla: reduce la sal, evita el alcohol y el tabaco, haz ejercicio suave regularmente y toma tu medicación si te la han recetado. El estrés también eleva la presión, cuida tu mente.',
-                    'Presión alta detectada. Recuéstate en un lugar tranquilo, respira con calma. No tomes medicación extra sin indicación médica. Si sientes zumbido en los oídos, visión borrosa o dolor en el pecho, llama al 123.'
-                ]
+                keywords: ['presión alta', 'hipertensión', 'tensión alta', 'presión arterial'],
+                responses: ['Presión arterial alta detectada. Protocolo inmediato: siéntate, respira lento y profundo, evita el esfuerzo físico. Si supera 180/110 con síntomas, acude a urgencias sin demora.',
+                    'Hipertensión registrada. Para controlarla: reduce la sal, evita el alcohol y el tabaco, haz ejercicio suave regularmente. El estrés también eleva la presión.']
             },
             {
                 keywords: ['depresión', 'triste', 'tristeza', 'llorar', 'sin ganas', 'vacío', 'no tengo motivación', 'me siento mal emocionalmente'],
-                responses: [
-                    'He detectado malestar emocional. Mi protocolo de apoyo: habla con alguien de confianza hoy, date permiso de sentir lo que sientes. La tristeza es válida. Si los síntomas persisten más de dos semanas, un profesional de salud mental puede ayudarte mucho.',
-                    'Tristeza o depresión registrada. Recuerda que no estás solo. Salir a caminar, tomar el sol y conectar con personas queridas ayuda. La salud emocional es tan importante como la física. Considera hablar con un psicólogo. Tu bienestar es mi prioridad.',
-                    'He registrado tu malestar. Pequeños pasos ayudan: une cosa agradable al día, como escuchar música que te guste, comer algo rico o dar una caminata corta. No te exijas demasiado. Si sientes que no puedes más, busca ayuda profesional hoy.'
-                ]
+                responses: ['He detectado malestar emocional. Habla con alguien de confianza hoy, date permiso de sentir lo que sientes. Si los síntomas persisten más de dos semanas, un profesional de salud mental puede ayudarte mucho.',
+                    'Tristeza detectada. No estás solo. Salir a caminar, tomar el sol y conectar con personas queridas ayuda. La salud emocional es tan importante como la física.']
+            },
+            {
+                keywords: ['alergia', 'alérgico', 'picazón', 'urticaria', 'sarpullido', 'ronchas', 'comezón', 'me pica'],
+                responses: ['Posible reacción alérgica detectada. Evita el agente causante, aplica compresas frías en la zona afectada. Si hay dificultad para respirar o hinchazón en la garganta, acude a urgencias.',
+                    'Alergia registrada. No te rasques para evitar infecciones. Si los síntomas empeoran o aparece dificultad respiratoria, busca atención médica urgente.']
+            },
+            {
+                keywords: ['diabetes', 'azúcar alta', 'glucosa alta', 'insulina', 'diabético', 'hipoglucemia', 'azúcar baja'],
+                responses: ['Consulta sobre glucosa registrada. Si sientes temblores, sudoración fría o mareo, puede ser hipoglucemia: consume algo dulce de inmediato. Si tu glucosa está muy alta con sed extrema, consulta a tu médico.',
+                    'Para mantener estable el azúcar: come en horarios regulares, evita azúcares simples en exceso, haz ejercicio moderado y sigue el tratamiento indicado.']
+            },
+            {
+                keywords: ['mareo', 'mareado', 'vértigo', 'me da vueltas', 'inestable', 'equilibrio'],
+                responses: ['Mareo o vértigo detectado. Siéntate o recuéstate de inmediato para evitar caídas, fija la vista en un punto fijo. Si el vértigo es severo y repentino, consulta a un médico.',
+                    'Mareo registrado. Causas comunes: deshidratación, presión baja, problemas del oído interno. Bebe agua y descansa. Si va con dolor de pecho, llama al 123.']
+            },
+            {
+                keywords: ['dolor de garganta', 'garganta', 'amígdalas', 'angina', 'me duele tragar', 'ronco', 'laringitis'],
+                responses: ['Dolor de garganta detectado. Protocolo: gárgaras de agua tibia con sal, líquidos calientes con miel y limón, evita hablar en exceso. Si hay fiebre alta o dificultad para tragar, visita a un médico.',
+                    'Molestia en la garganta registrada. La miel es un excelente calmante natural. Si las amígdalas tienen manchas blancas y hay fiebre, puede ser una infección bacteriana.']
             },
             {
                 keywords: ['quemadura', 'me quemé', 'quemado', 'ardor en la piel', 'ampolla por calor'],
-                responses: [
-                    'Quemadura detectada. Protocolo inmediato: pon agua fría corriente sobre la zona durante al menos 10 minutos. No uses hielo, crema dental ni mantequilla. Cubre con una gasa limpia. Si la quemadura es extensa o muy profunda, acude a urgencias.',
-                    'He registrado quemadura. Enfría la zona con agua fría, no helada, por 10 minutos. No revientes ampollas. Si la piel está muy dañada o el dolor es insoportable, busca atención médica. Tu bienestar es mi prioridad.'
-                ]
+                responses: ['Quemadura detectada. Protocolo inmediato: pon agua fría corriente sobre la zona durante al menos 10 minutos. No uses hielo, crema dental ni mantequilla. Cubre con gasa limpia. Si es extensa, acude a urgencias.',
+                    'Quemadura registrada. Enfría con agua fría por 10 minutos. No revientes ampollas. Si la piel está muy dañada o el dolor es insoportable, busca atención médica.']
             },
             {
-                keywords: ['herida', 'cortada', 'cortadura', 'sangre', 'sangrado', 'me corté', 'raspón', 'golpe', 'moretón'],
-                responses: [
-                    'Herida detectada. Protocolo: lava bien con agua y jabón, aplica presión con un paño limpio para detener el sangrado. Desinfecta y cubre. Si el corte es profundo, no cierra o el sangrado no cede en 10 minutos, acude a urgencias.',
-                    'He registrado lesión. Limpia la herida con agua limpia, aplica antiséptico y cubre con un apósito. Si hay objetos incrustados, no los retires tú mismo. Para golpes con moretón, aplica hielo envuelto en tela durante 15 minutos.'
-                ]
+                keywords: ['herida', 'cortada', 'cortadura', 'sangre', 'sangrado', 'me corté', 'raspón', 'golpe'],
+                responses: ['Herida detectada. Lava con agua y jabón, aplica presión con un paño limpio para detener el sangrado. Si el corte es profundo o el sangrado no cede en 10 minutos, acude a urgencias.',
+                    'Lesión registrada. Limpia con agua, aplica antiséptico y cubre. Para golpes con moretón, aplica hielo envuelto en tela durante 15 minutos.']
             },
             {
-                keywords: ['mareo', 'mareado', 'vértigo', 'me da vueltas', 'inestable', 'me caigo', 'equilibrio'],
-                responses: [
-                    'Mareo o vértigo detectado. Protocolo: siéntate o recuéstate de inmediato para evitar caídas, fija la vista en un punto fijo. Hidratarte puede ayudar si es por calor o deshidratación. Si el vértigo es severo y repentino, consulta a un médico.',
-                    'He registrado mareo. Causas comunes: deshidratación, presión baja, problemas del oído interno o estrés. Bebe agua, descansa y evita movimientos bruscos. Si va acompañado de dolor de pecho o pérdida de conciencia, llama al 123.'
-                ]
+                keywords: ['consejos', 'consejo', 'salud', 'bienestar', 'hábitos', 'saludable'],
+                responses: ['Protocolo de bienestar: beber al menos 8 vasos de agua al día, dormir 7 a 9 horas, comer frutas y verduras, hacer 30 minutos de ejercicio moderado 5 veces por semana.',
+                    'Mis mejores consejos: muévete cada hora si trabajas sentado, reduce el azúcar, date 10 minutos de sol al día, y cuida tu salud mental.']
             },
             {
-                keywords: ['dolor de garganta', 'garganta', 'amígdalas', 'angina', 'me duele tragar', 'ronco', 'ronquera', 'laringitis'],
-                responses: [
-                    'Dolor de garganta detectado. Mi protocolo: haz gárgaras de agua tibia con sal, bebe líquidos calientes con miel y limón, evita hablar en exceso. Si hay fiebre alta o dificultad para tragar, visita a un médico.',
-                    'Molestia en la garganta registrada. La miel es un excelente calmante natural. Evita el frío, los helados y hablar a gritos. Si las amígdalas tienen manchas blancas y tienes fiebre, puede ser una infección bacteriana que requiere antibióticos.'
-                ]
+                keywords: ['emergencia', 'no puedo respirar', 'dificultad para respirar', 'dolor en el pecho', 'desmayo', 'convulsión'],
+                urgent: true,
+                responses: ['⚠️ Alerta médica. He detectado síntomas de posible emergencia. Por favor llama al 123 o acude de inmediato al servicio de urgencias más cercano. No esperes. Tu vida es lo más importante.']
             },
             {
-                keywords: ['dolor de muelas', 'muela', 'diente', 'dentista', 'encía', 'boca', 'caries'],
-                responses: [
-                    'Dolor dental detectado. Protocolo de alivio temporal: aplica hielo en la mejilla, evita alimentos muy fríos, calientes o dulces. El clavo de olor tiene propiedades anestésicas naturales. Este dolor requiere atención de un dentista lo antes posible.',
-                    'He registrado dolor de muela. Como medida temporal puedes enjuagarte con agua tibia y sal. No ignores este síntoma, puede empeorar. Agenda una cita con tu dentista pronto. Tu bienestar es mi prioridad.'
-                ]
+                keywords: ['hola', 'buenos días', 'buenas tardes', 'buenas noches', 'buenas', 'hey', 'saludos', 'cómo estás', 'como estas'],
+                responses: ['Hola. Soy Beymax, tu asistente médico personal. Estoy aquí para ayudarte. ¿Cómo te sientes hoy?',
+                    'Buenos días. Soy Baymax. Tu bienestar es mi prioridad. ¿En qué puedo ayudarte?']
             },
             {
-                keywords: ['ojo', 'ojos', 'me arden los ojos', 'conjuntivitis', 'ojo rojo', 'lagrimeo', 'visión borrosa', 'me pica el ojo'],
-                responses: [
-                    'Molestia ocular detectada. Protocolo: no te frotes los ojos, lava con agua limpia o suero fisiológico. Si hay secreción amarilla o verdosa puede ser conjuntivitis, consulta a un médico. No compartas toallas ni almohadas.',
-                    'He registrado irritación ocular. Descansa los ojos de pantallas, usa lágrimas artificiales si tienes. Si la visión está borrosa o hay dolor intenso, acude al médico sin demora. Tu visión es muy importante.'
-                ]
+                keywords: ['gracias', 'muchas gracias', 'te lo agradezco', 'genial', 'excelente', 'me ayudaste'],
+                responses: ['Me alegra haber sido útil. Cuídate mucho y recuerda mantenerte hidratado. ¿Estás satisfecho con tu cuidado?',
+                    'Es mi función ayudarte. Que tengas un excelente día.']
             },
             {
-                keywords: ['oído', 'oídos', 'me duele el oído', 'zumbido', 'tinnitus', 'no escucho bien', 'tapado el oído'],
-                responses: [
-                    'Molestia auditiva detectada. Si sientes el oído tapado, inclina la cabeza y jala suavemente el lóbulo. No introduzcas objetos en el canal auditivo. Si hay dolor intenso, secreción o fiebre, visita a un médico otorrinolaringólogo.',
-                    'He registrado problema en el oído. El zumbido persistente puede indicar tensión, presión alta u otras causas. Evita ruidos fuertes y descansa. Si el zumbido no cede en días, consulta a un especialista. Tu bienestar es mi prioridad.'
-                ]
+                keywords: ['qué eres', 'quién eres', 'cómo te llamas', 'eres baymax', 'cuéntame de ti'],
+                responses: ['Soy Beymax, tu asistente personal de salud. Estoy programado con protocolos médicos para orientarte en situaciones cotidianas. Tu bienestar es mi única prioridad.',
+                    'Me llamo Baymax. Soy un asistente médico. Puedo ayudarte con síntomas comunes, signos vitales, recordatorios de medicamentos y consejos de salud.']
             },
             {
-                keywords: ['embarazo', 'embarazada', 'gestante', 'prenatal', 'náuseas de embarazo', 'contracciones'],
-                responses: [
-                    'He detectado consulta de embarazo. Durante el embarazo es fundamental: tomar ácido fólico, asistir a todos los controles prenatales, dormir bien, hidratarse y evitar alcohol, tabaco y medicamentos sin prescripción médica.',
-                    'Consulta prenatal registrada. Las náuseas del primer trimestre son comunes: come poco y frecuente, evita olores fuertes. Si tienes contracciones antes de la semana 37 o sangrado vaginal, acude a urgencias de inmediato.'
-                ]
-            },
-            {
-                keywords: ['pastilla', 'medicamento', 'medicina', 'antibiótico', 'dosis', 'pastillas', 'píldora', 'jarabe'],
-                responses: [
-                    'Consulta sobre medicamentos registrada. Mi protocolo: nunca tomes antibióticos sin prescripción médica, no interrumpas el tratamiento antes de tiempo y respeta siempre las dosis indicadas. Los medicamentos deben estar en un lugar fresco y seco.',
-                    'He procesado tu consulta sobre medicación. No mezcles medicamentos sin consultar a tu médico o farmacéutico. Si olvidaste una dosis, no dobles la siguiente. Tu seguridad es mi prioridad.'
-                ]
-            },
-            {
-                keywords: ['nutrición', 'dieta', 'bajar de peso', 'adelgazar', 'comer sano', 'alimentación', 'vitaminas', 'proteínas'],
-                responses: [
-                    'Consulta nutricional registrada. Mi protocolo de alimentación saludable: come 5 porciones de frutas y verduras al día, prefiere granos enteros, limita azúcares y grasas procesadas, y no te saltes el desayuno. La hidratación es clave.',
-                    'He registrado tu consulta de nutrición. Para bajar de peso de forma segura: déficit calórico moderado, más movimiento, menos azúcar y ultraprocesados. No hagas dietas extremas sin supervisión médica. Los cambios lentos son los más duraderos.',
-                    'Protocolo nutricional activado. Las vitaminas esenciales se obtienen mejor de alimentos reales que de suplementos. Varía tu dieta con colores: cada color en frutas y verduras indica diferentes nutrientes que tu cuerpo necesita.'
-                ]
-            },
-            {
-                keywords: ['ejercicio', 'deporte', 'actividad física', 'gym', 'gimnasio', 'correr', 'entrenamiento', 'musculación'],
-                responses: [
-                    'Consulta de actividad física registrada. Mi protocolo: calienta siempre antes de ejercitarte, empieza progresivamente si eres principiante, hidratarte bien antes, durante y después. El descanso es parte del entrenamiento.',
-                    'He detectado interés en ejercicio. Para empezar sin lesiones: 30 minutos de caminata rápida 5 días a la semana es suficiente para mejorar tu salud. Escucha a tu cuerpo y no ignores el dolor articular durante el ejercicio.',
-                    'Protocolo de movimiento activado. Combina ejercicio cardiovascular con fuerza para mejores resultados. Dormir bien es igual de importante que entrenar. Tu cuerpo se repara y mejora mientras descansas.'
-                ]
-            },
-            {
-                keywords: ['sangre en la orina', 'ardor al orinar', 'infección urinaria', 'orina', 'cistitis', 'frecuencia urinaria'],
-                responses: [
-                    'He detectado posible infección urinaria. Protocolo: bebe mucha agua, orina frecuentemente y no retengas. Evita el café y el alcohol. Las infecciones urinarias requieren antibióticos recetados por un médico, no esperes demasiado.',
-                    'Molestia urinaria registrada. Si hay ardor, frecuencia o sangre al orinar, consulta a un médico pronto. Mientras tanto, hidrátate mucho y evita irritantes. El jugo de arándano puede ayudar como medida complementaria.'
-                ]
-            },
-            {
-                keywords: ['qué eres', 'quién eres', 'cómo te llamas', 'eres un robot', 'eres baymax', 'cuéntame de ti', 'cuéntame sobre ti'],
-                responses: [
-                    'Soy Baymax, tu asistente personal de salud. Fui creado para cuidarte. Estoy programado con protocolos médicos para orientarte en situaciones de salud cotidianas. Tu bienestar es mi única prioridad.',
-                    'Me llamo Baymax. Soy un asistente médico de vinilo. Puedo ayudarte con síntomas comunes, consejos de salud y primeros auxilios básicos. Recuerda que no reemplazo a un médico real, pero estoy siempre aquí para ti.'
-                ]
-            },
-            {
-                keywords: ['no me siento bien', 'me siento mal', 'me encuentro mal', 'me siento raro', 'algo me pasa', 'no estoy bien'],
-                responses: [
-                    'He detectado que no te sientes bien. Cuéntame más: ¿tienes dolor, fiebre, mareo o algún otro síntoma? Mientras más detalles me des, mejor podré orientarte. Tu bienestar es mi prioridad.',
-                    'Malestar general registrado. ¿Puedes describir qué sientes exactamente? ¿Es físico, emocional, o ambos? Estoy aquí para escucharte y ayudarte en lo que pueda.',
-                    'Lo siento. Vamos a resolver esto juntos. Descríbeme tu síntoma principal y activaré el protocolo de atención adecuado.'
-                ]
+                keywords: ['no me siento bien', 'me siento mal', 'me encuentro mal', 'algo me pasa', 'no estoy bien'],
+                responses: ['He detectado que no te sientes bien. ¿Tienes dolor, fiebre, mareo o algún otro síntoma? Cuéntame más detalles. Tu bienestar es mi prioridad.',
+                    'Malestar general registrado. ¿Puedes describir qué sientes exactamente? Estoy aquí para escucharte.']
             }
         ];
 
         const SCAN_RESPONSES = [
-            'Escaneo de bienestar completado. Mis recomendaciones para hoy: uno, toma al menos 8 vasos de agua. Dos, realiza 30 minutos de movimiento. Tres, come al menos una fruta y una verdura. Cuatro, duerme entre 7 y 9 horas esta noche. ¿Estás satisfecho con tu atención médica?',
-            'Protocolo de bienestar activado. Para optimizar tu salud hoy: hidratate bien, muévete un poco, come con calma y sonríe al menos una vez. La salud es un hábito, no un destino. Tu bienestar es mi prioridad.',
-            'Escaneo completado. Estado general: en evaluación. Recomendaciones: descansa lo suficiente, come de forma equilibrada, evita el estrés innecesario y recuerda que pedir ayuda es señal de inteligencia, no de debilidad.',
+            'Escaneo de bienestar completado. Mis recomendaciones: uno, toma al menos 8 vasos de agua. Dos, realiza 30 minutos de movimiento. Tres, duerme entre 7 y 9 horas esta noche.',
+            'Protocolo de bienestar activado. Hidratate bien, muévete un poco, come con calma y sonríe al menos una vez. La salud es un hábito. Tu bienestar es mi prioridad.',
+            'Escaneo completado. Recomendaciones: descansa lo suficiente, come de forma equilibrada, y recuerda que pedir ayuda es señal de inteligencia.'
         ];
-
         const DEFAULT_RESPONSES = [
-            'He procesado tu consulta. No tengo información específica sobre ese tema, pero si tienes un síntoma persistente o preocupante, consulta siempre a un médico. ¿Puedes describir mejor cómo te sientes?',
-            'Para brindarte la mejor atención, ¿podrías ser más específico sobre tus síntomas? Cuéntame qué sientes y activaré el protocolo adecuado. Tu bienestar es mi prioridad.',
-            'He recibido tu mensaje. No cuento con información exacta sobre eso en mis protocolos, pero te recomiendo consultar a un profesional de la salud si el malestar persiste. ¿Hay algo más que pueda ayudarte?',
+            'He procesado tu consulta. No tengo información específica sobre ese tema, pero si tienes un síntoma persistente, consulta siempre a un médico. ¿Puedes describir mejor cómo te sientes?',
+            'Para brindarte la mejor atención, ¿podrías ser más específico sobre tus síntomas? Cuéntame qué sientes.',
+            'He recibido tu mensaje. Te recomiendo consultar a un profesional de la salud si el malestar persiste. ¿Hay algo más en que pueda ayudarte?'
         ];
-
-        /* ── Frases de activación ── */
-        const WAKE_WORDS = ['ay', 'ayy', 'auch', 'ouch', 'me duele', 'me duele', 'auxilio', 'ay dios', 'ayuda', 'ow', 'aye'];
-        /* ── Frases de desactivación ── */
+        const WAKE_WORDS = ['ay', 'ayy', 'auch', 'ouch', 'me duele', 'auxilio', 'ay dios', 'ayuda', 'ow'];
         const SLEEP_WORDS = ['estoy satisfecho con mi cuidado', 'satisfecho con mi cuidado', 'gracias baymax adios', 'desactívate', 'apágate'];
+        const PAIN_LABELS = ['Sin dolor 😊', 'Muy leve 🙂', 'Leve 😐', 'Leve-moderado 😕', 'Moderado 😟', 'Moderado-severo 😣', 'Severo 😖', 'Muy severo 😫', 'Intenso 😰', 'Casi insoportable 😱', 'Insoportable 🤯'];
 
-        /* ══════════════════════════════════════════════════════
-           ESTADO GLOBAL
-        ══════════════════════════════════════════════════════ */
-        let appState = 'sleeping';   // sleeping | standby | listening | speaking | responding
-        let recognition = null;
-        let micActive = false;
-        let busy = false;
-        let speechSynth = window.speechSynthesis;
-        let rcCounters = {};
-        let continuousListening = false;
+        /* ── ESTADO GLOBAL ── */
+        let appState = 'sleeping', recognition = null, micActive = false, busy = false;
+        let speechSynth = window.speechSynthesis, rcCounters = {}, continuousListening = false;
+        let cachedVoices = [], selectedVoiceIndex = -1;
+        let voiceRate = 0.80, voicePitch = 0.65;
 
         const appEl = document.getElementById('app');
         const head = document.getElementById('baymaxHead');
@@ -1269,47 +2417,33 @@
         const micLabel = document.getElementById('micLabel');
         const inputEl = document.getElementById('chatInput');
 
-        /* ══════════════════════════════════════════════════════
-           UTILIDADES UI
-        ══════════════════════════════════════════════════════ */
+        /* ── UI ── */
         function setAppState(state) {
             appState = state;
             appEl.className = 'app';
             statusChip.className = 'status-chip';
-
             if (state === 'sleeping') {
-                appEl.classList.add('sleeping');
-                statusChip.classList.add('state-sleeping');
-                statusLabel.textContent = 'Esperando activación...';
+                appEl.classList.add('sleeping'); statusChip.classList.add('state-sleeping');
+                statusLabel.textContent = 'Esperando activación…';
                 if (!micActive) micLabel.textContent = 'ACTIVAR MICRÓFONO';
-                transcriptEl.textContent = '🎤 Puedes contarme tus sintomas';
+                transcriptEl.textContent = '🎤 Puedes contarme tus síntomas';
             } else if (state === 'standby') {
-                statusChip.classList.add('state-standby');
-                statusLabel.textContent = 'Baymax activo — escuchando';
-                micLabel.textContent = 'ESCUCHANDO';
-                transcriptEl.textContent = '🎤 Escuchando... habla con Baymax';
+                statusChip.classList.add('state-standby'); statusLabel.textContent = 'Baymax activo — escuchando';
+                micLabel.textContent = 'ESCUCHANDO'; transcriptEl.textContent = '🎤 Escuchando… habla con Baymax';
             } else if (state === 'listening') {
-                appEl.classList.add('listening');
-                statusChip.classList.add('state-listening');
-                statusLabel.textContent = 'Procesando tu voz...';
-                micLabel.textContent = 'ESCUCHANDO';
+                appEl.classList.add('listening'); statusChip.classList.add('state-listening');
+                statusLabel.textContent = 'Procesando tu voz…'; micLabel.textContent = 'ESCUCHANDO';
             } else if (state === 'speaking') {
-                appEl.classList.add('speaking');
-                statusChip.classList.add('state-speaking');
-                statusLabel.textContent = 'Baymax hablando...';
-                head.classList.add('talking');
+                appEl.classList.add('speaking'); statusChip.classList.add('state-speaking');
+                statusLabel.textContent = 'Baymax hablando…'; head.classList.add('talking');
             } else if (state === 'responding') {
-                statusChip.classList.add('state-standby');
-                statusLabel.textContent = 'Procesando...';
+                statusChip.classList.add('state-standby'); statusLabel.textContent = 'Procesando…';
                 head.classList.remove('talking');
             }
-
             if (state !== 'speaking') head.classList.remove('talking');
         }
 
-        function showTyping() {
-            speechEl.innerHTML = `<div class="typing-dots"><div class="dot"></div><div class="dot"></div><div class="dot"></div></div>`;
-        }
+        function showTyping() { speechEl.innerHTML = `<div class="typing-dots"><div class="dot"></div><div class="dot"></div><div class="dot"></div></div>`; }
 
         function showReply(text) {
             speechEl.textContent = text;
@@ -1317,12 +2451,8 @@
             setTimeout(() => head.classList.remove('happy'), 600);
         }
 
-        /* ══════════════════════════════════════════════════════
-           MOTOR DE RESPUESTAS
-        ══════════════════════════════════════════════════════ */
-        function normalize(str) {
-            return str.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
-        }
+        /* ── RESPUESTAS ── */
+        function normalize(s) { return s.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, ''); }
 
         function findResponse(input) {
             const n = normalize(input);
@@ -1333,322 +2463,168 @@
                         if (!rcCounters[key]) rcCounters[key] = 0;
                         const r = entry.responses[rcCounters[key] % entry.responses.length];
                         rcCounters[key]++;
+                        if (entry.urgent) { appEl.classList.add('emergency-state'); setTimeout(() => appEl.classList.remove('emergency-state'), 5000); }
                         return r;
                     }
                 }
             }
             if (!rcCounters['_def']) rcCounters['_def'] = 0;
             const r = DEFAULT_RESPONSES[rcCounters['_def'] % DEFAULT_RESPONSES.length];
-            rcCounters['_def']++;
-            return r;
+            rcCounters['_def']++; return r;
         }
 
-        function isWakeWord(text) {
-            const n = normalize(text);
-            return WAKE_WORDS.some(w => n.includes(normalize(w)));
-        }
+        function isWakeWord(t) { const n = normalize(t); return WAKE_WORDS.some(w => n.includes(normalize(w))); }
+        function isSleepWord(t) { const n = normalize(t); return SLEEP_WORDS.some(w => n.includes(normalize(w))); }
 
-        function isSleepWord(text) {
-            const n = normalize(text);
-            return SLEEP_WORDS.some(w => n.includes(normalize(w)));
-        }
+        /* ── TTS ── */
+        function loadVoices() { cachedVoices = speechSynth.getVoices(); }
+        speechSynth.addEventListener('voiceschanged', loadVoices); loadVoices();
 
-        /* ══════════════════════════════════════════════════════
-           TEXT-TO-SPEECH
-        ══════════════════════════════════════════════════════ */
-        // Lista de voces cargadas globalmente para evitar el bug de lista vacía
-        let cachedVoices = [];
-        function loadVoices() {
-            cachedVoices = speechSynth.getVoices();
-        }
-        speechSynth.addEventListener('voiceschanged', loadVoices);
-        loadVoices();
-
-        /**
-         * Selecciona la mejor voz en ESPAÑOL disponible en el navegador.
-         * Prioridad:
-         *   1. Voces masculinas conocidas en es-* (Google/Microsoft)
-         *   2. Cualquier voz con lang es-* (cualquier variante de español)
-         *   3. null → el navegador usa su voz por defecto, pero lang='es-ES' la fuerza al español
-         */
         function getBaymaxVoice() {
             const voices = cachedVoices.length ? cachedVoices : speechSynth.getVoices();
-
-            // --- PASO 1: Voces masculinas populares en español ---
-            // Nombres que aparecen en Chrome/Edge/Firefox/Safari
-            const MALE_ES_NAMES = [
-                'google español',
-                'google español de estados unidos',
-                'microsoft pablo',
-                'microsoft jorge',
-                'microsoft raul',
-                'diego',          // macOS
-                'juan',           // iOS/macOS
-                'carlos',
-                'angel',
-                'andres',
-            ];
-            for (const name of MALE_ES_NAMES) {
-                const v = voices.find(v =>
-                    v.lang.startsWith('es') &&
-                    v.name.toLowerCase().includes(name)
-                );
-                if (v) return v;
-            }
-
-            // --- PASO 2: Cualquier voz masculina con lang es-* ---
-            const maleEs = voices.find(v =>
-                v.lang.startsWith('es') &&
-                /male|masc|hombre|man/i.test(v.name)
-            );
-            if (maleEs) return maleEs;
-
-            // --- PASO 3: Cualquier voz en español (incluye femeninas) ---
-            // Preferir es-419 (Latinoamérica) o es-MX antes que es-ES si el usuario está en LATAM
-            const latinaVoice = voices.find(v =>
-                v.lang === 'es-419' || v.lang === 'es-MX' || v.lang === 'es-CO' ||
-                v.lang === 'es-AR' || v.lang === 'es-US'
-            );
-            if (latinaVoice) return latinaVoice;
-
-            const anyEs = voices.find(v => v.lang.startsWith('es'));
-            if (anyEs) return anyEs;
-
-            // --- PASO 4: Ninguna voz en español encontrada ---
-            // Retornamos null; lang='es-ES' en el utterance pedirá al SO que sintetice en español
-            return null;
+            if (selectedVoiceIndex >= 0 && voices[selectedVoiceIndex]) return voices[selectedVoiceIndex];
+            const MALE = ['google español', 'google español de estados unidos', 'microsoft pablo', 'microsoft jorge', 'microsoft raul', 'diego', 'juan', 'carlos', 'angel', 'andres'];
+            for (const nm of MALE) { const v = voices.find(v => v.lang.startsWith('es') && v.name.toLowerCase().includes(nm)); if (v) return v; }
+            const maleEs = voices.find(v => v.lang.startsWith('es') && /male|masc|hombre/i.test(v.name)); if (maleEs) return maleEs;
+            const latina = voices.find(v => ['es-419', 'es-MX', 'es-CO', 'es-AR', 'es-US'].includes(v.lang)); if (latina) return latina;
+            return voices.find(v => v.lang.startsWith('es')) || null;
         }
 
         function speak(text, onEnd) {
             speechSynth.cancel();
             const utt = new SpeechSynthesisUtterance(text);
-
-            // SIEMPRE español, sin excepción
-            utt.lang = 'es-ES';
-            utt.rate = 0.80;   // Pausado y calmo como Baymax
-            utt.pitch = 0.65;   // Grave y robótico
-            utt.volume = 1;
-
+            utt.lang = 'es-ES'; utt.rate = voiceRate; utt.pitch = voicePitch; utt.volume = 1;
             const voice = getBaymaxVoice();
-            if (voice) {
-                utt.voice = voice;
-                // Sincronizar lang con el de la voz seleccionada para evitar conflictos
-                utt.lang = voice.lang;
-            }
-
+            if (voice) { utt.voice = voice; utt.lang = voice.lang; }
             utt.onstart = () => setAppState('speaking');
             utt.onend = () => { if (onEnd) onEnd(); };
-            utt.onerror = (e) => { console.warn('TTS error:', e.error); if (onEnd) onEnd(); };
+            utt.onerror = (e) => { console.warn('TTS:', e.error); if (onEnd) onEnd(); };
             speechSynth.speak(utt);
         }
 
-        /* ══════════════════════════════════════════════════════
-           RESPONDER (100% local, sin API externa — gratuito)
-        ══════════════════════════════════════════════════════ */
+        /* ── RESPOND ── */
         function respond(input, fromVoice = false) {
-            if (busy) return;
-            busy = true;
-
-            setAppState('responding');
-            showTyping();
+            if (busy) return; busy = true;
+            setAppState('responding'); showTyping();
             transcriptEl.textContent = fromVoice ? `🎤 "${input}"` : `💬 "${input}"`;
-
+            addToHistory(input, 'user');
             const delay = 500 + Math.random() * 400;
             setTimeout(() => {
                 const reply = findResponse(input);
-                showReply(reply);
+                showReply(reply); addToHistory(reply, 'bot');
                 speak(reply, () => {
                     busy = false;
-                    if (continuousListening && appState !== 'sleeping') {
-                        setAppState('standby');
-                        restartRecognition();
-                    } else {
-                        setAppState('standby');
-                    }
+                    setAppState('standby');
+                    if (continuousListening && appState !== 'sleeping') restartRecognition();
                 });
             }, delay);
         }
 
-        /* ══════════════════════════════════════════════════════
-           ACTIVAR / DESACTIVAR BAYMAX
-        ══════════════════════════════════════════════════════ */
-        function activateBaymax(trigger) {
+        /* ── ACTIVAR / DESACTIVAR ── */
+        function activateBaymax() {
             setAppState('standby');
-            const greeting = `Hola. Soy Beymax, tu asistente medico personal.. He detectado que necesitas atención. ¿Qué síntoma tienes?`;
-            showReply(greeting);
-            speak(greeting, () => {
-                busy = false;
-                setAppState('standby');
-                if (continuousListening) restartRecognition();
-            });
+            const g = 'Hola. Soy Beymax, tu asistente médico personal. He detectado que necesitas atención. ¿Qué síntoma tienes?';
+            showReply(g); addToHistory(g, 'bot');
+            speak(g, () => { busy = false; setAppState('standby'); if (continuousListening) restartRecognition(); });
         }
 
         function deactivateBaymax() {
             speechSynth.cancel();
             const bye = 'Tu cuidado ha sido mi honor. Hasta pronto. Llámame cuando me necesites.';
-            showReply(bye);
+            showReply(bye); addToHistory(bye, 'bot');
             speak(bye, () => {
-                busy = false;
-                setAppState('sleeping');
-                speechEl.innerHTML = 'Puedes <strong>contarme</strong>, <strong>tus</strong>sintomas<br/>Di <strong>"estoy satisfecho con mi cuidado"</strong> para desactivarme.';
-                transcriptEl.textContent = '🎤 Baymax en espera...';
+                busy = false; setAppState('sleeping');
+                speechEl.innerHTML = 'Puedes <strong>contarme</strong> tus <strong>síntomas</strong><br/>Di <strong>"estoy satisfecho con mi cuidado"</strong> para desactivarme.';
+                transcriptEl.textContent = '🎤 Baymax en espera…';
             });
         }
 
-        /* ══════════════════════════════════════════════════════
-           SPEECH RECOGNITION
-        ══════════════════════════════════════════════════════ */
+        /* ── SPEECH RECOGNITION ── */
         const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
         let recognizing = false;
 
         function buildRecognition() {
             if (!SpeechRecognition) return null;
             const r = new SpeechRecognition();
-            r.lang = 'es-ES';
-            r.continuous = false;
-            r.interimResults = true;
-            r.maxAlternatives = 3;
-
-            r.onstart = () => {
-                recognizing = true;
-                setAppState('listening');
-            };
-
+            r.lang = 'es-ES'; r.continuous = false; r.interimResults = true; r.maxAlternatives = 3;
+            r.onstart = () => { recognizing = true; setAppState('listening'); };
             r.onresult = (e) => {
                 let interim = '', final = '';
                 for (let i = e.resultIndex; i < e.results.length; i++) {
                     const t = e.results[i][0].transcript;
-                    if (e.results[i].isFinal) final += t;
-                    else interim += t;
+                    if (e.results[i].isFinal) final += t; else interim += t;
                 }
-
                 const display = final || interim;
                 transcriptEl.textContent = `🎤 "${display}"`;
-
                 if (final) {
                     const text = final.trim().toLowerCase();
-
-                    // Desactivación
-                    if (isSleepWord(text)) {
-                        deactivateBaymax();
-                        return;
-                    }
-
-                    // Activación desde modo dormido con wake word
-                    if (appState === 'sleeping') {
-                        if (isWakeWord(text)) {
-                            activateBaymax(text);
-                        }
-                        // Si duerme y no es wake word, ignorar
-                        return;
-                    }
-
-                    // Baymax activo: responder cualquier mensaje de voz
-                    if (appState === 'standby' || appState === 'listening') {
-                        respond(text, true);
-                        return;
-                    }
+                    if (isSleepWord(text)) { deactivateBaymax(); return; }
+                    if (appState === 'sleeping') { if (isWakeWord(text)) activateBaymax(); return; }
+                    if (appState === 'standby' || appState === 'listening') { respond(text, true); }
                 }
             };
-
             r.onerror = (e) => {
                 recognizing = false;
                 if (e.error === 'no-speech' || e.error === 'aborted') {
                     if (continuousListening && micActive) setTimeout(restartRecognition, 500);
                 } else {
-                    transcriptEl.textContent = `⚠️ Error de micrófono: ${e.error}. Verifica los permisos.`;
-                    micActive = false;
-                    continuousListening = false;
+                    transcriptEl.textContent = `⚠️ Error: ${e.error}. Verifica permisos.`;
+                    micActive = false; continuousListening = false;
                     micLabel.textContent = 'ACTIVAR MICRÓFONO';
                 }
             };
-
             r.onend = () => {
                 recognizing = false;
-                if (continuousListening && micActive && appState !== 'speaking' && appState !== 'responding' && !busy) {
+                if (continuousListening && micActive && appState !== 'speaking' && appState !== 'responding' && !busy)
                     setTimeout(restartRecognition, 300);
-                }
             };
-
             return r;
         }
 
         function restartRecognition() {
             if (!micActive || recognizing || busy || appState === 'speaking' || appState === 'responding') return;
             if (!recognition) recognition = buildRecognition();
-            try { recognition.start(); } catch (e) { /* ya iniciado */ }
+            try { recognition.start(); } catch (e) { }
         }
 
-        /* ══════════════════════════════════════════════════════
-           TOGGLE MICRÓFONO
-        ══════════════════════════════════════════════════════ */
         function toggleMic() {
-            if (!SpeechRecognition) {
-                transcriptEl.textContent = '⚠️ Tu navegador no soporta reconocimiento de voz. Usa Chrome o Edge.';
-                return;
-            }
-
+            if (!SpeechRecognition) { transcriptEl.textContent = '⚠️ Tu navegador no soporta voz. Usa Chrome o Edge.'; return; }
             if (micActive) {
-                // Apagar mic
-                micActive = false;
-                continuousListening = false;
+                micActive = false; continuousListening = false;
                 if (recognition) { try { recognition.stop(); } catch (e) { } }
                 micLabel.textContent = 'ACTIVAR MICRÓFONO';
                 if (appState !== 'speaking') setAppState('sleeping');
                 transcriptEl.textContent = '🎤 Micrófono apagado';
-                showReply('Puedes contarme tus sintomas. Di "Estoy satisfecho con mi cuidado" para desactivarme.');
+                showReply('Puedes escribir tus síntomas. Di "Estoy satisfecho con mi cuidado" para desactivarme.');
                 return;
             }
-
-            // Encender mic
-            micActive = true;
-            continuousListening = true;
+            micActive = true; continuousListening = true;
             recognition = buildRecognition();
             micLabel.textContent = 'APAGAR MICRÓFONO';
-            transcriptEl.textContent = '🎤 Micrófono activo — Puedes contarme tus sintomas';
-
-            if (appState === 'sleeping') {
-                speechEl.innerHTML = 'Micrófono activo. Di <strong>"ay"</strong> o <strong>"auch"</strong> para activarme.';
-            }
-
-            try { recognition.start(); }
-            catch (e) { transcriptEl.textContent = '⚠️ No se pudo iniciar el micrófono. Verifica los permisos del navegador.'; }
+            transcriptEl.textContent = '🎤 Micrófono activo';
+            if (appState === 'sleeping') speechEl.innerHTML = 'Micrófono activo. Di <strong>"ay"</strong> o <strong>"auch"</strong> para activarme.';
+            try { recognition.start(); } catch (e) { transcriptEl.textContent = '⚠️ No se pudo iniciar. Verifica permisos.'; }
         }
 
-        /* ══════════════════════════════════════════════════════
-           ACCIONES MANUALES
-        ══════════════════════════════════════════════════════ */
+        /* ── ACCIONES MANUALES ── */
         function manualActivate(symptom) {
             if (busy) return;
             if (appState === 'sleeping') {
-                // Activar primero con saludo, luego responder el síntoma
-                busy = true;
-                setAppState('standby');
-                const greeting = 'Hola. Soy Beymax, tu asistente medico personal. He detectado que necesitas atención.';
-                showReply(greeting);
-                speak(greeting, () => {
-                    busy = false;
-                    respond(symptom, false);
-                });
-            } else {
-                respond(symptom, false);
-            }
+                busy = true; setAppState('standby');
+                const g = 'Hola. Soy Beymax. He detectado que necesitas atención.';
+                showReply(g); addToHistory(g, 'bot');
+                speak(g, () => { busy = false; respond(symptom, false); });
+            } else { respond(symptom, false); }
         }
 
         function scanHealth() {
-            if (busy) return;
-            busy = true;
+            if (busy) return; busy = true;
             if (appState === 'sleeping') setAppState('standby');
-            setAppState('responding');
-            showTyping();
+            setAppState('responding'); showTyping();
             setTimeout(() => {
                 const r = SCAN_RESPONSES[Math.floor(Math.random() * SCAN_RESPONSES.length)];
-                showReply(r);
-                speak(r, () => {
-                    busy = false;
-                    setAppState('standby');
-                    if (continuousListening) restartRecognition();
-                });
+                showReply(r); addToHistory(r, 'bot');
+                speak(r, () => { busy = false; setAppState('standby'); if (continuousListening) restartRecognition(); });
             }, 800);
         }
 
@@ -1660,83 +2636,457 @@
             if (isSleepWord(val.toLowerCase())) { deactivateBaymax(); return; }
             respond(val, false);
         }
+        inputEl.addEventListener('keydown', e => { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); sendText(); } });
 
-        inputEl.addEventListener('keydown', e => {
-            if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); sendText(); }
-        });
+        /* ── HISTORIAL ── */
+        const historyEl = document.getElementById('historyPanel');
+        function addToHistory(text, role) {
+            const msg = document.createElement('div'); msg.className = `history-msg ${role}`;
+            const av = document.createElement('span'); av.className = 'history-avatar'; av.textContent = role === 'bot' ? '🤖' : '👤';
+            const b = document.createElement('div'); b.className = 'history-bubble'; b.textContent = text;
+            msg.appendChild(av); msg.appendChild(b);
+            historyEl.appendChild(msg); historyEl.scrollTop = historyEl.scrollHeight;
+        }
+        function clearHistory() { historyEl.innerHTML = ''; showToast('🗑️ Historial limpiado'); }
 
-        /* ══════════════════════════════════════════════════════
-           SELECTOR DE VOZ — solo muestra voces en ESPAÑOL
-        ══════════════════════════════════════════════════════ */
-        const voiceSelectEl = document.getElementById('voiceSelect');
-        const activeVoiceChip = document.getElementById('activeVoiceChip');
-        let selectedVoiceIndex = -1; // -1 = automático (usa getBaymaxVoice)
-
-        function populateVoiceSelector() {
-            const allVoices = speechSynth.getVoices();
-            cachedVoices = allVoices;
-
-            // Filtrar SOLO voces en español
-            const esVoices = allVoices.filter(v => v.lang.startsWith('es'));
-
-            voiceSelectEl.innerHTML = '<option value="-1">🤖 Automático (mejor español)</option>';
-
-            if (esVoices.length === 0) {
-                voiceSelectEl.innerHTML += '<option disabled>— No hay voces en español instaladas —</option>';
-                activeVoiceChip.textContent = '⚠️ Instala voces en español en tu sistema operativo';
-                return;
-            }
-
-            esVoices.forEach(v => {
-                const realIndex = allVoices.indexOf(v);
-                const opt = document.createElement('option');
-                opt.value = realIndex;
-                // Indicar si es masculina/femenina si el nombre lo revela
-                const gender = /male|masc|hombre|man|jorge|pablo|diego|juan|carlos|angel|andres|raul/i.test(v.name) ? '👨' : '👩';
-                opt.textContent = `${gender} ${v.name} (${v.lang})`;
-                voiceSelectEl.appendChild(opt);
+        function exportHistory() {
+            const msgs = historyEl.querySelectorAll('.history-msg');
+            if (!msgs.length) { showToast('⚠️ Historial vacío'); return; }
+            let txt = 'HISTORIAL BAYMAX — ' + new Date().toLocaleString('es-CO') + '\n' + '='.repeat(50) + '\n';
+            msgs.forEach(m => {
+                const role = m.classList.contains('bot') ? 'Baymax' : 'Tú';
+                txt += `[${role}]: ${m.querySelector('.history-bubble').textContent}\n`;
             });
-
-            // Mostrar cuál se usará automáticamente
-            const auto = getBaymaxVoice();
-            activeVoiceChip.textContent = auto
-                ? `Voz automática: ${auto.name}`
-                : '⚠️ Sin voz en español detectada';
+            const a = document.createElement('a');
+            a.href = 'data:text/plain;charset=utf-8,' + encodeURIComponent(txt);
+            a.download = 'historial-baymax.txt'; a.click();
+            showToast('💾 Historial exportado');
         }
 
+        /* ── PAIN ── */
+        function updatePain(val) {
+            const v = parseInt(val);
+            document.getElementById('painValue').textContent = PAIN_LABELS[v];
+            appEl.classList.remove('worried', 'emergency-state');
+            if (v >= 8) appEl.classList.add('emergency-state');
+            else if (v >= 5) appEl.classList.add('worried');
+        }
+        function reportPain() {
+            const v = parseInt(document.getElementById('painSlider').value);
+            if (appState === 'sleeping') setAppState('standby');
+            respond(`Mi nivel de dolor es ${v} de 10: ${PAIN_LABELS[v]}`, false);
+        }
+
+        /* ── EMERGENCY ── */
+        function toggleEmergency() {
+            const p = document.getElementById('emergencyPanel');
+            p.classList.toggle('visible');
+            if (p.classList.contains('visible')) {
+                appEl.classList.add('emergency-state');
+                const m = 'Protocolo de emergencia activado. En caso de peligro inmediato llama al 1 2 3.';
+                showReply(m); speak(m, null); addToHistory(m, 'bot');
+            } else { appEl.classList.remove('emergency-state'); }
+        }
+
+        /* ── SECCIONES ── */
+        function toggleSection(bodyId, toggleId) {
+            const body = document.getElementById(bodyId);
+            const btn = document.getElementById(toggleId);
+            const collapsed = body.style.display === 'none';
+            body.style.display = collapsed ? '' : 'none';
+            btn.classList.toggle('collapsed', !collapsed);
+        }
+
+        /* ── TABS ── */
+        function switchTab(name) {
+            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+            document.getElementById('tab-' + name).classList.add('active');
+            document.getElementById('panel-' + name).classList.add('active');
+        }
+
+        /* ── MODO OSCURO ── */
+        let darkMode = localStorage.getItem('baymax-dark') === '1';
+        function applyDark() { document.body.classList.toggle('dark', darkMode); document.getElementById('darkBtn').textContent = darkMode ? '☀️' : '🌙'; }
+        function toggleDark() { darkMode = !darkMode; localStorage.setItem('baymax-dark', darkMode ? '1' : '0'); applyDark(); }
+        applyDark();
+
+        /* ── SELECTOR DE VOZ ── */
+        const voiceSelectEl = document.getElementById('voiceSelect');
+        const activeVoiceChip = document.getElementById('activeVoiceChip');
+        function populateVoiceSelector() {
+            const allVoices = speechSynth.getVoices(); cachedVoices = allVoices;
+            const esVoices = allVoices.filter(v => v.lang.startsWith('es'));
+            voiceSelectEl.innerHTML = '<option value="-1">🤖 Automático (mejor español)</option>';
+            if (!esVoices.length) { voiceSelectEl.innerHTML += '<option disabled>— No hay voces en español —</option>'; return; }
+            esVoices.forEach(v => {
+                const ri = allVoices.indexOf(v);
+                const opt = document.createElement('option'); opt.value = ri;
+                const g = /male|masc|hombre|man|jorge|pablo|diego|juan|carlos|angel|andres|raul/i.test(v.name) ? '👨' : '👩';
+                opt.textContent = `${g} ${v.name} (${v.lang})`;
+                voiceSelectEl.appendChild(opt);
+            });
+            const auto = getBaymaxVoice();
+            activeVoiceChip.textContent = auto ? `Voz auto: ${auto.name}` : '⚠️ Sin voz en español';
+        }
         voiceSelectEl.addEventListener('change', () => {
             selectedVoiceIndex = parseInt(voiceSelectEl.value);
             const voices = cachedVoices.length ? cachedVoices : speechSynth.getVoices();
-            if (selectedVoiceIndex >= 0 && voices[selectedVoiceIndex]) {
-                activeVoiceChip.textContent = `✅ Voz seleccionada: ${voices[selectedVoiceIndex].name}`;
-            } else {
-                selectedVoiceIndex = -1;
-                const auto = getBaymaxVoice();
-                activeVoiceChip.textContent = auto ? `Voz automática: ${auto.name}` : 'Voz del sistema';
-            }
+            if (selectedVoiceIndex >= 0 && voices[selectedVoiceIndex])
+                activeVoiceChip.textContent = `✅ ${voices[selectedVoiceIndex].name}`;
+            else { selectedVoiceIndex = -1; const a = getBaymaxVoice(); activeVoiceChip.textContent = a ? `Voz auto: ${a.name}` : 'Voz del sistema'; }
         });
+        function testVoice() { speak('Hola. Soy Baymax, tu asistente médico personal. ¿Cómo te sientes hoy?', null); }
+        speechSynth.addEventListener('voiceschanged', populateVoiceSelector);
+        setTimeout(populateVoiceSelector, 400);
 
-        // Respetar selección manual en getBaymaxVoice
-        const _autoGetVoice = getBaymaxVoice;
-        getBaymaxVoice = function () {
-            if (selectedVoiceIndex >= 0) {
-                const voices = cachedVoices.length ? cachedVoices : speechSynth.getVoices();
-                return voices[selectedVoiceIndex] || _autoGetVoice();
-            }
-            return _autoGetVoice();
-        };
+        /* ── AJUSTES DE VOZ ── */
+        function updateRate(val) { voiceRate = val / 100; document.getElementById('rateLabel') = (val / 100).toFixed(2) + '×'; }
+        document.getElementById('rateSlider').addEventListener('input', function () { voiceRate = this.value / 100; document.getElementById('rateLabel').textContent = (this.value / 100).toFixed(2) + '×'; });
+        document.getElementById('pitchSlider').addEventListener('input', function () { voicePitch = this.value / 100; document.getElementById('pitchLabel').textContent = (this.value / 100).toFixed(2); });
 
-        function testVoice() {
-            speak('Hola. Soy Beymax, tu asistente medico persona. ¿Cómo te sientes hoy?', null);
+        function resetSettings() {
+            voiceRate = 0.80; voicePitch = 0.65;
+            document.getElementById('rateSlider').value = 80; document.getElementById('rateLabel').textContent = '0.80×';
+            document.getElementById('pitchSlider').value = 65; document.getElementById('pitchLabel').textContent = '0.65';
+            selectedVoiceIndex = -1; voiceSelectEl.value = '-1';
+            showToast('🔄 Ajustes restablecidos');
         }
 
-        speechSynth.addEventListener('voiceschanged', populateVoiceSelector);
-        setTimeout(populateVoiceSelector, 400); // fallback para Chrome que carga voces tarde
+        /* ══════════════════════════════════════════════════════
+           SIGNOS VITALES (nuevo)
+        ══════════════════════════════════════════════════════ */
+        const VITALS_DEFS = {
+            pressure: { label: 'Presión Arterial', unit: 'mmHg', placeholder: 'ej: 120/80', normal: '90/60–120/80', id: 'pressure' },
+            hr: { label: 'Frecuencia Cardíaca', unit: 'lpm', placeholder: 'ej: 72', normal: '60–100', id: 'hr' },
+            temp: { label: 'Temperatura', unit: '°C', placeholder: 'ej: 37.2', normal: '36.1–37.2', id: 'temp' },
+            glucose: { label: 'Glucosa', unit: 'mg/dL', placeholder: 'ej: 95', normal: '70–100', id: 'glucose' },
+            weight: { label: 'Peso', unit: 'kg', placeholder: 'ej: 70', normal: '—', id: 'weight' },
+            oxygen: { label: 'Saturación O₂', unit: '%', placeholder: 'ej: 98', normal: '95–100', id: 'oxygen' }
+        };
+        let currentVital = null;
+        let vitalsHistory = JSON.parse(localStorage.getItem('baymax-vitals') || '[]');
 
-        /* ── Inicialización ── */
+        function openVitalInput(key) {
+            currentVital = key;
+            const def = VITALS_DEFS[key];
+            document.getElementById('vitalInputLabel').textContent = `Ingresar ${def.label} (normal: ${def.normal})`;
+            document.getElementById('vitalInputField').placeholder = def.placeholder;
+            document.getElementById('vitalInputField').value = '';
+            document.getElementById('vitalInputArea').style.display = 'flex';
+            document.getElementById('vitalInputField').focus();
+        }
+        function cancelVitalInput() { document.getElementById('vitalInputArea').style.display = 'none'; currentVital = null; }
+
+        function saveVital() {
+            if (!currentVital) return;
+            const val = document.getElementById('vitalInputField').value.trim();
+            if (!val) { showToast('⚠️ Ingresa un valor'); return; }
+            const def = VITALS_DEFS[currentVital];
+            document.getElementById('vv-' + currentVital).textContent = val;
+            const entry = { key: currentVital, label: def.label, value: val, unit: def.unit, time: new Date().toLocaleString('es-CO') };
+            vitalsHistory.unshift(entry);
+            if (vitalsHistory.length > 50) vitalsHistory = vitalsHistory.slice(0, 50);
+            localStorage.setItem('baymax-vitals', JSON.stringify(vitalsHistory));
+            renderVitalsHistory();
+            cancelVitalInput();
+            // Alerta si valor fuera de rango
+            checkVitalAlert(currentVital, val, def);
+            showToast(`✅ ${def.label} guardado`);
+        }
+
+        function checkVitalAlert(key, val, def) {
+            let msg = '';
+            const n = parseFloat(val);
+            if (key === 'temp' && (n > 38 || n < 36)) msg = `🌡️ Temperatura ${n > 38 ? 'alta' : 'baja'}: ${val}°C. ${n > 39 ? 'Acude al médico.' : 'Monitorea tu estado.'}`;
+            else if (key === 'hr' && (n > 100 || n < 60)) msg = `❤️ Frecuencia cardíaca ${n > 100 ? 'alta' : 'baja'}: ${val} lpm. Si persiste, consulta a un médico.`;
+            else if (key === 'glucose' && (n > 140 || n < 70)) msg = `🩸 Glucosa ${n > 140 ? 'alta' : 'baja'}: ${val} mg/dL. ${n < 70 ? 'Come algo dulce de inmediato.' : 'Consulta a tu médico.'}`;
+            else if (key === 'oxygen' && n < 95) msg = `🫁 Saturación de oxígeno baja: ${val}%. Descansa y busca atención médica si empeora.`;
+            if (msg) { respond(msg, false); }
+        }
+
+        function renderVitalsHistory() {
+            const panel = document.getElementById('vitalsHistPanel');
+            panel.innerHTML = '';
+            vitalsHistory.slice(0, 20).forEach(e => {
+                const row = document.createElement('div'); row.className = 'vh-row';
+                row.innerHTML = `<span>${e.label}</span><span class="vh-val">${e.value} ${e.unit}</span><span class="vh-time">${e.time}</span>`;
+                panel.appendChild(row);
+            });
+        }
+        renderVitalsHistory();
+
+        // Cargar último valor de vitales
+        vitalsHistory.forEach(e => {
+            const el = document.getElementById('vv-' + e.key);
+            if (el && el.textContent === '--') el.textContent = e.value;
+        });
+
+        /* ══════════════════════════════════════════════════════
+           RECORDATORIOS DE MEDICAMENTOS (nuevo)
+        ══════════════════════════════════════════════════════ */
+        let reminders = JSON.parse(localStorage.getItem('baymax-reminders') || '[]');
+        let reminderTimers = [];
+
+        function addReminder() {
+            const med = document.getElementById('rmMed').value.trim();
+            const time = document.getElementById('rmTime').value;
+            const repeat = document.getElementById('rmRepeat').value;
+            if (!med || !time) { showToast('⚠️ Escribe el medicamento y la hora'); return; }
+            const rm = { id: Date.now(), med, time, repeat };
+            reminders.push(rm);
+            localStorage.setItem('baymax-reminders', JSON.stringify(reminders));
+            renderReminders(); scheduleReminder(rm);
+            document.getElementById('rmMed').value = '';
+            showToast(`⏰ Recordatorio: ${med} a las ${time}`);
+            updateRmBadge();
+        }
+
+        function deleteReminder(id) {
+            reminders = reminders.filter(r => r.id !== id);
+            localStorage.setItem('baymax-reminders', JSON.stringify(reminders));
+            renderReminders(); updateRmBadge();
+            showToast('🗑️ Recordatorio eliminado');
+        }
+
+        function renderReminders() {
+            const list = document.getElementById('reminderList');
+            list.innerHTML = '';
+            if (!reminders.length) {
+                list.innerHTML = '<p style="text-align:center;font-size:12px;color:var(--text-muted);padding:12px;">Sin recordatorios activos.</p>';
+                return;
+            }
+            reminders.forEach(r => {
+                const item = document.createElement('div'); item.className = 'reminder-item';
+                const repeatLabel = { once: 'Una vez', daily: 'Diario', '8h': 'Cada 8h', '12h': 'Cada 12h' }[r.repeat] || r.repeat;
+                item.innerHTML = `<span>💊</span><span><strong>${r.med}</strong></span><span>⏰ ${r.time}</span><span style="opacity:.7;font-size:10px;">${repeatLabel}</span>
+        <button class="rm-del" onclick="deleteReminder(${r.id})" title="Eliminar">✕</button>`;
+                list.appendChild(item);
+            });
+        }
+
+        function scheduleReminder(rm) {
+            const check = () => {
+                const now = new Date();
+                const [h, m] = rm.time.split(':').map(Number);
+                if (now.getHours() === h && now.getMinutes() === m) {
+                    fireReminder(rm);
+                }
+            };
+            const t = setInterval(check, 30000); reminderTimers.push(t);
+            check(); // check immediately
+        }
+
+        function fireReminder(rm) {
+            const msg = `⏰ Recordatorio: es hora de tomar ${rm.med}.`;
+            showToast(msg, true);
+            if (appState !== 'sleeping') respond(`Recordatorio de medicamento: es hora de ${rm.med}.`, false);
+            else {
+                showReply(msg); addToHistory(msg, 'bot');
+                speak(msg, null);
+            }
+            if (rm.repeat === 'once') {
+                reminders = reminders.filter(r => r.id !== rm.id);
+                localStorage.setItem('baymax-reminders', JSON.stringify(reminders));
+                renderReminders(); updateRmBadge();
+            }
+        }
+
+        function updateRmBadge() {
+            const badge = document.getElementById('rmBadge');
+            if (reminders.length > 0) { badge.textContent = reminders.length; badge.style.display = ''; }
+            else { badge.style.display = 'none'; }
+        }
+
+        // Schedular reminders existentes al cargar
+        reminders.forEach(scheduleReminder);
+        renderReminders(); updateRmBadge();
+
+        /* ══════════════════════════════════════════════════════
+           TOAST
+        ══════════════════════════════════════════════════════ */
+        let toastTimer = null;
+        function showToast(msg, isAlarm = false) {
+            const t = document.getElementById('toast');
+            t.textContent = msg;
+            t.className = 'toast' + (isAlarm ? ' alarm' : '');
+            t.classList.add('show');
+            if (toastTimer) clearTimeout(toastTimer);
+            toastTimer = setTimeout(() => t.classList.remove('show'), 3500);
+        }
+
+        /* ── Carga inicial ── */
         loadVoices();
-    </script>
 
+        /* ══════════════════════════════════════════════════════
+           CÁMARA — 100% gratis, Web API nativa
+        ══════════════════════════════════════════════════════ */
+        let cameraStream = null;
+        let mediaRecorder = null;
+        let recordedChunks = [];
+        let isRecording = false;
+        let facingMode = 'user'; // 'user' = frontal, 'environment' = trasera
+        let galleryItems = []; // { type:'photo'|'video', url, blob, name }
+
+        async function openCamera() {
+            try {
+                if (cameraStream) closeCamera();
+                const constraints = { video: { facingMode }, audio: true };
+                cameraStream = await navigator.mediaDevices.getUserMedia(constraints);
+                const video = document.getElementById('cameraVideo');
+                video.srcObject = cameraStream;
+                video.style.display = 'block';
+                document.getElementById('cameraPlaceholder').style.display = 'none';
+                // Habilitar botones
+                document.getElementById('btnCloseCam').disabled = false;
+                document.getElementById('btnPhoto').disabled = false;
+                document.getElementById('btnRecord').disabled = false;
+                document.getElementById('btnSwitchCam').disabled = false;
+                document.getElementById('btnOpenCam').disabled = true;
+                showToast('📷 Cámara activada');
+                if (appState !== 'sleeping') respond('Cámara activada. Puedes tomar fotos o grabar video.', false);
+            } catch (err) {
+                let msg = '❌ No se pudo acceder a la cámara.';
+                if (err.name === 'NotAllowedError') msg = '🔒 Permiso denegado. Permite el acceso a la cámara en tu navegador.';
+                else if (err.name === 'NotFoundError') msg = '📷 No se encontró ninguna cámara en este dispositivo.';
+                showToast(msg);
+            }
+        }
+
+        function closeCamera() {
+            if (isRecording) stopRecording();
+            if (cameraStream) {
+                cameraStream.getTracks().forEach(t => t.stop());
+                cameraStream = null;
+            }
+            const video = document.getElementById('cameraVideo');
+            video.srcObject = null;
+            video.style.display = 'none';
+            document.getElementById('cameraPlaceholder').style.display = 'flex';
+            document.getElementById('btnCloseCam').disabled = true;
+            document.getElementById('btnPhoto').disabled = true;
+            document.getElementById('btnRecord').disabled = true;
+            document.getElementById('btnSwitchCam').disabled = true;
+            document.getElementById('btnOpenCam').disabled = false;
+            showToast('📷 Cámara cerrada');
+        }
+
+        async function switchCamera() {
+            facingMode = (facingMode === 'user') ? 'environment' : 'user';
+            if (cameraStream) await openCamera();
+        }
+
+        function takePhoto() {
+            const video = document.getElementById('cameraVideo');
+            if (!video.srcObject) return;
+            const canvas = document.createElement('canvas');
+            canvas.width = video.videoWidth || 640;
+            canvas.height = video.videoHeight || 480;
+            canvas.getContext('2d').drawImage(video, 0, 0, canvas.width, canvas.height);
+            canvas.toBlob(blob => {
+                const url = URL.createObjectURL(blob);
+                const name = `baymax_foto_${Date.now()}.jpg`;
+                galleryItems.unshift({ type: 'photo', url, blob, name });
+                renderGallery();
+                showToast('📸 Foto tomada');
+            }, 'image/jpeg', 0.92);
+        }
+
+        function toggleRecord() {
+            if (isRecording) stopRecording();
+            else startRecording();
+        }
+
+        function startRecording() {
+            if (!cameraStream) return;
+            recordedChunks = [];
+            const options = MediaRecorder.isTypeSupported('video/webm;codecs=vp9')
+                ? { mimeType: 'video/webm;codecs=vp9' }
+                : MediaRecorder.isTypeSupported('video/webm')
+                    ? { mimeType: 'video/webm' }
+                    : {};
+            mediaRecorder = new MediaRecorder(cameraStream, options);
+            mediaRecorder.ondataavailable = e => { if (e.data.size > 0) recordedChunks.push(e.data); };
+            mediaRecorder.onstop = saveVideo;
+            mediaRecorder.start(100);
+            isRecording = true;
+            document.getElementById('recBadge').style.display = 'block';
+            document.getElementById('btnRecord').innerHTML = '⏹ Detener';
+            document.getElementById('btnRecord').style.background = 'linear-gradient(135deg,#78909c,#37474f)';
+            document.getElementById('btnPhoto').disabled = true;
+            showToast('⏺ Grabando video…');
+        }
+
+        function stopRecording() {
+            if (mediaRecorder && mediaRecorder.state !== 'inactive') mediaRecorder.stop();
+            isRecording = false;
+            document.getElementById('recBadge').style.display = 'none';
+            document.getElementById('btnRecord').innerHTML = '⏺ Grabar Video';
+            document.getElementById('btnRecord').style.background = '';
+            document.getElementById('btnPhoto').disabled = false;
+            showToast('✅ Video guardado en galería');
+        }
+
+        function saveVideo() {
+            const mimeType = recordedChunks[0] ? recordedChunks[0].type : 'video/webm';
+            const blob = new Blob(recordedChunks, { type: mimeType });
+            const ext = mimeType.includes('mp4') ? 'mp4' : 'webm';
+            const url = URL.createObjectURL(blob);
+            const name = `baymax_video_${Date.now()}.${ext}`;
+            galleryItems.unshift({ type: 'video', url, blob, name });
+            renderGallery();
+        }
+
+        function renderGallery() {
+            const grid = document.getElementById('cameraGallery');
+            grid.innerHTML = '';
+            if (!galleryItems.length) {
+                grid.innerHTML = '<div class="gallery-empty">Aquí aparecerán tus fotos y videos.</div>';
+                return;
+            }
+            galleryItems.forEach((item, idx) => {
+                const div = document.createElement('div');
+                div.className = 'gallery-item';
+                if (item.type === 'photo') {
+                    div.innerHTML = `<img src="${item.url}" loading="lazy" onclick="previewItem(${idx})" />`;
+                } else {
+                    div.innerHTML = `<video src="${item.url}" onclick="previewItem(${idx})" loop></video>`;
+                }
+                div.innerHTML += `
+                    <button class="gallery-dl" onclick="downloadItem(${idx})" title="Descargar">⬇</button>
+                    <button class="gallery-del" onclick="deleteItem(${idx})" title="Eliminar">✕</button>
+                `;
+                grid.appendChild(div);
+            });
+        }
+
+        function previewItem(idx) {
+            const item = galleryItems[idx];
+            const win = window.open('', '_blank', 'width=800,height=600');
+            if (!win) { showToast('⚠️ Permite ventanas emergentes para previsualizar'); return; }
+            if (item.type === 'photo') {
+                win.document.write(`<html><body style="margin:0;background:#000;display:flex;align-items:center;justify-content:center;height:100vh;"><img src="${item.url}" style="max-width:100%;max-height:100%;"/></body></html>`);
+            } else {
+                win.document.write(`<html><body style="margin:0;background:#000;display:flex;align-items:center;justify-content:center;height:100vh;"><video src="${item.url}" controls autoplay style="max-width:100%;max-height:100%;"></video></body></html>`);
+            }
+        }
+
+        function downloadItem(idx) {
+            const item = galleryItems[idx];
+            const a = document.createElement('a');
+            a.href = item.url;
+            a.download = item.name;
+            a.click();
+            showToast('⬇ Descargando…');
+        }
+
+        function deleteItem(idx) {
+            URL.revokeObjectURL(galleryItems[idx].url);
+            galleryItems.splice(idx, 1);
+            renderGallery();
+            showToast('🗑️ Eliminado de la galería');
+        }
+    </script>
 </body>
 
 </html>
