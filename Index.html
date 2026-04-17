@@ -1883,6 +1883,88 @@
             gap: 8px;
             justify-content: center;
         }
+        /* ══ NUEVAS FUNCIONES v3 ══════════════════════════════ */
+
+        /* ACCESSIBILITY */
+        body.big-text { font-size: 18px; }
+        body.big-text .bubble-text { font-size: 17px; }
+        body.big-text .q-btn { font-size: 15px; padding: 10px 18px; }
+        body.big-text .history-bubble { font-size: 15px; }
+        body.big-text .tab { font-size: 13px; }
+
+        /* MOOD / WELLBEING CHART */
+        .mood-panel { background: var(--card); border-radius: 16px; border: 1px solid var(--card-border); padding: 14px 16px; box-shadow: 0 2px 10px var(--shadow); }
+        .mood-row { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; margin-bottom: 10px; }
+        .mood-label { font-size: 11px; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: .4px; }
+        .mood-emojis { display: flex; gap: 6px; flex-wrap: wrap; justify-content: center; }
+        .mood-btn { background: var(--card); border: 1.5px solid var(--card-border); border-radius: 50%; width: 38px; height: 38px; font-size: 18px; cursor: pointer; transition: all .2s; display: flex; align-items: center; justify-content: center; }
+        .mood-btn:hover, .mood-btn.selected { transform: scale(1.2); border-color: #42a5f5; box-shadow: 0 0 10px rgba(66,165,245,.4); }
+        .mood-chart-wrap { width: 100%; overflow-x: auto; }
+        .mood-chart { width: 100%; height: 80px; }
+        .mood-history-label { font-size: 11px; color: var(--text-muted); text-align: center; margin-top: 4px; font-style: italic; }
+
+        /* WATER TRACKER */
+        .water-panel { background: var(--card); border-radius: 16px; border: 1px solid var(--card-border); padding: 14px 16px; box-shadow: 0 2px 10px var(--shadow); }
+        .water-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
+        .water-title { font-size: 11px; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: .4px; }
+        .water-count { font-size: 22px; font-weight: 800; color: #1565c0; font-family: 'Space Mono', monospace; }
+        .water-glasses { display: flex; gap: 6px; flex-wrap: wrap; justify-content: center; margin-bottom: 10px; }
+        .glass { font-size: 24px; cursor: pointer; transition: transform .2s; filter: grayscale(1) opacity(.4); }
+        .glass.filled { filter: none; }
+        .glass:hover { transform: scale(1.2); }
+        .water-btns { display: flex; gap: 8px; justify-content: center; }
+        .water-btn { padding: 7px 16px; border-radius: 22px; border: none; font-family: 'Nunito', sans-serif; font-size: 13px; font-weight: 700; cursor: pointer; transition: all .2s; }
+        .water-btn.add { background: linear-gradient(135deg, #42a5f5, #1565c0); color: #fff; }
+        .water-btn.reset { background: var(--card); border: 1.5px solid #90caf9; color: var(--blue); }
+        .water-btn:hover { transform: scale(1.05); }
+
+        /* STEP COUNTER */
+        .steps-panel { background: var(--card); border-radius: 16px; border: 1px solid var(--card-border); padding: 14px 16px; box-shadow: 0 2px 10px var(--shadow); }
+        .steps-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
+        .steps-title { font-size: 11px; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: .4px; }
+        .steps-count { font-size: 28px; font-weight: 800; color: #2e7d32; font-family: 'Space Mono', monospace; }
+        .steps-goal-bar-wrap { width: 100%; background: rgba(102,187,106,.15); border-radius: 10px; height: 10px; margin-bottom: 8px; overflow: hidden; }
+        .steps-goal-bar { height: 100%; background: linear-gradient(to right, #66bb6a, #2e7d32); border-radius: 10px; transition: width .5s; }
+        .steps-row { display: flex; gap: 8px; align-items: center; }
+        .steps-input { flex: 1; padding: 8px 14px; border: 1.5px solid var(--card-border); border-radius: 22px; font-size: 14px; font-family: 'Nunito', sans-serif; background: var(--card); color: var(--text); outline: none; }
+        .steps-input:focus { border-color: #66bb6a; }
+        body.dark .steps-input { background: rgba(14,28,52,.8); }
+        .steps-save { padding: 8px 16px; border-radius: 22px; background: linear-gradient(135deg,#66bb6a,#2e7d32); border: none; color: #fff; font-family: 'Nunito', sans-serif; font-size: 13px; font-weight: 700; cursor: pointer; white-space: nowrap; }
+        .steps-goal-label { font-size: 11px; color: var(--text-muted); text-align: center; }
+
+        /* SYMPTOM LOG */
+        .symptom-log-panel { background: var(--card); border-radius: 16px; border: 1px solid var(--card-border); padding: 12px 14px; box-shadow: 0 2px 10px var(--shadow); }
+        .symptom-log-title { font-size: 11px; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: .4px; margin-bottom: 8px; }
+        .symptom-log-list { max-height: 160px; overflow-y: auto; display: flex; flex-direction: column; gap: 5px; }
+        .symptom-log-item { display: flex; align-items: flex-start; gap: 8px; background: var(--blue-pale); border-radius: 10px; padding: 8px 10px; font-size: 12px; }
+        .symptom-log-item .sl-time { font-size: 10px; color: var(--text-muted); white-space: nowrap; margin-left: auto; }
+        body.dark .symptom-log-item { background: rgba(21,101,192,.15); color: #90caf9; }
+        .sl-clear { background: none; border: none; cursor: pointer; font-size: 12px; color: var(--text-muted); padding: 2px 6px; border-radius: 8px; }
+        .sl-clear:hover { color: #ef5350; }
+
+        /* BAYMAX EXPRESSION EXTRAS */
+        .baymax-head.thinking { animation: head-tilt 1s ease-in-out infinite alternate; }
+        @keyframes head-tilt { from { transform: translateX(-50%) rotate(-6deg); } to { transform: translateX(-50%) rotate(6deg); } }
+
+        .baymax-arm-l.wave { animation: arm-wave 0.4s ease-in-out 3; }
+        @keyframes arm-wave { 0%,100% { transform: rotate(-6deg); } 50% { transform: rotate(-35deg); } }
+
+        /* INFLATE ANIMATION on load */
+        @keyframes inflate { 0% { transform: translateX(-50%) scale(0.3); opacity: 0; } 60% { transform: translateX(-50%) scale(1.08); } 100% { transform: translateX(-50%) scale(1); opacity: 1; } }
+        .baymax-body.inflate { animation: inflate 1.2s cubic-bezier(.34,1.56,.64,1) both; }
+        .baymax-head.inflate { animation: inflate 1s cubic-bezier(.34,1.56,.64,1) .15s both; }
+
+        /* PWA install banner */
+        .pwa-banner { display: none; position: fixed; bottom: 16px; left: 50%; transform: translateX(-50%); background: linear-gradient(135deg,#42a5f5,#1565c0); color: #fff; border-radius: 50px; padding: 10px 20px; font-size: 13px; font-weight: 700; font-family: 'Nunito', sans-serif; box-shadow: 0 6px 24px rgba(21,101,192,.4); cursor: pointer; z-index: 998; gap: 10px; align-items: center; white-space: nowrap; }
+        .pwa-banner.show { display: flex; animation: fadeInUp .4s ease; }
+        .pwa-banner button { background: rgba(255,255,255,.2); border: none; color: #fff; border-radius: 20px; padding: 4px 12px; font-size: 12px; cursor: pointer; }
+
+        /* WELLBEING TAB */
+        .wellbeing-section-title { font-size: 11px; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: .5px; margin-bottom: 2px; text-align: center; }
+
+        /* EXPORT PDF hint */
+        .export-hint { font-size: 10px; color: var(--text-muted); text-align: center; line-height: 1.5; margin-top: 4px; }
+
     </style>
 </head>
 
@@ -1895,11 +1977,12 @@
 
         <!-- Top Controls -->
         <div class="top-controls">
-            <span class="top-brand">⚕️ Baymax v2</span>
+            <span class="top-brand">⚕️ Baymax v3</span>
             <div class="top-right">
                 <button class="icon-btn" onclick="toggleDark()" id="darkBtn" title="Modo oscuro">🌙</button>
                 <button class="icon-btn" onclick="exportHistory()" title="Exportar historial">💾</button>
                 <button class="icon-btn" onclick="clearHistory()" title="Limpiar historial">🗑️</button>
+                <button class="icon-btn" onclick="toggleBigText()" id="bigTextBtn" title="Accesibilidad: texto grande">🔠</button>
             </div>
         </div>
 
@@ -1997,6 +2080,9 @@
             <button class="tab" onclick="switchTab('camara')" id="tab-camara">
                 <span class="tab-icon">📷</span> Cámara
             </button>
+            <button class="tab" onclick="switchTab('bienestar')" id="tab-bienestar">
+                <span class="tab-icon">🌿</span> Bienestar
+            </button>
         </div>
 
         <!-- PANEL: SÍNTOMAS -->
@@ -2062,6 +2148,14 @@
                     <div class="emergency-card"><span class="ec-name">☎️ Bienestar</span><a class="ec-num"
                             href="tel:018000113113">018000</a><span class="ec-desc">Línea 113113</span></div>
                 </div>
+            </div>
+            <!-- Registro de síntomas -->
+            <div class="symptom-log-panel" style="margin-top:4px;">
+                <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">
+                    <div class="symptom-log-title">📋 Registro de síntomas</div>
+                    <button class="sl-clear" onclick="clearSymptomLog()">🗑️ Limpiar</button>
+                </div>
+                <div class="symptom-log-list" id="symptomLogList"></div>
             </div>
         </div>
 
@@ -2247,6 +2341,78 @@
             </div>
         </div>
 
+
+        <!-- PANEL: BIENESTAR (nuevo v3) -->
+        <div class="panel" id="panel-bienestar">
+
+            <!-- Estado de ánimo -->
+            <div class="mood-panel">
+                <button class="section-toggle" onclick="toggleSection('moodBody','moodToggle')" id="moodToggle">
+                    😊 Estado de ánimo de hoy <span class="toggle-arrow">▼</span>
+                </button>
+                <div id="moodBody">
+                    <div class="mood-label" style="text-align:center;margin-bottom:8px;">¿Cómo te sientes hoy?</div>
+                    <div class="mood-emojis" id="moodEmojis">
+                        <button class="mood-btn" onclick="selectMood(1,'😢')" title="Muy mal">😢</button>
+                        <button class="mood-btn" onclick="selectMood(2,'😟')" title="Mal">😟</button>
+                        <button class="mood-btn" onclick="selectMood(3,'😐')" title="Regular">😐</button>
+                        <button class="mood-btn" onclick="selectMood(4,'🙂')" title="Bien">🙂</button>
+                        <button class="mood-btn" onclick="selectMood(5,'😄')" title="Muy bien">😄</button>
+                        <button class="mood-btn" onclick="selectMood(6,'🤩')" title="Excelente">🤩</button>
+                        <button class="mood-btn" onclick="selectMood(7,'😴')" title="Cansado">😴</button>
+                        <button class="mood-btn" onclick="selectMood(8,'😰')" title="Ansioso">😰</button>
+                        <button class="mood-btn" onclick="selectMood(9,'🤒')" title="Enfermo">🤒</button>
+                    </div>
+                    <div class="mood-history-label" id="moodSelected">Selecciona cómo te sientes</div>
+                    <div class="mood-chart-wrap" style="margin-top:10px;">
+                        <canvas class="mood-chart" id="moodChart"></canvas>
+                        <div class="mood-history-label">Últimos 7 días — haz clic en un emoji para registrar</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Agua -->
+            <div class="water-panel">
+                <button class="section-toggle" onclick="toggleSection('waterBody','waterToggle')" id="waterToggle">
+                    💧 Hidratación diaria <span class="toggle-arrow">▼</span>
+                </button>
+                <div id="waterBody">
+                    <div class="water-header">
+                        <span class="water-title">Vasos de agua hoy</span>
+                        <span class="water-count"><span id="waterCount">0</span> / 8 💧</span>
+                    </div>
+                    <div class="water-glasses" id="waterGlasses"></div>
+                    <div class="water-btns">
+                        <button class="water-btn add" onclick="addWater()">+ Agregar vaso</button>
+                        <button class="water-btn reset" onclick="resetWater()">🔄 Reiniciar</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Pasos -->
+            <div class="steps-panel">
+                <button class="section-toggle" onclick="toggleSection('stepsBody','stepsToggle')" id="stepsToggle">
+                    👣 Pasos del día <span class="toggle-arrow">▼</span>
+                </button>
+                <div id="stepsBody">
+                    <div class="steps-header">
+                        <span class="steps-title">Pasos registrados</span>
+                        <span class="steps-count" id="stepsDisplay">0</span>
+                    </div>
+                    <div class="steps-goal-bar-wrap">
+                        <div class="steps-goal-bar" id="stepsBar" style="width:0%"></div>
+                    </div>
+                    <div class="steps-goal-label" id="stepsGoalLabel">Meta: 10,000 pasos</div>
+                    <div class="steps-row" style="margin-top:8px;">
+                        <input class="steps-input" id="stepsInput" type="number" placeholder="Ingresa tus pasos…" min="0" max="99999" />
+                        <button class="steps-save" onclick="saveSteps()">✔ Guardar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- PANEL: SÍNTOMAS LOG (sub-panel extra dentro de síntomas) -->
+
         <!-- Input texto -->
         <div class="input-row" style="margin-top:10px;">
             <input class="chat-input" id="chatInput" type="text" placeholder="O escribe tu síntoma aquí…"
@@ -2262,6 +2428,10 @@
         <p class="disclaimer">⚕️ Baymax es informativo y no reemplaza atención médica profesional. Emergencias:
             <strong>123</strong>
         </p>
+    <!-- PWA Install Banner -->
+    <div class="pwa-banner" id="pwaBanner" onclick="installPWA()">
+        📲 Instalar Baymax como app <button onclick="event.stopPropagation();document.getElementById('pwaBanner').classList.remove('show')">✕</button>
+    </div>
     </main>
 
     <script>
@@ -3086,6 +3256,331 @@
             renderGallery();
             showToast('🗑️ Eliminado de la galería');
         }
+
+        /* ══════════════════════════════════════════════════════
+           NUEVAS FUNCIONES v3 — TODAS GRATUITAS
+        ══════════════════════════════════════════════════════ */
+
+        /* ── ANIMACIÓN DE INFLADO AL CARGAR ── */
+        window.addEventListener('load', () => {
+            const body = document.querySelector('.baymax-body');
+            const head = document.querySelector('.baymax-head');
+            body.classList.add('inflate');
+            head.classList.add('inflate');
+            setTimeout(() => { body.classList.remove('inflate'); head.classList.remove('inflate'); }, 1400);
+        });
+
+        /* ── DETECCIÓN DE EMOCIONES EN TEXTO (gratis, local) ── */
+        const EMOTION_MAP = [
+            { words: ['genial','feliz','contento','excelente','alegre','bien','gracias','perfecto','maravilloso','emocionado'], state: 'happy' },
+            { words: ['triste','mal','horrible','terrible','deprimido','vacío','llorar','desesperado','solo'], state: 'worried' },
+            { words: ['ansioso','nervioso','asustado','pánico','miedo','angustia','estrés','estresado'], state: 'worried' },
+            { words: ['emergencia','no puedo respirar','desmayo','convulsión','dolor en el pecho'], state: 'emergency-state' },
+        ];
+        function detectEmotion(text) {
+            const n = normalize(text);
+            for (const e of EMOTION_MAP) {
+                if (e.words.some(w => n.includes(normalize(w)))) {
+                    appEl.classList.remove('happy','worried','emergency-state');
+                    appEl.classList.add(e.state);
+                    if (e.state !== 'emergency-state') setTimeout(() => appEl.classList.remove(e.state), 5000);
+                    return;
+                }
+            }
+        }
+
+        /* ── HISTORIAL PERSISTENTE en localStorage ── */
+        let persistentHistory = JSON.parse(localStorage.getItem('baymax-chat-history') || '[]');
+        function saveMessageToStorage(text, role) {
+            persistentHistory.push({ text, role, time: new Date().toLocaleString('es-CO') });
+            if (persistentHistory.length > 200) persistentHistory = persistentHistory.slice(-200);
+            localStorage.setItem('baymax-chat-history', JSON.stringify(persistentHistory));
+        }
+        function loadPersistedHistory() {
+            if (!persistentHistory.length) return;
+            persistentHistory.forEach(m => {
+                const msg = document.createElement('div'); msg.className = `history-msg ${m.role}`;
+                const av = document.createElement('span'); av.className = 'history-avatar'; av.textContent = m.role === 'bot' ? '🤖' : '👤';
+                const b = document.createElement('div'); b.className = 'history-bubble'; b.textContent = m.text;
+                msg.appendChild(av); msg.appendChild(b);
+                historyEl.appendChild(msg);
+            });
+            historyEl.scrollTop = historyEl.scrollHeight;
+        }
+        // Monkey-patch addToHistory to also persist
+        const _origAddToHistory = addToHistory;
+        window.addToHistory = function(text, role) {
+            _origAddToHistory(text, role);
+            saveMessageToStorage(text, role);
+            detectEmotion(text);
+        };
+
+        // ALSO patch respond to animate head "thinking"
+        const _origRespond = respond;
+        window.respond = function(input, fromVoice) {
+            document.getElementById('baymaxHead').classList.add('thinking');
+            setTimeout(() => document.getElementById('baymaxHead').classList.remove('thinking'), 900);
+            // Wave arm on greeting
+            const nInput = normalize(input);
+            if (['hola','hey','buenos','saludos'].some(w => nInput.startsWith(normalize(w)))) {
+                document.querySelector('.baymax-arm-l').classList.add('wave');
+                setTimeout(() => document.querySelector('.baymax-arm-l').classList.remove('wave'), 1200);
+            }
+            _origRespond(input, fromVoice);
+        };
+
+        /* ── ESTADO DE ÁNIMO (MOOD TRACKER) ── */
+        let moodLog = JSON.parse(localStorage.getItem('baymax-mood') || '[]');
+        let selectedMoodScore = null;
+
+        function selectMood(score, emoji) {
+            selectedMoodScore = score;
+            document.querySelectorAll('.mood-btn').forEach(b => b.classList.remove('selected'));
+            const btns = document.querySelectorAll('.mood-btn');
+            const idx = [1,2,3,4,5,6,7,8,9].indexOf(score);
+            if (idx >= 0) btns[idx].classList.add('selected');
+            const today = new Date().toLocaleDateString('es-CO');
+            const existing = moodLog.findIndex(m => m.date === today);
+            if (existing >= 0) moodLog[existing] = { date: today, score, emoji };
+            else moodLog.push({ date: today, score, emoji });
+            if (moodLog.length > 30) moodLog = moodLog.slice(-30);
+            localStorage.setItem('baymax-mood', JSON.stringify(moodLog));
+            document.getElementById('moodSelected').textContent = `${emoji} Registrado para hoy — puntuación: ${score}/9`;
+            drawMoodChart();
+            // Baymax reacts
+            const msgs = {
+                1:'He detectado que no te sientes bien hoy. Estoy aquí contigo. ¿Quieres contarme cómo te sientes?',
+                2:'Parece que no ha sido un buen día. Estoy aquí para escucharte.',
+                3:'Día regular. Eso también está bien. ¿Hay algo en que pueda ayudarte?',
+                4:'Me alegra que estés bien. ¿En qué puedo asistirte hoy?',
+                5:'Excelente. ¡Me alegra verte bien! Recuerda hidratarte y moverte.',
+                6:'¡Increíble! Ese estado de ánimo es lo mejor. ¡Que siga así!',
+                7:'Cansancio detectado. Descansar es parte del cuidado. Tu bienestar es mi prioridad.',
+                8:'Ansiedad detectada. Respira: inhala 4 segundos, aguanta 4, exhala 6. Estoy aquí.',
+                9:'Síntomas de malestar detectados. ¿Puedes contarme más sobre cómo te sientes?'
+            };
+            if (msgs[score] && appState !== 'sleeping') {
+                setTimeout(() => respond(msgs[score], false), 400);
+            }
+        }
+
+        function drawMoodChart() {
+            const canvas = document.getElementById('moodChart');
+            if (!canvas) return;
+            const ctx = canvas.getContext('2d');
+            const last7 = getLast7Days();
+            const W = canvas.offsetWidth || 300, H = 70;
+            canvas.width = W; canvas.height = H;
+            ctx.clearRect(0, 0, W, H);
+            if (last7.filter(d => d.score).length < 1) {
+                ctx.fillStyle = 'rgba(144,202,249,.4)';
+                ctx.font = '11px Nunito'; ctx.textAlign = 'center';
+                ctx.fillText('Registra tu estado diario para ver la gráfica', W/2, 38);
+                return;
+            }
+            const cols = W / 7;
+            const grad = ctx.createLinearGradient(0, 0, 0, H);
+            grad.addColorStop(0, 'rgba(66,165,245,.7)');
+            grad.addColorStop(1, 'rgba(21,101,192,.1)');
+            ctx.beginPath();
+            last7.forEach((d, i) => {
+                const x = i * cols + cols / 2;
+                const y = d.score ? H - (d.score / 9) * (H - 14) - 2 : H - 4;
+                if (i === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
+            });
+            ctx.strokeStyle = '#42a5f5'; ctx.lineWidth = 2.5; ctx.lineJoin = 'round';
+            ctx.stroke();
+            // Dots + emojis
+            last7.forEach((d, i) => {
+                const x = i * cols + cols / 2;
+                const y = d.score ? H - (d.score / 9) * (H - 14) - 2 : null;
+                if (y) {
+                    ctx.beginPath(); ctx.arc(x, y, 4, 0, Math.PI * 2);
+                    ctx.fillStyle = '#1565c0'; ctx.fill();
+                    ctx.font = '13px serif'; ctx.textAlign = 'center';
+                    ctx.fillText(d.emoji || '', x, y - 6);
+                }
+                // Day label
+                ctx.font = '9px Nunito'; ctx.fillStyle = 'rgba(120,144,156,.8)'; ctx.textAlign = 'center';
+                ctx.fillText(d.day, x, H - 1);
+            });
+        }
+
+        function getLast7Days() {
+            const days = ['Dom','Lun','Mar','Mié','Jue','Vie','Sáb'];
+            return Array.from({length: 7}, (_, i) => {
+                const d = new Date(); d.setDate(d.getDate() - (6 - i));
+                const key = d.toLocaleDateString('es-CO');
+                const found = moodLog.find(m => m.date === key);
+                return { day: days[d.getDay()], score: found?.score || 0, emoji: found?.emoji || '' };
+            });
+        }
+
+        /* ── AGUA (WATER TRACKER) ── */
+        let waterData = JSON.parse(localStorage.getItem('baymax-water') || '{"count":0,"date":""}');
+        const todayStr = new Date().toLocaleDateString('es-CO');
+        if (waterData.date !== todayStr) { waterData = { count: 0, date: todayStr }; localStorage.setItem('baymax-water', JSON.stringify(waterData)); }
+
+        function renderWater() {
+            const c = waterData.count;
+            document.getElementById('waterCount').textContent = c;
+            const grid = document.getElementById('waterGlasses');
+            grid.innerHTML = '';
+            for (let i = 0; i < 8; i++) {
+                const g = document.createElement('span');
+                g.className = 'glass' + (i < c ? ' filled' : '');
+                g.textContent = '🥤'; g.title = `Vaso ${i+1}`;
+                g.onclick = () => { waterData.count = i + 1; localStorage.setItem('baymax-water', JSON.stringify(waterData)); renderWater(); };
+                grid.appendChild(g);
+            }
+            if (c === 8 && appState !== 'sleeping') {
+                showToast('💧 ¡Meta de hidratación cumplida! Baymax orgulloso 🤖');
+            }
+        }
+        function addWater() {
+            if (waterData.count < 8) {
+                waterData.count++;
+                localStorage.setItem('baymax-water', JSON.stringify(waterData));
+                renderWater();
+                showToast(`💧 Vaso ${waterData.count} de 8 registrado`);
+                if (waterData.count === 8) {
+                    const m = '¡Felicidades! Has cumplido tu meta de hidratación del día. Excelente hábito.';
+                    if (appState !== 'sleeping') respond(m, false);
+                    else { showReply(m); speak(m, null); }
+                }
+            } else { showToast('✅ Ya alcanzaste tu meta de agua del día'); }
+        }
+        function resetWater() { waterData.count = 0; localStorage.setItem('baymax-water', JSON.stringify(waterData)); renderWater(); showToast('🔄 Contador de agua reiniciado'); }
+        renderWater();
+
+        /* ── PASOS (STEP COUNTER) ── */
+        let stepsData = JSON.parse(localStorage.getItem('baymax-steps') || '{"steps":0,"date":"","goal":10000}');
+        if (stepsData.date !== todayStr) { stepsData = { steps: 0, date: todayStr, goal: stepsData.goal || 10000 }; localStorage.setItem('baymax-steps', JSON.stringify(stepsData)); }
+
+        function renderSteps() {
+            const s = stepsData.steps, g = stepsData.goal;
+            document.getElementById('stepsDisplay').textContent = s.toLocaleString('es-CO');
+            const pct = Math.min(100, Math.round(s / g * 100));
+            document.getElementById('stepsBar').style.width = pct + '%';
+            document.getElementById('stepsGoalLabel').textContent = `Meta: ${g.toLocaleString('es-CO')} pasos — ${pct}% completado`;
+        }
+        function saveSteps() {
+            const val = parseInt(document.getElementById('stepsInput').value);
+            if (isNaN(val) || val < 0) { showToast('⚠️ Ingresa un número válido'); return; }
+            stepsData.steps = val; stepsData.date = todayStr;
+            localStorage.setItem('baymax-steps', JSON.stringify(stepsData));
+            renderSteps();
+            document.getElementById('stepsInput').value = '';
+            showToast(`👣 ${val.toLocaleString('es-CO')} pasos registrados`);
+            if (val >= stepsData.goal) {
+                const m = `¡Increíble! Alcanzaste tu meta de ${stepsData.goal.toLocaleString('es-CO')} pasos hoy. Excelente actividad física.`;
+                if (appState !== 'sleeping') respond(m, false);
+                else { showReply(m); speak(m, null); }
+            } else if (val >= stepsData.goal * 0.5) {
+                showToast(`🎯 ¡Vas a más del 50% de tu meta!`);
+            }
+        }
+        renderSteps();
+
+        /* ── REGISTRO DE SÍNTOMAS (LOG PERSISTENTE) ── */
+        let symptomLog = JSON.parse(localStorage.getItem('baymax-symptom-log') || '[]');
+
+        function logSymptom(symptom) {
+            symptomLog.unshift({ symptom, time: new Date().toLocaleString('es-CO') });
+            if (symptomLog.length > 100) symptomLog = symptomLog.slice(0, 100);
+            localStorage.setItem('baymax-symptom-log', JSON.stringify(symptomLog));
+            renderSymptomLog();
+        }
+        function renderSymptomLog() {
+            const list = document.getElementById('symptomLogList');
+            if (!list) return;
+            list.innerHTML = '';
+            if (!symptomLog.length) { list.innerHTML = '<p style="text-align:center;font-size:12px;color:var(--text-muted);padding:8px;">Sin síntomas registrados aún.</p>'; return; }
+            symptomLog.slice(0, 15).forEach((s, i) => {
+                const item = document.createElement('div'); item.className = 'symptom-log-item';
+                item.innerHTML = `<span>🩺</span><span style="flex:1;">${s.symptom}</span><span class="sl-time">${s.time}</span>`;
+                list.appendChild(item);
+            });
+        }
+        function clearSymptomLog() { symptomLog = []; localStorage.setItem('baymax-symptom-log', JSON.stringify(symptomLog)); renderSymptomLog(); showToast('🗑️ Registro de síntomas limpiado'); }
+
+        // Monkey-patch manualActivate para que loguee síntomas
+        const _origManualActivate = manualActivate;
+        window.manualActivate = function(symptom) {
+            logSymptom(symptom);
+            _origManualActivate(symptom);
+        };
+
+        // Monkey-patch sendText para loguear síntomas escritos
+        const _origSendText = sendText;
+        window.sendText = function() {
+            const val = document.getElementById('chatInput').value.trim();
+            if (val && !isSleepWord(val.toLowerCase())) logSymptom(val);
+            _origSendText();
+        };
+
+        renderSymptomLog();
+
+        /* ── PWA — INSTALACIÓN SIN COSTO ── */
+        let pwaPrompt = null;
+        window.addEventListener('beforeinstallprompt', e => {
+            e.preventDefault(); pwaPrompt = e;
+            document.getElementById('pwaBanner').classList.add('show');
+        });
+        function installPWA() {
+            if (!pwaPrompt) { showToast('💡 Usa "Agregar a pantalla de inicio" en tu navegador'); return; }
+            pwaPrompt.prompt();
+            pwaPrompt.userChoice.then(c => {
+                if (c.outcome === 'accepted') showToast('✅ ¡Baymax instalado como app!');
+                document.getElementById('pwaBanner').classList.remove('show');
+                pwaPrompt = null;
+            });
+        }
+        window.addEventListener('appinstalled', () => { showToast('✅ Baymax instalado'); document.getElementById('pwaBanner').classList.remove('show'); });
+
+        /* ── ACCESIBILIDAD ── */
+        let bigText = localStorage.getItem('baymax-bigtext') === '1';
+        function applyBigText() { document.body.classList.toggle('big-text', bigText); document.getElementById('bigTextBtn').textContent = bigText ? '🔡' : '🔠'; }
+        function toggleBigText() { bigText = !bigText; localStorage.setItem('baymax-bigtext', bigText ? '1' : '0'); applyBigText(); showToast(bigText ? '🔠 Texto grande activado' : '🔡 Texto normal'); }
+        applyBigText();
+
+        /* ── EMERGENCIA MEJORADA: detección automática de palabras clave ── */
+        const EMERGENCY_TRIGGER = ['no puedo respirar','dolor en el pecho','me desmaye','convulsion','me caí y no me levanto','emergencia'];
+        const _origFindResponse = findResponse;
+        window.findResponse = function(input) {
+            const n = normalize(input);
+            if (EMERGENCY_TRIGGER.some(w => n.includes(normalize(w)))) {
+                document.getElementById('emergencyPanel').classList.add('visible');
+                appEl.classList.add('emergency-state');
+                showToast('🚨 ¡Emergencia detectada! Llama al 123', true);
+            }
+            return _origFindResponse(input);
+        };
+
+        /* ── DIBUJAR GRÁFICA AL CAMBIAR DE TAB ── */
+        const _origSwitchTab = switchTab;
+        window.switchTab = function(name) {
+            _origSwitchTab(name);
+            if (name === 'bienestar') setTimeout(drawMoodChart, 100);
+        };
+
+        /* ── CARGAR HISTORIAL PERSISTENTE AL INICIO ── */
+        loadPersistedHistory();
+
+        /* ── TAMBIÉN SOBREESCRIBIR clearHistory PARA BORRAR PERSISTIDO ── */
+        window.clearHistory = function() {
+            historyEl.innerHTML = '';
+            persistentHistory = [];
+            localStorage.setItem('baymax-chat-history', '[]');
+            showToast('🗑️ Historial limpiado');
+        };
+
+        /* ── DIBUJAR GRÁFICA INICIAL ── */
+        setTimeout(drawMoodChart, 500);
+
+        // Mood chart redraw on resize
+        window.addEventListener('resize', () => { if (document.getElementById('panel-bienestar').classList.contains('active')) drawMoodChart(); });
+
     </script>
 </body>
 
