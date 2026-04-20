@@ -3108,6 +3108,12 @@
                 <div class="pain-emojis"><span>🤖 Grave</span><span>🔔 Agudo</span></div>
             </div>
 
+            <!-- IA via Worker -->
+            <div style="margin: 10px 0 4px; padding: 12px 16px; background: var(--blue-pale); border-radius: 14px; border: 1px solid var(--card-border);">
+                <div style="font-size:12px; font-weight:700; color:var(--blue); margin-bottom:6px;">🤖 Inteligencia Artificial</div>
+                <div style="font-size:11px; color:var(--text-muted);">Baymax usa IA real (Gemini 2.5) mediante un servidor seguro. Cada usuario tiene un límite de <strong>30 mensajes por día</strong> para cuidar el servicio.</div>
+            </div>
+
             <!-- Botones de ajuste extra -->
             <div class="quick-wrap">
                 <button class="q-btn" onclick="resetSettings()">🔄 Restablecer ajustes</button>
@@ -3446,12 +3452,26 @@
         /* ── RESPUESTAS ── */
         function normalize(s) { return s.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, ''); }
 
-        // Historial de conversación para contexto de Claude API
-        let claudeConversation = [];
+        // ── CONFIGURACIÓN DEL WORKER ──────────────────────────────
+        // Reemplaza esta URL con la de tu Cloudflare Worker después de desplegarlo
+        const WORKER_URL = 'https://TU-WORKER.TU-USUARIO.workers.dev';
+
+        const GEMINI_SYSTEM = `Eres Baymax, un asistente médico personal amigable y empático inspirado en Big Hero 6.
+Ayudas al usuario con síntomas, consejos de salud y orientación médica general.
+REGLAS IMPORTANTES:
+- Responde SIEMPRE en español, de forma cálida y concisa (máximo 3 oraciones).
+- Usa frases características de Baymax como "He detectado...", "Mi protocolo recomienda...", "Tu bienestar es mi prioridad."
+- Para emergencias graves (dolor en el pecho, dificultad para respirar), indica siempre llamar al 123.
+- Nunca diagnostiques enfermedades específicas; orienta y recomienda consultar a un médico profesional.
+- No reemplazas la atención médica profesional.
+- Si te preguntan quién eres, responde que eres Baymax, el asistente médico personal.`;
+
+        let geminiConversation = [];
 
         async function findResponse(input) {
-            // Detectar emergencias localmente para respuesta inmediata
             const n = normalize(input);
+
+            // Emergencias detectadas localmente — respuesta inmediata sin API
             const emergencyKW = ['no puedo respirar', 'dificultad para respirar', 'dolor en el pecho', 'desmayo', 'convulsion'];
             if (emergencyKW.some(kw => n.includes(normalize(kw)))) {
                 appEl.classList.add('emergency-state');
@@ -3459,42 +3479,48 @@
                 return '⚠️ Alerta médica. He detectado síntomas de posible emergencia. Por favor llama al 123 o acude de inmediato al servicio de urgencias más cercano. No esperes. Tu vida es lo más importante.';
             }
 
-            // Agregar mensaje del usuario al historial
-            claudeConversation.push({ role: 'user', content: input });
-            // Limitar historial a últimos 10 turnos para no exceder tokens
-            if (claudeConversation.length > 20) claudeConversation = claudeConversation.slice(-20);
+            // Verificar que el Worker está configurado
+            if (WORKER_URL.includes('TU-WORKER')) {
+                return '⚙️ El Worker de Cloudflare no está configurado aún. Edita el archivo y reemplaza WORKER_URL con la URL de tu Worker.';
+            }
+
+            geminiConversation.push({ role: 'user', parts: [{ text: input }] });
+            if (geminiConversation.length > 20) geminiConversation = geminiConversation.slice(-20);
 
             try {
-                const response = await fetch('https://api.anthropic.com/v1/messages', {
+                const response = await fetch(WORKER_URL, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
-                        model: 'claude-sonnet-4-20250514',
-                        max_tokens: 1000,
-                        system: `Eres Baymax, un asistente médico personal amigable y empático inspirado en Big Hero 6. 
-Ayudas al usuario con síntomas, consejos de salud y orientación médica general.
-REGLAS IMPORTANTES:
-- Responde SIEMPRE en español, de forma cálida y concisa (máximo 3 oraciones).
-- Usa frases características de Baymax como "He detectado...", "Mi protocolo recomienda...", "Tu bienestar es mi prioridad."
-- Para emergencias graves (dolor en el pecho, dificultad para respirar), indica siempre llamar al 123.
-- Nunca diagnostiques enfermedades específicas; orienta y recomienda consultar a un médico profesional cuando sea necesario.
-- No reemplazas la atención médica profesional.
-- Si te preguntan quién eres, responde que eres Baymax, el asistente médico personal.`,
-                        messages: claudeConversation
+                        messages: geminiConversation,
+                        system: GEMINI_SYSTEM
                     })
                 });
 
-                if (!response.ok) throw new Error('API error ' + response.status);
                 const data = await response.json();
-                const reply = data.content.map(b => b.text || '').join('').trim();
 
-                // Agregar respuesta al historial
-                claudeConversation.push({ role: 'assistant', content: reply });
+                if (response.status === 429) {
+                    return `😴 ${data.error}`;
+                }
+
+                if (!response.ok || data.error) {
+                    console.error('Worker error:', data.error);
+                    throw new Error(data.error || 'Error del servidor');
+                }
+
+                const reply = data.reply || 'No pude procesar tu consulta. Intenta de nuevo.';
+                geminiConversation.push({ role: 'model', parts: [{ text: reply }] });
+
+                // Mostrar mensajes restantes si quedan pocos
+                if (typeof data.remaining === 'number' && data.remaining <= 5) {
+                    showToast(`💬 Te quedan ${data.remaining} mensajes hoy`);
+                }
+
                 return reply;
 
             } catch (err) {
-                console.error('Claude API error:', err);
-                // Fallback a KB local si hay error de red
+                console.error('Worker fetch error:', err);
+                // Fallback al KB local si hay error de red
                 for (const entry of KB) {
                     for (const kw of entry.keywords) {
                         if (n.includes(normalize(kw))) {
@@ -3510,7 +3536,7 @@ REGLAS IMPORTANTES:
             }
         }
 
-        function isWakeWord(t) { const n = normalize(t); return WAKE_WORDS.some(w => n.includes(normalize(w))); }
+                function isWakeWord(t) { const n = normalize(t); return WAKE_WORDS.some(w => n.includes(normalize(w))); }
         function isSleepWord(t) { const n = normalize(t); return SLEEP_WORDS.some(w => n.includes(normalize(w))); }
 
         /* ── TTS ── */
@@ -3786,6 +3812,8 @@ REGLAS IMPORTANTES:
             selectedVoiceIndex = -1; voiceSelectEl.value = '-1';
             showToast('🔄 Ajustes restablecidos');
         }
+
+
 
         /* ══════════════════════════════════════════════════════
            SIGNOS VITALES (nuevo)
