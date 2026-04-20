@@ -1430,6 +1430,434 @@
             letter-spacing: .5px;
         }
 
+        /* ══════════════════════════════════════════
+           INFLATE INTRO SEQUENCE — Big Hero 6 style
+           ══════════════════════════════════════════ */
+
+        /* Overlay negro que cubre todo al inicio */
+        #inflateOverlay {
+            position: fixed;
+            inset: 0;
+            background: #000;
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 0px;
+        }
+
+        #inflateOverlay.done {
+            animation: overlayFadeOut .6s ease forwards;
+            pointer-events: none;
+        }
+
+        @keyframes overlayFadeOut {
+            to {
+                opacity: 0;
+                visibility: hidden;
+            }
+        }
+
+        /* Contenedor del Baymax desinflado en la intro */
+        #inflateBaymax {
+            position: relative;
+            width: 240px;
+            height: 265px;
+        }
+
+        /* Cuerpo desinflado — empieza aplastado, casi invisible */
+        #inf-body {
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%) scaleY(0.04) scaleX(0.7);
+            transform-origin: bottom center;
+            width: 178px;
+            height: 188px;
+            background: #fff;
+            border-radius: 89px 89px 70px 70px;
+            opacity: 0;
+            box-shadow: 0 12px 44px rgba(100, 181, 246, .25);
+        }
+
+        #inf-body.inflate-body {
+            animation: inflateBody 1.8s cubic-bezier(.23, 1.2, .32, 1) forwards;
+        }
+
+        @keyframes inflateBody {
+            0% {
+                transform: translateX(-50%) scaleY(0.04) scaleX(0.7);
+                opacity: 0.3;
+            }
+
+            15% {
+                transform: translateX(-50%) scaleY(0.08) scaleX(0.85);
+                opacity: 0.6;
+            }
+
+            /* pequeñas sacudidas de aire */
+            25% {
+                transform: translateX(-50%) scaleY(0.35) scaleX(0.92);
+                opacity: 0.9;
+            }
+
+            30% {
+                transform: translateX(-50%) scaleY(0.32) scaleX(0.94);
+            }
+
+            40% {
+                transform: translateX(-50%) scaleY(0.65) scaleX(0.96);
+            }
+
+            45% {
+                transform: translateX(-50%) scaleY(0.62) scaleX(0.97);
+            }
+
+            55% {
+                transform: translateX(-50%) scaleY(0.88) scaleX(0.99);
+            }
+
+            65% {
+                transform: translateX(-50%) scaleY(1.06) scaleX(1.03);
+            }
+
+            72% {
+                transform: translateX(-50%) scaleY(0.97) scaleX(0.99);
+            }
+
+            80% {
+                transform: translateX(-50%) scaleY(1.04) scaleX(1.02);
+            }
+
+            88% {
+                transform: translateX(-50%) scaleY(0.99) scaleX(1.0);
+            }
+
+            100% {
+                transform: translateX(-50%) scaleY(1) scaleX(1);
+                opacity: 1;
+            }
+        }
+
+        #inf-head {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%) scale(0);
+            transform-origin: bottom center;
+            width: 120px;
+            height: 112px;
+            background: #fff;
+            border-radius: 62px;
+            opacity: 0;
+            box-shadow: 0 5px 22px rgba(100, 181, 246, .25);
+            z-index: 2;
+        }
+
+        #inf-head.inflate-head {
+            animation: inflateHead 1.2s cubic-bezier(.23, 1.3, .32, 1) forwards;
+        }
+
+        @keyframes inflateHead {
+            0% {
+                transform: translateX(-50%) scale(0.05);
+                opacity: 0.2;
+            }
+
+            20% {
+                transform: translateX(-50%) scale(0.4);
+                opacity: 0.7;
+            }
+
+            50% {
+                transform: translateX(-50%) scale(1.12);
+                opacity: 1;
+            }
+
+            68% {
+                transform: translateX(-50%) scale(0.94);
+            }
+
+            82% {
+                transform: translateX(-50%) scale(1.05);
+            }
+
+            100% {
+                transform: translateX(-50%) scale(1);
+                opacity: 1;
+            }
+        }
+
+        #inf-arm-l {
+            position: absolute;
+            bottom: 88px;
+            left: 1px;
+            width: 31px;
+            height: 86px;
+            background: #fff;
+            border-radius: 16px;
+            transform: scaleY(0) translateY(40px);
+            transform-origin: top center;
+            opacity: 0;
+        }
+
+        #inf-arm-l.inflate-arms {
+            animation: inflateArmL 0.8s cubic-bezier(.23, 1.3, .32, 1) forwards;
+        }
+
+        @keyframes inflateArmL {
+            0% {
+                transform: scaleY(0.05) translateY(30px);
+                opacity: 0;
+            }
+
+            60% {
+                transform: scaleY(1.1) translateY(-4px);
+                opacity: 1;
+            }
+
+            80% {
+                transform: scaleY(0.95) translateY(2px);
+            }
+
+            100% {
+                transform: scaleY(1) translateY(0);
+                opacity: 1;
+            }
+        }
+
+        #inf-arm-r {
+            position: absolute;
+            bottom: 88px;
+            right: 1px;
+            width: 31px;
+            height: 86px;
+            background: #fff;
+            border-radius: 16px;
+            transform: scaleY(0) translateY(40px);
+            transform-origin: top center;
+            opacity: 0;
+        }
+
+        #inf-arm-r.inflate-arms {
+            animation: inflateArmR 0.8s cubic-bezier(.23, 1.3, .32, 1) 0.08s forwards;
+        }
+
+        @keyframes inflateArmR {
+            0% {
+                transform: scaleY(0.05) translateY(30px);
+                opacity: 0;
+            }
+
+            60% {
+                transform: scaleY(1.1) translateY(-4px);
+                opacity: 1;
+            }
+
+            80% {
+                transform: scaleY(0.95) translateY(2px);
+            }
+
+            100% {
+                transform: scaleY(1) translateY(0);
+                opacity: 1;
+            }
+        }
+
+        #inf-foot-l,
+        #inf-foot-r {
+            position: absolute;
+            bottom: -20px;
+            width: 35px;
+            height: 35px;
+            background: #fff;
+            border-radius: 50%;
+            transform: scale(0);
+            opacity: 0;
+        }
+
+        #inf-foot-l {
+            left: 37px;
+        }
+
+        #inf-foot-r {
+            right: 37px;
+        }
+
+        #inf-foot-l.inflate-feet {
+            animation: inflateFoot 0.6s cubic-bezier(.23, 1.4, .32, 1) forwards;
+        }
+
+        #inf-foot-r.inflate-feet {
+            animation: inflateFoot 0.6s cubic-bezier(.23, 1.4, .32, 1) 0.1s forwards;
+        }
+
+        @keyframes inflateFoot {
+            0% {
+                transform: scale(0);
+                opacity: 0;
+            }
+
+            70% {
+                transform: scale(1.18);
+                opacity: 1;
+            }
+
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        /* Ojos en la intro */
+        #inf-eyes {
+            position: absolute;
+            top: 47px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 22px;
+            align-items: center;
+            opacity: 0;
+            z-index: 3;
+        }
+
+        #inf-eyes.inflate-eyes {
+            animation: eyesPop 0.5s cubic-bezier(.23, 1.5, .32, 1) forwards;
+        }
+
+        @keyframes eyesPop {
+            0% {
+                opacity: 0;
+                transform: translateX(-50%) scale(0.2);
+            }
+
+            60% {
+                opacity: 1;
+                transform: translateX(-50%) scale(1.3);
+            }
+
+            100% {
+                opacity: 1;
+                transform: translateX(-50%) scale(1);
+            }
+        }
+
+        .inf-eye {
+            width: 14px;
+            height: 6px;
+            background: #263238;
+            border-radius: 50%;
+        }
+
+        .inf-eye-line {
+            width: 32px;
+            height: 2px;
+            background: #263238;
+            border-radius: 2px;
+        }
+
+        /* Chest en intro */
+        #inf-chest {
+            position: absolute;
+            bottom: 68px;
+            left: 50%;
+            transform: translateX(-50%) scale(0);
+            width: 56px;
+            height: 56px;
+            background: radial-gradient(circle at 38% 36%, #90caf9, #1e88e5);
+            border-radius: 50%;
+            opacity: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        #inf-chest.inflate-chest {
+            animation: chestPop 0.6s cubic-bezier(.23, 1.4, .32, 1) forwards;
+        }
+
+        @keyframes chestPop {
+            0% {
+                transform: translateX(-50%) scale(0);
+                opacity: 0;
+            }
+
+            70% {
+                transform: translateX(-50%) scale(1.2);
+                opacity: 1;
+            }
+
+            100% {
+                transform: translateX(-50%) scale(1);
+                opacity: 1;
+            }
+        }
+
+        /* Texto de estado en intro */
+        #inflateStatus {
+            color: rgba(255, 255, 255, 0.7);
+            font-family: 'Space Mono', monospace;
+            font-size: 11px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            margin-top: 32px;
+            min-height: 20px;
+            text-align: center;
+            transition: opacity .3s;
+        }
+
+        /* Partículas de aire */
+        .air-particle {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(144, 202, 249, 0.6);
+            pointer-events: none;
+            animation: airFloat linear forwards;
+        }
+
+        @keyframes airFloat {
+            0% {
+                opacity: 0.8;
+                transform: translateY(0) scale(1);
+            }
+
+            100% {
+                opacity: 0;
+                transform: translateY(-60px) scale(0.3);
+            }
+        }
+
+        /* Vibración del cuerpo cuando entra aire */
+        @keyframes airShake {
+
+            0%,
+            100% {
+                transform: translateX(-50%) rotate(0deg);
+            }
+
+            20% {
+                transform: translateX(calc(-50% - 3px)) rotate(-1deg);
+            }
+
+            40% {
+                transform: translateX(calc(-50% + 3px)) rotate(1deg);
+            }
+
+            60% {
+                transform: translateX(calc(-50% - 2px)) rotate(-0.5deg);
+            }
+
+            80% {
+                transform: translateX(calc(-50% + 2px)) rotate(0.5deg);
+            }
+        }
+
+        #inf-body.shake {
+            animation: airShake 0.3s ease-in-out !important;
+        }
+
         /* KEYFRAMES */
         @keyframes breathe {
 
@@ -1883,92 +2311,483 @@
             gap: 8px;
             justify-content: center;
         }
+
         /* ══ NUEVAS FUNCIONES v3 ══════════════════════════════ */
 
         /* ACCESSIBILITY */
-        body.big-text { font-size: 18px; }
-        body.big-text .bubble-text { font-size: 17px; }
-        body.big-text .q-btn { font-size: 15px; padding: 10px 18px; }
-        body.big-text .history-bubble { font-size: 15px; }
-        body.big-text .tab { font-size: 13px; }
+        body.big-text {
+            font-size: 18px;
+        }
+
+        body.big-text .bubble-text {
+            font-size: 17px;
+        }
+
+        body.big-text .q-btn {
+            font-size: 15px;
+            padding: 10px 18px;
+        }
+
+        body.big-text .history-bubble {
+            font-size: 15px;
+        }
+
+        body.big-text .tab {
+            font-size: 13px;
+        }
 
         /* MOOD / WELLBEING CHART */
-        .mood-panel { background: var(--card); border-radius: 16px; border: 1px solid var(--card-border); padding: 14px 16px; box-shadow: 0 2px 10px var(--shadow); }
-        .mood-row { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; margin-bottom: 10px; }
-        .mood-label { font-size: 11px; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: .4px; }
-        .mood-emojis { display: flex; gap: 6px; flex-wrap: wrap; justify-content: center; }
-        .mood-btn { background: var(--card); border: 1.5px solid var(--card-border); border-radius: 50%; width: 38px; height: 38px; font-size: 18px; cursor: pointer; transition: all .2s; display: flex; align-items: center; justify-content: center; }
-        .mood-btn:hover, .mood-btn.selected { transform: scale(1.2); border-color: #42a5f5; box-shadow: 0 0 10px rgba(66,165,245,.4); }
-        .mood-chart-wrap { width: 100%; overflow-x: auto; }
-        .mood-chart { width: 100%; height: 80px; }
-        .mood-history-label { font-size: 11px; color: var(--text-muted); text-align: center; margin-top: 4px; font-style: italic; }
+        .mood-panel {
+            background: var(--card);
+            border-radius: 16px;
+            border: 1px solid var(--card-border);
+            padding: 14px 16px;
+            box-shadow: 0 2px 10px var(--shadow);
+        }
+
+        .mood-row {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+            flex-wrap: wrap;
+            margin-bottom: 10px;
+        }
+
+        .mood-label {
+            font-size: 11px;
+            font-weight: 700;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: .4px;
+        }
+
+        .mood-emojis {
+            display: flex;
+            gap: 6px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .mood-btn {
+            background: var(--card);
+            border: 1.5px solid var(--card-border);
+            border-radius: 50%;
+            width: 38px;
+            height: 38px;
+            font-size: 18px;
+            cursor: pointer;
+            transition: all .2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .mood-btn:hover,
+        .mood-btn.selected {
+            transform: scale(1.2);
+            border-color: #42a5f5;
+            box-shadow: 0 0 10px rgba(66, 165, 245, .4);
+        }
+
+        .mood-chart-wrap {
+            width: 100%;
+            overflow-x: auto;
+        }
+
+        .mood-chart {
+            width: 100%;
+            height: 80px;
+        }
+
+        .mood-history-label {
+            font-size: 11px;
+            color: var(--text-muted);
+            text-align: center;
+            margin-top: 4px;
+            font-style: italic;
+        }
 
         /* WATER TRACKER */
-        .water-panel { background: var(--card); border-radius: 16px; border: 1px solid var(--card-border); padding: 14px 16px; box-shadow: 0 2px 10px var(--shadow); }
-        .water-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
-        .water-title { font-size: 11px; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: .4px; }
-        .water-count { font-size: 22px; font-weight: 800; color: #1565c0; font-family: 'Space Mono', monospace; }
-        .water-glasses { display: flex; gap: 6px; flex-wrap: wrap; justify-content: center; margin-bottom: 10px; }
-        .glass { font-size: 24px; cursor: pointer; transition: transform .2s; filter: grayscale(1) opacity(.4); }
-        .glass.filled { filter: none; }
-        .glass:hover { transform: scale(1.2); }
-        .water-btns { display: flex; gap: 8px; justify-content: center; }
-        .water-btn { padding: 7px 16px; border-radius: 22px; border: none; font-family: 'Nunito', sans-serif; font-size: 13px; font-weight: 700; cursor: pointer; transition: all .2s; }
-        .water-btn.add { background: linear-gradient(135deg, #42a5f5, #1565c0); color: #fff; }
-        .water-btn.reset { background: var(--card); border: 1.5px solid #90caf9; color: var(--blue); }
-        .water-btn:hover { transform: scale(1.05); }
+        .water-panel {
+            background: var(--card);
+            border-radius: 16px;
+            border: 1px solid var(--card-border);
+            padding: 14px 16px;
+            box-shadow: 0 2px 10px var(--shadow);
+        }
+
+        .water-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .water-title {
+            font-size: 11px;
+            font-weight: 700;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: .4px;
+        }
+
+        .water-count {
+            font-size: 22px;
+            font-weight: 800;
+            color: #1565c0;
+            font-family: 'Space Mono', monospace;
+        }
+
+        .water-glasses {
+            display: flex;
+            gap: 6px;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-bottom: 10px;
+        }
+
+        .glass {
+            font-size: 24px;
+            cursor: pointer;
+            transition: transform .2s;
+            filter: grayscale(1) opacity(.4);
+        }
+
+        .glass.filled {
+            filter: none;
+        }
+
+        .glass:hover {
+            transform: scale(1.2);
+        }
+
+        .water-btns {
+            display: flex;
+            gap: 8px;
+            justify-content: center;
+        }
+
+        .water-btn {
+            padding: 7px 16px;
+            border-radius: 22px;
+            border: none;
+            font-family: 'Nunito', sans-serif;
+            font-size: 13px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all .2s;
+        }
+
+        .water-btn.add {
+            background: linear-gradient(135deg, #42a5f5, #1565c0);
+            color: #fff;
+        }
+
+        .water-btn.reset {
+            background: var(--card);
+            border: 1.5px solid #90caf9;
+            color: var(--blue);
+        }
+
+        .water-btn:hover {
+            transform: scale(1.05);
+        }
 
         /* STEP COUNTER */
-        .steps-panel { background: var(--card); border-radius: 16px; border: 1px solid var(--card-border); padding: 14px 16px; box-shadow: 0 2px 10px var(--shadow); }
-        .steps-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
-        .steps-title { font-size: 11px; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: .4px; }
-        .steps-count { font-size: 28px; font-weight: 800; color: #2e7d32; font-family: 'Space Mono', monospace; }
-        .steps-goal-bar-wrap { width: 100%; background: rgba(102,187,106,.15); border-radius: 10px; height: 10px; margin-bottom: 8px; overflow: hidden; }
-        .steps-goal-bar { height: 100%; background: linear-gradient(to right, #66bb6a, #2e7d32); border-radius: 10px; transition: width .5s; }
-        .steps-row { display: flex; gap: 8px; align-items: center; }
-        .steps-input { flex: 1; padding: 8px 14px; border: 1.5px solid var(--card-border); border-radius: 22px; font-size: 14px; font-family: 'Nunito', sans-serif; background: var(--card); color: var(--text); outline: none; }
-        .steps-input:focus { border-color: #66bb6a; }
-        body.dark .steps-input { background: rgba(14,28,52,.8); }
-        .steps-save { padding: 8px 16px; border-radius: 22px; background: linear-gradient(135deg,#66bb6a,#2e7d32); border: none; color: #fff; font-family: 'Nunito', sans-serif; font-size: 13px; font-weight: 700; cursor: pointer; white-space: nowrap; }
-        .steps-goal-label { font-size: 11px; color: var(--text-muted); text-align: center; }
+        .steps-panel {
+            background: var(--card);
+            border-radius: 16px;
+            border: 1px solid var(--card-border);
+            padding: 14px 16px;
+            box-shadow: 0 2px 10px var(--shadow);
+        }
+
+        .steps-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+
+        .steps-title {
+            font-size: 11px;
+            font-weight: 700;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: .4px;
+        }
+
+        .steps-count {
+            font-size: 28px;
+            font-weight: 800;
+            color: #2e7d32;
+            font-family: 'Space Mono', monospace;
+        }
+
+        .steps-goal-bar-wrap {
+            width: 100%;
+            background: rgba(102, 187, 106, .15);
+            border-radius: 10px;
+            height: 10px;
+            margin-bottom: 8px;
+            overflow: hidden;
+        }
+
+        .steps-goal-bar {
+            height: 100%;
+            background: linear-gradient(to right, #66bb6a, #2e7d32);
+            border-radius: 10px;
+            transition: width .5s;
+        }
+
+        .steps-row {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+        }
+
+        .steps-input {
+            flex: 1;
+            padding: 8px 14px;
+            border: 1.5px solid var(--card-border);
+            border-radius: 22px;
+            font-size: 14px;
+            font-family: 'Nunito', sans-serif;
+            background: var(--card);
+            color: var(--text);
+            outline: none;
+        }
+
+        .steps-input:focus {
+            border-color: #66bb6a;
+        }
+
+        body.dark .steps-input {
+            background: rgba(14, 28, 52, .8);
+        }
+
+        .steps-save {
+            padding: 8px 16px;
+            border-radius: 22px;
+            background: linear-gradient(135deg, #66bb6a, #2e7d32);
+            border: none;
+            color: #fff;
+            font-family: 'Nunito', sans-serif;
+            font-size: 13px;
+            font-weight: 700;
+            cursor: pointer;
+            white-space: nowrap;
+        }
+
+        .steps-goal-label {
+            font-size: 11px;
+            color: var(--text-muted);
+            text-align: center;
+        }
 
         /* SYMPTOM LOG */
-        .symptom-log-panel { background: var(--card); border-radius: 16px; border: 1px solid var(--card-border); padding: 12px 14px; box-shadow: 0 2px 10px var(--shadow); }
-        .symptom-log-title { font-size: 11px; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: .4px; margin-bottom: 8px; }
-        .symptom-log-list { max-height: 160px; overflow-y: auto; display: flex; flex-direction: column; gap: 5px; }
-        .symptom-log-item { display: flex; align-items: flex-start; gap: 8px; background: var(--blue-pale); border-radius: 10px; padding: 8px 10px; font-size: 12px; }
-        .symptom-log-item .sl-time { font-size: 10px; color: var(--text-muted); white-space: nowrap; margin-left: auto; }
-        body.dark .symptom-log-item { background: rgba(21,101,192,.15); color: #90caf9; }
-        .sl-clear { background: none; border: none; cursor: pointer; font-size: 12px; color: var(--text-muted); padding: 2px 6px; border-radius: 8px; }
-        .sl-clear:hover { color: #ef5350; }
+        .symptom-log-panel {
+            background: var(--card);
+            border-radius: 16px;
+            border: 1px solid var(--card-border);
+            padding: 12px 14px;
+            box-shadow: 0 2px 10px var(--shadow);
+        }
+
+        .symptom-log-title {
+            font-size: 11px;
+            font-weight: 700;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: .4px;
+            margin-bottom: 8px;
+        }
+
+        .symptom-log-list {
+            max-height: 160px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .symptom-log-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 8px;
+            background: var(--blue-pale);
+            border-radius: 10px;
+            padding: 8px 10px;
+            font-size: 12px;
+        }
+
+        .symptom-log-item .sl-time {
+            font-size: 10px;
+            color: var(--text-muted);
+            white-space: nowrap;
+            margin-left: auto;
+        }
+
+        body.dark .symptom-log-item {
+            background: rgba(21, 101, 192, .15);
+            color: #90caf9;
+        }
+
+        .sl-clear {
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 12px;
+            color: var(--text-muted);
+            padding: 2px 6px;
+            border-radius: 8px;
+        }
+
+        .sl-clear:hover {
+            color: #ef5350;
+        }
 
         /* BAYMAX EXPRESSION EXTRAS */
-        .baymax-head.thinking { animation: head-tilt 1s ease-in-out infinite alternate; }
-        @keyframes head-tilt { from { transform: translateX(-50%) rotate(-6deg); } to { transform: translateX(-50%) rotate(6deg); } }
+        .baymax-head.thinking {
+            animation: head-tilt 1s ease-in-out infinite alternate;
+        }
 
-        .baymax-arm-l.wave { animation: arm-wave 0.4s ease-in-out 3; }
-        @keyframes arm-wave { 0%,100% { transform: rotate(-6deg); } 50% { transform: rotate(-35deg); } }
+        @keyframes head-tilt {
+            from {
+                transform: translateX(-50%) rotate(-6deg);
+            }
+
+            to {
+                transform: translateX(-50%) rotate(6deg);
+            }
+        }
+
+        .baymax-arm-l.wave {
+            animation: arm-wave 0.4s ease-in-out 3;
+        }
+
+        @keyframes arm-wave {
+
+            0%,
+            100% {
+                transform: rotate(-6deg);
+            }
+
+            50% {
+                transform: rotate(-35deg);
+            }
+        }
 
         /* INFLATE ANIMATION on load */
-        @keyframes inflate { 0% { transform: translateX(-50%) scale(0.3); opacity: 0; } 60% { transform: translateX(-50%) scale(1.08); } 100% { transform: translateX(-50%) scale(1); opacity: 1; } }
-        .baymax-body.inflate { animation: inflate 1.2s cubic-bezier(.34,1.56,.64,1) both; }
-        .baymax-head.inflate { animation: inflate 1s cubic-bezier(.34,1.56,.64,1) .15s both; }
+        @keyframes inflate {
+            0% {
+                transform: translateX(-50%) scale(0.3);
+                opacity: 0;
+            }
+
+            60% {
+                transform: translateX(-50%) scale(1.08);
+            }
+
+            100% {
+                transform: translateX(-50%) scale(1);
+                opacity: 1;
+            }
+        }
+
+        .baymax-body.inflate {
+            animation: inflate 1.2s cubic-bezier(.34, 1.56, .64, 1) both;
+        }
+
+        .baymax-head.inflate {
+            animation: inflate 1s cubic-bezier(.34, 1.56, .64, 1) .15s both;
+        }
 
         /* PWA install banner */
-        .pwa-banner { display: none; position: fixed; bottom: 16px; left: 50%; transform: translateX(-50%); background: linear-gradient(135deg,#42a5f5,#1565c0); color: #fff; border-radius: 50px; padding: 10px 20px; font-size: 13px; font-weight: 700; font-family: 'Nunito', sans-serif; box-shadow: 0 6px 24px rgba(21,101,192,.4); cursor: pointer; z-index: 998; gap: 10px; align-items: center; white-space: nowrap; }
-        .pwa-banner.show { display: flex; animation: fadeInUp .4s ease; }
-        .pwa-banner button { background: rgba(255,255,255,.2); border: none; color: #fff; border-radius: 20px; padding: 4px 12px; font-size: 12px; cursor: pointer; }
+        .pwa-banner {
+            display: none;
+            position: fixed;
+            bottom: 16px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: linear-gradient(135deg, #42a5f5, #1565c0);
+            color: #fff;
+            border-radius: 50px;
+            padding: 10px 20px;
+            font-size: 13px;
+            font-weight: 700;
+            font-family: 'Nunito', sans-serif;
+            box-shadow: 0 6px 24px rgba(21, 101, 192, .4);
+            cursor: pointer;
+            z-index: 998;
+            gap: 10px;
+            align-items: center;
+            white-space: nowrap;
+        }
+
+        .pwa-banner.show {
+            display: flex;
+            animation: fadeInUp .4s ease;
+        }
+
+        .pwa-banner button {
+            background: rgba(255, 255, 255, .2);
+            border: none;
+            color: #fff;
+            border-radius: 20px;
+            padding: 4px 12px;
+            font-size: 12px;
+            cursor: pointer;
+        }
 
         /* WELLBEING TAB */
-        .wellbeing-section-title { font-size: 11px; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: .5px; margin-bottom: 2px; text-align: center; }
+        .wellbeing-section-title {
+            font-size: 11px;
+            font-weight: 700;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: .5px;
+            margin-bottom: 2px;
+            text-align: center;
+        }
 
         /* EXPORT PDF hint */
-        .export-hint { font-size: 10px; color: var(--text-muted); text-align: center; line-height: 1.5; margin-top: 4px; }
-
+        .export-hint {
+            font-size: 10px;
+            color: var(--text-muted);
+            text-align: center;
+            line-height: 1.5;
+            margin-top: 4px;
+        }
     </style>
 </head>
 
 <body>
+
+    <!-- ══ INFLATE INTRO OVERLAY ══ -->
+    <div id="inflateOverlay">
+        <div id="inflateBaymax">
+            <div id="inf-arm-l"></div>
+            <div id="inf-arm-r"></div>
+            <div id="inf-body">
+                <div id="inf-chest">
+                    <div
+                        style="width:24px;height:24px;background:rgba(255,255,255,.92);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;color:#1565c0;">
+                        +</div>
+                </div>
+                <div id="inf-foot-l"></div>
+                <div id="inf-foot-r"></div>
+            </div>
+            <div id="inf-head">
+                <div id="inf-eyes">
+                    <div class="inf-eye"></div>
+                    <div class="inf-eye-line"></div>
+                    <div class="inf-eye"></div>
+                </div>
+            </div>
+        </div>
+        <div id="inflateStatus">Inicializando…</div>
+    </div>
 
     <!-- TOAST -->
     <div class="toast" id="toast">🔔 Recordatorio</div>
@@ -1982,7 +2801,8 @@
                 <button class="icon-btn" onclick="toggleDark()" id="darkBtn" title="Modo oscuro">🌙</button>
                 <button class="icon-btn" onclick="exportHistory()" title="Exportar historial">💾</button>
                 <button class="icon-btn" onclick="clearHistory()" title="Limpiar historial">🗑️</button>
-                <button class="icon-btn" onclick="toggleBigText()" id="bigTextBtn" title="Accesibilidad: texto grande">🔠</button>
+                <button class="icon-btn" onclick="toggleBigText()" id="bigTextBtn"
+                    title="Accesibilidad: texto grande">🔠</button>
             </div>
         </div>
 
@@ -2404,7 +3224,8 @@
                     </div>
                     <div class="steps-goal-label" id="stepsGoalLabel">Meta: 10,000 pasos</div>
                     <div class="steps-row" style="margin-top:8px;">
-                        <input class="steps-input" id="stepsInput" type="number" placeholder="Ingresa tus pasos…" min="0" max="99999" />
+                        <input class="steps-input" id="stepsInput" type="number" placeholder="Ingresa tus pasos…"
+                            min="0" max="99999" />
                         <button class="steps-save" onclick="saveSteps()">✔ Guardar</button>
                     </div>
                 </div>
@@ -2428,10 +3249,11 @@
         <p class="disclaimer">⚕️ Baymax es informativo y no reemplaza atención médica profesional. Emergencias:
             <strong>123</strong>
         </p>
-    <!-- PWA Install Banner -->
-    <div class="pwa-banner" id="pwaBanner" onclick="installPWA()">
-        📲 Instalar Baymax como app <button onclick="event.stopPropagation();document.getElementById('pwaBanner').classList.remove('show')">✕</button>
-    </div>
+        <!-- PWA Install Banner -->
+        <div class="pwa-banner" id="pwaBanner" onclick="installPWA()">
+            📲 Instalar Baymax como app <button
+                onclick="event.stopPropagation();document.getElementById('pwaBanner').classList.remove('show')">✕</button>
+        </div>
     </main>
 
     <script>
@@ -2624,23 +3446,68 @@
         /* ── RESPUESTAS ── */
         function normalize(s) { return s.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, ''); }
 
-        function findResponse(input) {
+        // Historial de conversación para contexto de Claude API
+        let claudeConversation = [];
+
+        async function findResponse(input) {
+            // Detectar emergencias localmente para respuesta inmediata
             const n = normalize(input);
-            for (const entry of KB) {
-                for (const kw of entry.keywords) {
-                    if (n.includes(normalize(kw))) {
-                        const key = entry.keywords[0];
-                        if (!rcCounters[key]) rcCounters[key] = 0;
-                        const r = entry.responses[rcCounters[key] % entry.responses.length];
-                        rcCounters[key]++;
-                        if (entry.urgent) { appEl.classList.add('emergency-state'); setTimeout(() => appEl.classList.remove('emergency-state'), 5000); }
-                        return r;
+            const emergencyKW = ['no puedo respirar', 'dificultad para respirar', 'dolor en el pecho', 'desmayo', 'convulsion'];
+            if (emergencyKW.some(kw => n.includes(normalize(kw)))) {
+                appEl.classList.add('emergency-state');
+                setTimeout(() => appEl.classList.remove('emergency-state'), 5000);
+                return '⚠️ Alerta médica. He detectado síntomas de posible emergencia. Por favor llama al 123 o acude de inmediato al servicio de urgencias más cercano. No esperes. Tu vida es lo más importante.';
+            }
+
+            // Agregar mensaje del usuario al historial
+            claudeConversation.push({ role: 'user', content: input });
+            // Limitar historial a últimos 10 turnos para no exceder tokens
+            if (claudeConversation.length > 20) claudeConversation = claudeConversation.slice(-20);
+
+            try {
+                const response = await fetch('https://api.anthropic.com/v1/messages', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        model: 'claude-sonnet-4-20250514',
+                        max_tokens: 1000,
+                        system: `Eres Baymax, un asistente médico personal amigable y empático inspirado en Big Hero 6. 
+Ayudas al usuario con síntomas, consejos de salud y orientación médica general.
+REGLAS IMPORTANTES:
+- Responde SIEMPRE en español, de forma cálida y concisa (máximo 3 oraciones).
+- Usa frases características de Baymax como "He detectado...", "Mi protocolo recomienda...", "Tu bienestar es mi prioridad."
+- Para emergencias graves (dolor en el pecho, dificultad para respirar), indica siempre llamar al 123.
+- Nunca diagnostiques enfermedades específicas; orienta y recomienda consultar a un médico profesional cuando sea necesario.
+- No reemplazas la atención médica profesional.
+- Si te preguntan quién eres, responde que eres Baymax, el asistente médico personal.`,
+                        messages: claudeConversation
+                    })
+                });
+
+                if (!response.ok) throw new Error('API error ' + response.status);
+                const data = await response.json();
+                const reply = data.content.map(b => b.text || '').join('').trim();
+
+                // Agregar respuesta al historial
+                claudeConversation.push({ role: 'assistant', content: reply });
+                return reply;
+
+            } catch (err) {
+                console.error('Claude API error:', err);
+                // Fallback a KB local si hay error de red
+                for (const entry of KB) {
+                    for (const kw of entry.keywords) {
+                        if (n.includes(normalize(kw))) {
+                            const key = entry.keywords[0];
+                            if (!rcCounters[key]) rcCounters[key] = 0;
+                            const r = entry.responses[rcCounters[key] % entry.responses.length];
+                            rcCounters[key]++;
+                            return r;
+                        }
                     }
                 }
+                return DEFAULT_RESPONSES[Math.floor(Math.random() * DEFAULT_RESPONSES.length)];
             }
-            if (!rcCounters['_def']) rcCounters['_def'] = 0;
-            const r = DEFAULT_RESPONSES[rcCounters['_def'] % DEFAULT_RESPONSES.length];
-            rcCounters['_def']++; return r;
         }
 
         function isWakeWord(t) { const n = normalize(t); return WAKE_WORDS.some(w => n.includes(normalize(w))); }
@@ -2673,21 +3540,18 @@
         }
 
         /* ── RESPOND ── */
-        function respond(input, fromVoice = false) {
+        async function respond(input, fromVoice = false) {
             if (busy) return; busy = true;
             setAppState('responding'); showTyping();
             transcriptEl.textContent = fromVoice ? `🎤 "${input}"` : `💬 "${input}"`;
             addToHistory(input, 'user');
-            const delay = 500 + Math.random() * 400;
-            setTimeout(() => {
-                const reply = findResponse(input);
-                showReply(reply); addToHistory(reply, 'bot');
-                speak(reply, () => {
-                    busy = false;
-                    setAppState('standby');
-                    if (continuousListening && appState !== 'sleeping') restartRecognition();
-                });
-            }, delay);
+            const reply = await findResponse(input);
+            showReply(reply); addToHistory(reply, 'bot');
+            speak(reply, () => {
+                busy = false;
+                setAppState('standby');
+                if (continuousListening && appState !== 'sleeping') restartRecognition();
+            });
         }
 
         /* ── ACTIVAR / DESACTIVAR ── */
@@ -3272,16 +4136,16 @@
 
         /* ── DETECCIÓN DE EMOCIONES EN TEXTO (gratis, local) ── */
         const EMOTION_MAP = [
-            { words: ['genial','feliz','contento','excelente','alegre','bien','gracias','perfecto','maravilloso','emocionado'], state: 'happy' },
-            { words: ['triste','mal','horrible','terrible','deprimido','vacío','llorar','desesperado','solo'], state: 'worried' },
-            { words: ['ansioso','nervioso','asustado','pánico','miedo','angustia','estrés','estresado'], state: 'worried' },
-            { words: ['emergencia','no puedo respirar','desmayo','convulsión','dolor en el pecho'], state: 'emergency-state' },
+            { words: ['genial', 'feliz', 'contento', 'excelente', 'alegre', 'bien', 'gracias', 'perfecto', 'maravilloso', 'emocionado'], state: 'happy' },
+            { words: ['triste', 'mal', 'horrible', 'terrible', 'deprimido', 'vacío', 'llorar', 'desesperado', 'solo'], state: 'worried' },
+            { words: ['ansioso', 'nervioso', 'asustado', 'pánico', 'miedo', 'angustia', 'estrés', 'estresado'], state: 'worried' },
+            { words: ['emergencia', 'no puedo respirar', 'desmayo', 'convulsión', 'dolor en el pecho'], state: 'emergency-state' },
         ];
         function detectEmotion(text) {
             const n = normalize(text);
             for (const e of EMOTION_MAP) {
                 if (e.words.some(w => n.includes(normalize(w)))) {
-                    appEl.classList.remove('happy','worried','emergency-state');
+                    appEl.classList.remove('happy', 'worried', 'emergency-state');
                     appEl.classList.add(e.state);
                     if (e.state !== 'emergency-state') setTimeout(() => appEl.classList.remove(e.state), 5000);
                     return;
@@ -3309,7 +4173,7 @@
         }
         // Monkey-patch addToHistory to also persist
         const _origAddToHistory = addToHistory;
-        window.addToHistory = function(text, role) {
+        window.addToHistory = function (text, role) {
             _origAddToHistory(text, role);
             saveMessageToStorage(text, role);
             detectEmotion(text);
@@ -3317,12 +4181,12 @@
 
         // ALSO patch respond to animate head "thinking"
         const _origRespond = respond;
-        window.respond = function(input, fromVoice) {
+        window.respond = function (input, fromVoice) {
             document.getElementById('baymaxHead').classList.add('thinking');
             setTimeout(() => document.getElementById('baymaxHead').classList.remove('thinking'), 900);
             // Wave arm on greeting
             const nInput = normalize(input);
-            if (['hola','hey','buenos','saludos'].some(w => nInput.startsWith(normalize(w)))) {
+            if (['hola', 'hey', 'buenos', 'saludos'].some(w => nInput.startsWith(normalize(w)))) {
                 document.querySelector('.baymax-arm-l').classList.add('wave');
                 setTimeout(() => document.querySelector('.baymax-arm-l').classList.remove('wave'), 1200);
             }
@@ -3337,7 +4201,7 @@
             selectedMoodScore = score;
             document.querySelectorAll('.mood-btn').forEach(b => b.classList.remove('selected'));
             const btns = document.querySelectorAll('.mood-btn');
-            const idx = [1,2,3,4,5,6,7,8,9].indexOf(score);
+            const idx = [1, 2, 3, 4, 5, 6, 7, 8, 9].indexOf(score);
             if (idx >= 0) btns[idx].classList.add('selected');
             const today = new Date().toLocaleDateString('es-CO');
             const existing = moodLog.findIndex(m => m.date === today);
@@ -3349,15 +4213,15 @@
             drawMoodChart();
             // Baymax reacts
             const msgs = {
-                1:'He detectado que no te sientes bien hoy. Estoy aquí contigo. ¿Quieres contarme cómo te sientes?',
-                2:'Parece que no ha sido un buen día. Estoy aquí para escucharte.',
-                3:'Día regular. Eso también está bien. ¿Hay algo en que pueda ayudarte?',
-                4:'Me alegra que estés bien. ¿En qué puedo asistirte hoy?',
-                5:'Excelente. ¡Me alegra verte bien! Recuerda hidratarte y moverte.',
-                6:'¡Increíble! Ese estado de ánimo es lo mejor. ¡Que siga así!',
-                7:'Cansancio detectado. Descansar es parte del cuidado. Tu bienestar es mi prioridad.',
-                8:'Ansiedad detectada. Respira: inhala 4 segundos, aguanta 4, exhala 6. Estoy aquí.',
-                9:'Síntomas de malestar detectados. ¿Puedes contarme más sobre cómo te sientes?'
+                1: 'He detectado que no te sientes bien hoy. Estoy aquí contigo. ¿Quieres contarme cómo te sientes?',
+                2: 'Parece que no ha sido un buen día. Estoy aquí para escucharte.',
+                3: 'Día regular. Eso también está bien. ¿Hay algo en que pueda ayudarte?',
+                4: 'Me alegra que estés bien. ¿En qué puedo asistirte hoy?',
+                5: 'Excelente. ¡Me alegra verte bien! Recuerda hidratarte y moverte.',
+                6: '¡Increíble! Ese estado de ánimo es lo mejor. ¡Que siga así!',
+                7: 'Cansancio detectado. Descansar es parte del cuidado. Tu bienestar es mi prioridad.',
+                8: 'Ansiedad detectada. Respira: inhala 4 segundos, aguanta 4, exhala 6. Estoy aquí.',
+                9: 'Síntomas de malestar detectados. ¿Puedes contarme más sobre cómo te sientes?'
             };
             if (msgs[score] && appState !== 'sleeping') {
                 setTimeout(() => respond(msgs[score], false), 400);
@@ -3375,7 +4239,7 @@
             if (last7.filter(d => d.score).length < 1) {
                 ctx.fillStyle = 'rgba(144,202,249,.4)';
                 ctx.font = '11px Nunito'; ctx.textAlign = 'center';
-                ctx.fillText('Registra tu estado diario para ver la gráfica', W/2, 38);
+                ctx.fillText('Registra tu estado diario para ver la gráfica', W / 2, 38);
                 return;
             }
             const cols = W / 7;
@@ -3407,8 +4271,8 @@
         }
 
         function getLast7Days() {
-            const days = ['Dom','Lun','Mar','Mié','Jue','Vie','Sáb'];
-            return Array.from({length: 7}, (_, i) => {
+            const days = ['Dom', 'Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb'];
+            return Array.from({ length: 7 }, (_, i) => {
                 const d = new Date(); d.setDate(d.getDate() - (6 - i));
                 const key = d.toLocaleDateString('es-CO');
                 const found = moodLog.find(m => m.date === key);
@@ -3429,7 +4293,7 @@
             for (let i = 0; i < 8; i++) {
                 const g = document.createElement('span');
                 g.className = 'glass' + (i < c ? ' filled' : '');
-                g.textContent = '🥤'; g.title = `Vaso ${i+1}`;
+                g.textContent = '🥤'; g.title = `Vaso ${i + 1}`;
                 g.onclick = () => { waterData.count = i + 1; localStorage.setItem('baymax-water', JSON.stringify(waterData)); renderWater(); };
                 grid.appendChild(g);
             }
@@ -3506,14 +4370,14 @@
 
         // Monkey-patch manualActivate para que loguee síntomas
         const _origManualActivate = manualActivate;
-        window.manualActivate = function(symptom) {
+        window.manualActivate = function (symptom) {
             logSymptom(symptom);
             _origManualActivate(symptom);
         };
 
         // Monkey-patch sendText para loguear síntomas escritos
         const _origSendText = sendText;
-        window.sendText = function() {
+        window.sendText = function () {
             const val = document.getElementById('chatInput').value.trim();
             if (val && !isSleepWord(val.toLowerCase())) logSymptom(val);
             _origSendText();
@@ -3545,9 +4409,9 @@
         applyBigText();
 
         /* ── EMERGENCIA MEJORADA: detección automática de palabras clave ── */
-        const EMERGENCY_TRIGGER = ['no puedo respirar','dolor en el pecho','me desmaye','convulsion','me caí y no me levanto','emergencia'];
+        const EMERGENCY_TRIGGER = ['no puedo respirar', 'dolor en el pecho', 'me desmaye', 'convulsion', 'me caí y no me levanto', 'emergencia'];
         const _origFindResponse = findResponse;
-        window.findResponse = function(input) {
+        window.findResponse = function (input) {
             const n = normalize(input);
             if (EMERGENCY_TRIGGER.some(w => n.includes(normalize(w)))) {
                 document.getElementById('emergencyPanel').classList.add('visible');
@@ -3559,7 +4423,7 @@
 
         /* ── DIBUJAR GRÁFICA AL CAMBIAR DE TAB ── */
         const _origSwitchTab = switchTab;
-        window.switchTab = function(name) {
+        window.switchTab = function (name) {
             _origSwitchTab(name);
             if (name === 'bienestar') setTimeout(drawMoodChart, 100);
         };
@@ -3568,7 +4432,7 @@
         loadPersistedHistory();
 
         /* ── TAMBIÉN SOBREESCRIBIR clearHistory PARA BORRAR PERSISTIDO ── */
-        window.clearHistory = function() {
+        window.clearHistory = function () {
             historyEl.innerHTML = '';
             persistentHistory = [];
             localStorage.setItem('baymax-chat-history', '[]');
@@ -3580,6 +4444,195 @@
 
         // Mood chart redraw on resize
         window.addEventListener('resize', () => { if (document.getElementById('panel-bienestar').classList.contains('active')) drawMoodChart(); });
+
+        /* ══════════════════════════════════════════════════════
+           INFLATE INTRO SEQUENCE — Big Hero 6 style
+           Secuencia completa de inflado al cargar la página
+           ══════════════════════════════════════════════════════ */
+        (function runInflateIntro() {
+            const overlay = document.getElementById('inflateOverlay');
+            const infBody = document.getElementById('inf-body');
+            const infHead = document.getElementById('inf-head');
+            const infArmL = document.getElementById('inf-arm-l');
+            const infArmR = document.getElementById('inf-arm-r');
+            const infFootL = document.getElementById('inf-foot-l');
+            const infFootR = document.getElementById('inf-foot-r');
+            const infEyes = document.getElementById('inf-eyes');
+            const infChest = document.getElementById('inf-chest');
+            const infStatus = document.getElementById('inflateStatus');
+
+            // Función para crear partículas de aire
+            function spawnAirParticles(count) {
+                const wrap = document.getElementById('inflateBaymax');
+                for (let i = 0; i < count; i++) {
+                    setTimeout(() => {
+                        const p = document.createElement('div');
+                        p.className = 'air-particle';
+                        const size = 4 + Math.random() * 10;
+                        p.style.cssText = `
+                            width:${size}px; height:${size}px;
+                            left:${30 + Math.random() * 140}px;
+                            bottom:${20 + Math.random() * 80}px;
+                            animation-duration:${0.6 + Math.random() * 0.8}s;
+                        `;
+                        wrap.appendChild(p);
+                        setTimeout(() => p.remove(), 1400);
+                    }, i * 60);
+                }
+            }
+
+            // Función de sonido de aire con Web Audio API
+            function playAirSound(duration, freq1, freq2) {
+                try {
+                    const ctx = new (window.AudioContext || window.webkitAudioContext)();
+                    const osc = ctx.createOscillator();
+                    const gain = ctx.createGain();
+                    // Filtro de paso de banda para sonido de "soplido"
+                    const filter = ctx.createBiquadFilter();
+                    filter.type = 'bandpass';
+                    filter.frequency.value = 800;
+                    filter.Q.value = 0.5;
+                    // Fuente de ruido blanco para el soplido
+                    const bufSize = ctx.sampleRate * duration;
+                    const buffer = ctx.createBuffer(1, bufSize, ctx.sampleRate);
+                    const data = buffer.getChannelData(0);
+                    for (let i = 0; i < bufSize; i++) data[i] = Math.random() * 2 - 1;
+                    const noise = ctx.createBufferSource();
+                    noise.buffer = buffer;
+                    noise.connect(filter);
+                    filter.connect(gain);
+                    gain.connect(ctx.destination);
+                    // Envolvente: crece rápido, baja lento
+                    gain.gain.setValueAtTime(0, ctx.currentTime);
+                    gain.gain.linearRampToValueAtTime(0.18, ctx.currentTime + 0.05);
+                    gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + duration);
+                    noise.start(ctx.currentTime);
+                    noise.stop(ctx.currentTime + duration);
+                    // Pequeño tono grave que da sensación de "masa" inflándose
+                    const bass = ctx.createOscillator();
+                    const bassGain = ctx.createGain();
+                    bass.type = 'sine';
+                    bass.frequency.setValueAtTime(freq1, ctx.currentTime);
+                    bass.frequency.exponentialRampToValueAtTime(freq2, ctx.currentTime + duration * 0.7);
+                    bassGain.gain.setValueAtTime(0, ctx.currentTime);
+                    bassGain.gain.linearRampToValueAtTime(0.08, ctx.currentTime + 0.08);
+                    bassGain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + duration * 0.9);
+                    bass.connect(bassGain);
+                    bassGain.connect(ctx.destination);
+                    bass.start(ctx.currentTime);
+                    bass.stop(ctx.currentTime + duration);
+                    setTimeout(() => ctx.close(), (duration + 0.2) * 1000);
+                } catch (e) { /* silencio si no hay AudioContext */ }
+            }
+
+            // Pitido de "encendido" tipo robot
+            function playBootBeep() {
+                try {
+                    const ctx = new (window.AudioContext || window.webkitAudioContext)();
+                    const seq = [
+                        { f: 440, t: 0, d: 0.08 },
+                        { f: 660, t: 0.1, d: 0.08 },
+                        { f: 880, t: 0.2, d: 0.12 },
+                        { f: 1100, t: 0.35, d: 0.18 },
+                    ];
+                    seq.forEach(({ f, t, d }) => {
+                        const o = ctx.createOscillator();
+                        const g = ctx.createGain();
+                        o.type = 'sine'; o.frequency.value = f;
+                        g.gain.setValueAtTime(0, ctx.currentTime + t);
+                        g.gain.linearRampToValueAtTime(0.12, ctx.currentTime + t + 0.01);
+                        g.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + t + d);
+                        o.connect(g); g.connect(ctx.destination);
+                        o.start(ctx.currentTime + t);
+                        o.stop(ctx.currentTime + t + d + 0.01);
+                    });
+                    setTimeout(() => ctx.close(), 800);
+                } catch (e) { }
+            }
+
+            /* ── SECUENCIA DE INFLADO ── */
+            const steps = [
+                // t=0: Mensaje inicial
+                [0, () => {
+                    infStatus.textContent = 'Iniciando protocolo…';
+                }],
+
+                // t=300: Primer soplo — empieza el cuerpo aplastado
+                [300, () => {
+                    infStatus.textContent = 'Inflando…';
+                    playAirSound(1.0, 120, 200);
+                    infBody.classList.add('inflate-body');
+                    spawnAirParticles(5);
+                }],
+
+                // t=700: Segundo soplo — sacudida y más partículas
+                [700, () => {
+                    playAirSound(0.7, 160, 260);
+                    spawnAirParticles(8);
+                    // Efecto de sacudida rápida
+                    infBody.classList.add('shake');
+                    setTimeout(() => infBody.classList.remove('shake'), 300);
+                }],
+
+                // t=1200: Tercer soplo — cuerpo casi lleno
+                [1200, () => {
+                    playAirSound(0.8, 180, 300);
+                    spawnAirParticles(10);
+                    infBody.classList.add('shake');
+                    setTimeout(() => infBody.classList.remove('shake'), 300);
+                }],
+
+                // t=1700: Sale la cabeza
+                [1700, () => {
+                    infStatus.textContent = 'Ensamblando…';
+                    playAirSound(0.6, 200, 350);
+                    infHead.classList.add('inflate-head');
+                    spawnAirParticles(6);
+                }],
+
+                // t=2100: Salen los brazos
+                [2100, () => {
+                    playAirSound(0.4, 250, 300);
+                    infArmL.classList.add('inflate-arms');
+                    infArmR.classList.add('inflate-arms');
+                    spawnAirParticles(4);
+                }],
+
+                // t=2400: Salen los pies
+                [2400, () => {
+                    playAirSound(0.35, 180, 220);
+                    infFootL.classList.add('inflate-feet');
+                    infFootR.classList.add('inflate-feet');
+                }],
+
+                // t=2650: Aparece el orb del pecho
+                [2650, () => {
+                    infChest.classList.add('inflate-chest');
+                }],
+
+                // t=2900: Aparecen los ojos — beep de encendido
+                [2900, () => {
+                    infStatus.textContent = 'Sistemas en línea ✓';
+                    infEyes.classList.add('inflate-eyes');
+                    playBootBeep();
+                }],
+
+                // t=3400: Mensaje de listo
+                [3400, () => {
+                    infStatus.textContent = '¡Hola! Soy Baymax 🤍';
+                }],
+
+                // t=3900: Fade out del overlay y mostrar app real
+                [3900, () => {
+                    overlay.classList.add('done');
+                    overlay.addEventListener('animationend', () => {
+                        overlay.style.display = 'none';
+                    }, { once: true });
+                }],
+            ];
+
+            steps.forEach(([delay, fn]) => setTimeout(fn, delay));
+        })();
 
     </script>
 </body>
