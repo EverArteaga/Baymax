@@ -2090,226 +2090,298 @@
             color: #90caf9;
         }
 
-        /* ── CÁMARA ── */
-        .camera-panel-inner {
+        /* ── ANALIZADOR VISUAL IA ── */
+        .scan-intro-card {
             display: flex;
-            flex-direction: column;
-            gap: 10px;
-            align-items: center;
-            width: 100%;
+            gap: 12px;
+            align-items: flex-start;
+            background: linear-gradient(135deg, rgba(66, 165, 245, .1), rgba(21, 101, 192, .07));
+            border: 1px solid rgba(66, 165, 245, .3);
+            border-radius: 16px;
+            padding: 14px 16px;
         }
 
-        .camera-preview-wrap {
-            position: relative;
+        .scan-intro-icon {
+            font-size: 30px;
+            flex-shrink: 0;
+        }
+
+        .scan-intro-title {
+            font-size: 14px;
+            font-weight: 800;
+            color: var(--blue);
+            margin-bottom: 4px;
+        }
+
+        .scan-intro-sub {
+            font-size: 11px;
+            color: var(--text-muted);
+            line-height: 1.5;
+        }
+
+        .scan-drop-zone {
             width: 100%;
+            min-height: 140px;
+            border: 2.5px dashed rgba(66, 165, 245, .45);
             border-radius: 16px;
-            overflow: hidden;
-            background: #0a0a0a;
-            box-shadow: 0 4px 22px var(--shadow);
-            border: 1px solid var(--card-border);
-            aspect-ratio: 4/3;
+            background: var(--card);
             display: flex;
             align-items: center;
             justify-content: center;
+            cursor: pointer;
+            transition: all .2s;
+            overflow: hidden;
+            position: relative;
         }
 
-        #cameraVideo {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            display: none;
-            border-radius: 16px;
+        .scan-drop-zone:hover {
+            border-color: #42a5f5;
+            background: var(--blue-pale);
         }
 
-        .camera-placeholder {
+        .scan-drop-zone.has-img {
+            border-style: solid;
+            border-color: #42a5f5;
+            min-height: 200px;
+        }
+
+        .scan-drop-content {
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 8px;
-            color: #546e7a;
+            gap: 6px;
+            padding: 20px;
         }
 
-        .camera-placeholder span {
-            font-size: 40px;
+        .scan-drop-icon {
+            font-size: 34px;
         }
 
-        .camera-placeholder p {
-            font-size: 12px;
-            font-weight: 600;
+        .scan-drop-label {
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--blue);
+            text-align: center;
+        }
+
+        .scan-drop-hint {
+            font-size: 10px;
             color: var(--text-muted);
         }
 
-        .rec-badge {
-            display: none;
+        .scan-preview-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 14px;
+            max-height: 280px;
+        }
+
+        .scan-change-overlay {
             position: absolute;
-            top: 10px;
-            left: 10px;
-            background: #ef5350;
+            bottom: 8px;
+            right: 8px;
+            background: rgba(21, 101, 192, .82);
             color: #fff;
+            border: none;
+            border-radius: 20px;
+            padding: 5px 12px;
             font-size: 11px;
             font-weight: 700;
-            padding: 3px 10px;
-            border-radius: 20px;
-            animation: blink-dot .7s ease-in-out infinite;
-            letter-spacing: 1px;
-        }
-
-        .camera-controls {
-            display: flex;
-            gap: 10px;
-            flex-wrap: wrap;
-            justify-content: center;
-            width: 100%;
-        }
-
-        .cam-btn {
-            flex: 1;
-            min-width: 120px;
-            padding: 10px 14px;
-            border-radius: 22px;
-            border: none;
-            font-family: 'Nunito', sans-serif;
-            font-size: 13px;
-            font-weight: 700;
             cursor: pointer;
+            font-family: 'Nunito', sans-serif;
+        }
+
+        .scan-context-wrap {
+            width: 100%;
             display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 6px;
-            transition: all .2s;
-            box-shadow: 0 3px 12px rgba(0, 0, 0, .12);
+            flex-direction: column;
+            gap: 5px;
         }
 
-        .cam-btn:hover {
-            transform: translateY(-2px);
+        .scan-context-label {
+            font-size: 10px;
+            font-weight: 700;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: .4px;
         }
 
-        .cam-btn:active {
-            transform: scale(.96);
-        }
-
-        .cam-btn.primary {
-            background: linear-gradient(135deg, #42a5f5, #1565c0);
-            color: #fff;
-        }
-
-        .cam-btn.danger {
-            background: linear-gradient(135deg, #ef5350, #b71c1c);
-            color: #fff;
-        }
-
-        .cam-btn.success {
-            background: linear-gradient(135deg, #66bb6a, #2e7d32);
-            color: #fff;
-        }
-
-        .cam-btn.secondary {
+        .scan-context-input {
+            padding: 10px 16px;
+            border: 1.5px solid var(--card-border);
+            border-radius: 22px;
+            font-size: 13px;
+            font-family: 'Nunito', sans-serif;
             background: var(--card);
-            color: var(--blue);
-            border: 1.5px solid #90caf9;
+            color: var(--text);
+            outline: none;
+            transition: border-color .2s;
         }
 
-        .cam-btn:disabled {
+        .scan-context-input:focus {
+            border-color: #42a5f5;
+        }
+
+        body.dark .scan-context-input {
+            background: rgba(14, 28, 52, .8);
+        }
+
+        .scan-analyze-btn {
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(135deg, #42a5f5, #1565c0);
+            border: none;
+            border-radius: 16px;
+            color: #fff;
+            font-family: 'Nunito', sans-serif;
+            font-size: 15px;
+            font-weight: 800;
+            cursor: pointer;
+            transition: all .2s;
+            box-shadow: 0 4px 18px rgba(21, 101, 192, .35);
+            letter-spacing: .3px;
+        }
+
+        .scan-analyze-btn:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(21, 101, 192, .45);
+        }
+
+        .scan-analyze-btn:disabled {
             opacity: .45;
             cursor: not-allowed;
             transform: none;
         }
 
-        .camera-gallery {
+        .scan-analyze-btn.loading {
+            background: linear-gradient(135deg, #78909c, #455a64);
+            animation: mic-pulse .8s ease-in-out infinite;
+        }
+
+        .scan-result-box {
             width: 100%;
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-        }
-
-        .gallery-label {
-            font-size: 11px;
-            font-weight: 700;
-            color: var(--text-muted);
-            letter-spacing: .5px;
-            text-transform: uppercase;
-            text-align: center;
-        }
-
-        .gallery-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 6px;
-            max-height: 200px;
-            overflow-y: auto;
-        }
-
-        .gallery-item {
-            position: relative;
-            border-radius: 10px;
+            background: var(--card);
+            border: 1px solid var(--card-border);
+            border-radius: 16px;
             overflow: hidden;
-            aspect-ratio: 1;
-            background: #0a0a0a;
-            cursor: pointer;
-            border: 1.5px solid var(--card-border);
+            box-shadow: 0 4px 18px var(--shadow);
+            animation: fadeInUp .3s ease;
         }
 
-        .gallery-item img,
-        .gallery-item video {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .gallery-item .gallery-del {
-            position: absolute;
-            top: 4px;
-            right: 4px;
-            background: rgba(0, 0, 0, .6);
-            color: #fff;
-            border: none;
-            border-radius: 50%;
-            width: 20px;
-            height: 20px;
-            font-size: 10px;
-            cursor: pointer;
+        .scan-result-header {
             display: flex;
+            justify-content: space-between;
             align-items: center;
-            justify-content: center;
-        }
-
-        .gallery-item .gallery-dl {
-            position: absolute;
-            bottom: 4px;
-            right: 4px;
-            background: rgba(21, 101, 192, .8);
+            padding: 10px 16px;
+            background: linear-gradient(135deg, #42a5f5, #1565c0);
             color: #fff;
-            border: none;
-            border-radius: 50%;
-            width: 20px;
-            height: 20px;
-            font-size: 10px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .gallery-empty {
-            grid-column: 1/-1;
-            text-align: center;
             font-size: 12px;
+            font-weight: 800;
+            letter-spacing: .5px;
+        }
+
+        .scan-result-copy {
+            background: rgba(255, 255, 255, .2);
+            border: none;
+            color: #fff;
+            border-radius: 8px;
+            padding: 3px 8px;
+            cursor: pointer;
+            font-size: 13px;
+        }
+
+        .scan-result-text {
+            padding: 14px 16px;
+            font-size: 13px;
+            color: var(--text);
+            line-height: 1.7;
+            white-space: pre-wrap;
+        }
+
+        .scan-result-footer {
+            padding: 8px 16px 12px;
+            font-size: 10px;
             color: var(--text-muted);
-            padding: 16px;
+            border-top: 1px solid var(--card-border);
             font-style: italic;
         }
 
-        .cam-info {
-            font-size: 11px;
-            color: var(--text-muted);
-            text-align: center;
-            line-height: 1.5;
+        .scan-history-wrap {
+            width: 100%;
         }
 
-        .cam-switch-row {
+        .scan-history-header {
             display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+
+        .scan-hist-title {
+            font-size: 11px;
+            font-weight: 700;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: .4px;
+        }
+
+        .scan-history-list {
+            display: flex;
+            flex-direction: column;
             gap: 8px;
-            justify-content: center;
+            max-height: 220px;
+            overflow-y: auto;
+        }
+
+        .scan-hist-item {
+            background: var(--card);
+            border: 1px solid var(--card-border);
+            border-radius: 12px;
+            overflow: hidden;
+            display: flex;
+            gap: 0;
+        }
+
+        .scan-hist-thumb {
+            width: 60px;
+            height: 60px;
+            object-fit: cover;
+            flex-shrink: 0;
+        }
+
+        .scan-hist-info {
+            padding: 8px 10px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 3px;
+            overflow: hidden;
+        }
+
+        .scan-hist-time {
+            font-size: 9px;
+            color: var(--text-muted);
+        }
+
+        .scan-hist-preview {
+            font-size: 11px;
+            color: var(--text);
+            overflow: hidden;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+        }
+
+        .scan-hist-expand {
+            background: none;
+            border: none;
+            color: var(--blue);
+            font-size: 10px;
+            font-weight: 700;
+            cursor: pointer;
+            padding: 0;
+            font-family: 'Nunito', sans-serif;
         }
 
         /* ══ NUEVAS FUNCIONES v3 ══════════════════════════════ */
@@ -2759,6 +2831,1186 @@
             line-height: 1.5;
             margin-top: 4px;
         }
+
+        /* ══ TIP DEL DÍA ══ */
+        .tip-card {
+            width: 100%;
+            background: linear-gradient(135deg, rgba(66, 165, 245, .12), rgba(21, 101, 192, .08));
+            border: 1px solid rgba(66, 165, 245, .3);
+            border-radius: 14px;
+            padding: 10px 16px;
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            margin-bottom: 10px;
+            animation: fadeInUp .3s ease;
+        }
+
+        body.dark .tip-card {
+            background: linear-gradient(135deg, rgba(66, 165, 245, .1), rgba(21, 101, 192, .06));
+        }
+
+        .tip-icon {
+            font-size: 22px;
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+
+        .tip-content {
+            flex: 1;
+        }
+
+        .tip-label {
+            font-size: 9px;
+            font-weight: 800;
+            color: #42a5f5;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 3px;
+        }
+
+        .tip-text {
+            font-size: 12px;
+            color: var(--text);
+            line-height: 1.5;
+        }
+
+        /* ══ RESPIRACIÓN GUIADA ══ */
+        .breath-panel {
+            background: var(--card);
+            border-radius: 16px;
+            border: 1px solid var(--card-border);
+            padding: 14px 16px;
+            box-shadow: 0 2px 10px var(--shadow);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .breath-title {
+            font-size: 11px;
+            font-weight: 700;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: .4px;
+            align-self: flex-start;
+        }
+
+        .breath-circle-wrap {
+            position: relative;
+            width: 140px;
+            height: 140px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .breath-ring {
+            position: absolute;
+            inset: 0;
+            border-radius: 50%;
+            border: 3px solid rgba(66, 165, 245, .2);
+        }
+
+        .breath-circle {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: radial-gradient(circle at 38% 36%, #90caf9, #1565c0);
+            box-shadow: 0 0 24px rgba(21, 101, 192, .35);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            transition: transform 1s ease-in-out, box-shadow .5s;
+        }
+
+        .breath-circle.inhale {
+            transform: scale(1.55);
+            box-shadow: 0 0 40px rgba(21, 101, 192, .55);
+        }
+
+        .breath-circle.hold {
+            transform: scale(1.55);
+            box-shadow: 0 0 30px rgba(102, 187, 106, .5);
+        }
+
+        .breath-circle.exhale {
+            transform: scale(1);
+            box-shadow: 0 0 14px rgba(21, 101, 192, .2);
+        }
+
+        .breath-phase {
+            font-size: 15px;
+            font-weight: 800;
+            color: var(--blue);
+            letter-spacing: 1px;
+        }
+
+        .breath-countdown {
+            font-size: 28px;
+            font-weight: 800;
+            font-family: 'Space Mono', monospace;
+            color: var(--blue);
+            min-width: 36px;
+            text-align: center;
+        }
+
+        .breath-info {
+            font-size: 11px;
+            color: var(--text-muted);
+            text-align: center;
+        }
+
+        .breath-select-row {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .breath-pattern-btn {
+            padding: 6px 12px;
+            border-radius: 20px;
+            border: 1.5px solid #90caf9;
+            background: var(--card);
+            color: var(--blue);
+            font-family: 'Nunito', sans-serif;
+            font-size: 11px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all .2s;
+        }
+
+        .breath-pattern-btn.active {
+            background: linear-gradient(135deg, #42a5f5, #1565c0);
+            color: #fff;
+            border-color: #1565c0;
+        }
+
+        .breath-cycles {
+            font-size: 11px;
+            color: var(--text-muted);
+        }
+
+        /* ══ IMC ══ */
+        .imc-panel {
+            background: var(--card);
+            border-radius: 16px;
+            border: 1px solid var(--card-border);
+            padding: 14px 16px;
+            box-shadow: 0 2px 10px var(--shadow);
+        }
+
+        .imc-title {
+            font-size: 11px;
+            font-weight: 700;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: .4px;
+            margin-bottom: 10px;
+        }
+
+        .imc-inputs {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+            margin-bottom: 10px;
+        }
+
+        .imc-field {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .imc-field label {
+            font-size: 10px;
+            font-weight: 700;
+            color: var(--text-muted);
+            text-transform: uppercase;
+        }
+
+        .imc-field input {
+            padding: 8px 12px;
+            border: 1.5px solid var(--card-border);
+            border-radius: 22px;
+            font-size: 14px;
+            font-family: 'Nunito', sans-serif;
+            background: var(--card);
+            color: var(--text);
+            outline: none;
+            transition: border-color .2s;
+        }
+
+        .imc-field input:focus {
+            border-color: #42a5f5;
+        }
+
+        body.dark .imc-field input {
+            background: rgba(14, 28, 52, .8);
+        }
+
+        .imc-result {
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            gap: 6px;
+            padding: 10px;
+            border-radius: 14px;
+            margin-top: 8px;
+            animation: fadeInUp .3s ease;
+        }
+
+        .imc-result.show {
+            display: flex;
+        }
+
+        .imc-value {
+            font-size: 36px;
+            font-weight: 800;
+            font-family: 'Space Mono', monospace;
+        }
+
+        .imc-cat {
+            font-size: 13px;
+            font-weight: 700;
+        }
+
+        .imc-bar-wrap {
+            width: 100%;
+            height: 8px;
+            border-radius: 4px;
+            background: linear-gradient(to right, #42a5f5 0%, #66bb6a 30%, #ffa726 60%, #ef5350 100%);
+            position: relative;
+            margin-top: 4px;
+        }
+
+        .imc-bar-marker {
+            position: absolute;
+            top: -4px;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: #fff;
+            border: 3px solid #1565c0;
+            transform: translateX(-50%);
+            transition: left .5s cubic-bezier(.34, 1.56, .64, 1);
+        }
+
+        .imc-tip {
+            font-size: 11px;
+            color: var(--text-muted);
+            text-align: center;
+        }
+
+        /* ══ SUEÑO ══ */
+        .sleep-panel {
+            background: var(--card);
+            border-radius: 16px;
+            border: 1px solid var(--card-border);
+            padding: 14px 16px;
+            box-shadow: 0 2px 10px var(--shadow);
+        }
+
+        .sleep-title {
+            font-size: 11px;
+            font-weight: 700;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: .4px;
+            margin-bottom: 10px;
+        }
+
+        .sleep-row {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .sleep-input {
+            flex: 1;
+            padding: 9px 14px;
+            border: 1.5px solid var(--card-border);
+            border-radius: 22px;
+            font-size: 14px;
+            font-family: 'Nunito', sans-serif;
+            background: var(--card);
+            color: var(--text);
+            outline: none;
+        }
+
+        .sleep-input:focus {
+            border-color: #1565c0;
+        }
+
+        body.dark .sleep-input {
+            background: rgba(14, 28, 52, .8);
+        }
+
+        .sleep-btn {
+            padding: 9px 16px;
+            border-radius: 22px;
+            background: linear-gradient(135deg, #1565c0, #42a5f5);
+            border: none;
+            color: #fff;
+            font-family: 'Nunito', sans-serif;
+            font-size: 12px;
+            font-weight: 700;
+            cursor: pointer;
+            white-space: nowrap;
+            transition: all .2s;
+        }
+
+        .sleep-btn:hover {
+            transform: scale(1.04);
+        }
+
+        .sleep-times {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            justify-content: center;
+        }
+
+        .sleep-time-chip {
+            background: linear-gradient(135deg, rgba(21, 101, 192, .12), rgba(66, 165, 245, .08));
+            border: 1px solid rgba(66, 165, 245, .3);
+            border-radius: 20px;
+            padding: 6px 14px;
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--blue);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 2px;
+        }
+
+        body.dark .sleep-time-chip {
+            background: rgba(21, 101, 192, .15);
+        }
+
+        .sleep-time-chip .sc-cycles {
+            font-size: 9px;
+            color: var(--text-muted);
+            font-weight: 600;
+        }
+
+        .sleep-info {
+            font-size: 11px;
+            color: var(--text-muted);
+            text-align: center;
+            margin-top: 4px;
+        }
+
+        /* ══ POSTURA ══ */
+        .posture-panel {
+            background: var(--card);
+            border-radius: 16px;
+            border: 1px solid var(--card-border);
+            padding: 14px 16px;
+            box-shadow: 0 2px 10px var(--shadow);
+        }
+
+        .posture-title {
+            font-size: 11px;
+            font-weight: 700;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: .4px;
+            margin-bottom: 10px;
+        }
+
+        .posture-intervals {
+            display: flex;
+            gap: 6px;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-bottom: 10px;
+        }
+
+        .posture-int-btn {
+            padding: 6px 14px;
+            border-radius: 20px;
+            border: 1.5px solid #90caf9;
+            background: var(--card);
+            color: var(--blue);
+            font-family: 'Nunito', sans-serif;
+            font-size: 12px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all .2s;
+        }
+
+        .posture-int-btn.active {
+            background: linear-gradient(135deg, #42a5f5, #1565c0);
+            color: #fff;
+            border-color: #1565c0;
+        }
+
+        .posture-controls {
+            display: flex;
+            gap: 8px;
+            justify-content: center;
+            margin-bottom: 8px;
+        }
+
+        .posture-start {
+            padding: 9px 20px;
+            border-radius: 22px;
+            background: linear-gradient(135deg, #66bb6a, #2e7d32);
+            border: none;
+            color: #fff;
+            font-family: 'Nunito', sans-serif;
+            font-size: 13px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all .2s;
+        }
+
+        .posture-start:hover {
+            transform: scale(1.04);
+        }
+
+        .posture-stop {
+            padding: 9px 20px;
+            border-radius: 22px;
+            background: linear-gradient(135deg, #ef5350, #b71c1c);
+            border: none;
+            color: #fff;
+            font-family: 'Nunito', sans-serif;
+            font-size: 13px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all .2s;
+            display: none;
+        }
+
+        .posture-stop:hover {
+            transform: scale(1.04);
+        }
+
+        .posture-status {
+            font-size: 12px;
+            color: var(--text-muted);
+            text-align: center;
+            min-height: 18px;
+        }
+
+        .posture-countdown {
+            font-size: 22px;
+            font-weight: 800;
+            font-family: 'Space Mono', monospace;
+            color: #2e7d32;
+            text-align: center;
+            min-height: 30px;
+        }
+
+        /* ══ DIAGNÓSTICO VISUAL — secciones formateadas ══ */
+        .scan-section {
+            background: var(--blue-pale);
+            border-radius: 12px;
+            padding: 10px 14px;
+            margin-bottom: 8px;
+            border-left: 3px solid #42a5f5;
+            animation: fadeInUp .2s ease;
+        }
+
+        body.dark .scan-section {
+            background: rgba(21, 101, 192, .12);
+        }
+
+        .scan-section-header {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            margin-bottom: 5px;
+        }
+
+        .scan-section-icon {
+            font-size: 15px;
+        }
+
+        .scan-section-label {
+            font-size: 10px;
+            font-weight: 800;
+            color: var(--blue);
+            text-transform: uppercase;
+            letter-spacing: .6px;
+        }
+
+        .scan-section-body {
+            font-size: 12px;
+            color: var(--text);
+            line-height: 1.6;
+        }
+
+        .scan-disclaimer {
+            font-size: 10px;
+            color: var(--text-muted);
+            text-align: center;
+            margin-top: 8px;
+            padding-top: 8px;
+            border-top: 1px solid var(--card-border);
+        }
+
+        /* ══════════════════════════════════════════
+           EJERCICIOS GUIADOS
+        ══════════════════════════════════════════ */
+        .ej-routines-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            width: 100%;
+        }
+
+        .ej-routine-card {
+            background: var(--card);
+            border: 1.5px solid var(--card-border);
+            border-radius: 18px;
+            padding: 18px 12px 14px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 6px;
+            cursor: pointer;
+            transition: all .2s;
+            box-shadow: 0 2px 10px var(--shadow);
+            font-family: 'Nunito', sans-serif;
+        }
+
+        .ej-routine-card:hover {
+            transform: translateY(-3px);
+            border-color: #42a5f5;
+            box-shadow: 0 6px 20px var(--shadow);
+        }
+
+        .ej-routine-card.active {
+            border-color: #1565c0;
+            background: var(--blue-pale);
+        }
+
+        .ej-routine-icon {
+            font-size: 32px;
+        }
+
+        .ej-routine-name {
+            font-size: 13px;
+            font-weight: 800;
+            color: var(--text);
+        }
+
+        .ej-routine-meta {
+            font-size: 10px;
+            color: var(--text-muted);
+            font-weight: 600;
+        }
+
+        /* ── Player ── */
+        .ej-player {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+            animation: fadeInUp .25s ease;
+        }
+
+        .ej-player-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+            gap: 8px;
+        }
+
+        .ej-back-btn {
+            background: var(--card);
+            border: 1px solid var(--card-border);
+            border-radius: 20px;
+            padding: 6px 14px;
+            font-family: 'Nunito', sans-serif;
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--text-muted);
+            cursor: pointer;
+            transition: all .2s;
+        }
+
+        .ej-back-btn:hover {
+            background: var(--blue-pale);
+            color: var(--blue);
+        }
+
+        .ej-player-title {
+            font-family: 'Space Mono', monospace;
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--blue);
+            letter-spacing: 1px;
+            flex: 1;
+            text-align: center;
+        }
+
+        .ej-player-steps {
+            font-size: 11px;
+            font-weight: 700;
+            color: var(--text-muted);
+            white-space: nowrap;
+        }
+
+        /* Progress bar */
+        .ej-progress-track {
+            width: 100%;
+            height: 5px;
+            background: var(--card-border);
+            border-radius: 3px;
+            overflow: hidden;
+        }
+
+        .ej-progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #42a5f5, #1565c0);
+            border-radius: 3px;
+            transition: width .4s ease;
+        }
+
+        /* Exercise display */
+        .ej-exercise-display {
+            background: var(--card);
+            border: 1px solid var(--card-border);
+            border-radius: 20px;
+            padding: 20px 18px 16px;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 3px 14px var(--shadow);
+        }
+
+        .ej-exercise-emoji {
+            font-size: 52px;
+            animation: breathe 3.2s ease-in-out infinite;
+        }
+
+        .ej-exercise-name {
+            font-size: 16px;
+            font-weight: 800;
+            color: var(--text);
+            text-align: center;
+        }
+
+        .ej-exercise-desc {
+            font-size: 12px;
+            color: var(--text-muted);
+            text-align: center;
+            line-height: 1.55;
+        }
+
+        /* Timer circular */
+        .ej-timer-wrap {
+            position: relative;
+            width: 120px;
+            height: 120px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .ej-timer-svg {
+            position: absolute;
+            inset: 0;
+            transform: rotate(-90deg);
+        }
+
+        .ej-timer-bg {
+            fill: none;
+            stroke: var(--card-border);
+            stroke-width: 7;
+        }
+
+        .ej-timer-ring {
+            fill: none;
+            stroke: url(#ejGrad);
+            stroke-width: 7;
+            stroke-linecap: round;
+            transition: stroke-dashoffset .9s linear;
+        }
+
+        .ej-timer-inner {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            z-index: 1;
+        }
+
+        .ej-timer-count {
+            font-family: 'Space Mono', monospace;
+            font-size: 32px;
+            font-weight: 700;
+            color: var(--blue);
+            line-height: 1;
+        }
+
+        .ej-timer-unit {
+            font-size: 10px;
+            font-weight: 700;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* Controls */
+        .ej-controls {
+            display: flex;
+            gap: 14px;
+            align-items: center;
+        }
+
+        .ej-ctrl-btn {
+            border: none;
+            cursor: pointer;
+            transition: all .2s;
+            font-family: 'Nunito', sans-serif;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .ej-ctrl-btn:hover {
+            transform: scale(1.1);
+        }
+
+        .ej-ctrl-btn:active {
+            transform: scale(.92);
+        }
+
+        .ej-play {
+            width: 62px;
+            height: 62px;
+            font-size: 22px;
+            background: linear-gradient(135deg, #42a5f5, #1565c0);
+            color: #fff;
+            box-shadow: 0 6px 20px rgba(21, 101, 192, .35);
+        }
+
+        .ej-play.paused {
+            background: linear-gradient(135deg, #ffa726, #e65100);
+        }
+
+        .ej-skip,
+        .ej-voice {
+            width: 44px;
+            height: 44px;
+            font-size: 18px;
+            background: var(--card);
+            border: 1.5px solid var(--card-border);
+            color: var(--text);
+            box-shadow: 0 2px 8px var(--shadow);
+        }
+
+        .ej-voice.muted {
+            color: var(--text-muted);
+            opacity: .5;
+        }
+
+        .ej-voice-chip {
+            font-size: 11px;
+            font-weight: 700;
+            color: var(--blue);
+            background: var(--blue-pale);
+            border-radius: 20px;
+            padding: 4px 12px;
+            transition: opacity .2s;
+        }
+
+        .ej-voice-chip.muted {
+            color: var(--text-muted);
+            background: transparent;
+        }
+
+        .ej-next-preview {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 12px;
+            color: var(--text-muted);
+            background: var(--card);
+            border: 1px solid var(--card-border);
+            border-radius: 14px;
+            padding: 8px 16px;
+            width: 100%;
+            justify-content: center;
+        }
+
+        .ej-next-label {
+            font-weight: 700;
+            color: var(--text-muted);
+        }
+
+        .ej-next-name {
+            font-weight: 800;
+            color: var(--blue);
+        }
+
+        /* Finish screen */
+        .ej-finish {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            padding: 20px 0;
+            animation: fadeInUp .3s ease;
+        }
+
+        .ej-finish-emoji {
+            font-size: 52px;
+        }
+
+        .ej-finish-title {
+            font-family: 'Space Mono', monospace;
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--blue);
+        }
+
+        .ej-finish-sub {
+            font-size: 13px;
+            color: var(--text-muted);
+            text-align: center;
+            line-height: 1.55;
+            max-width: 280px;
+        }
+
+        .ej-finish-stats {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin: 4px 0;
+        }
+
+        .ej-stat-chip {
+            background: var(--blue-pale);
+            border-radius: 20px;
+            padding: 6px 14px;
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--blue);
+        }
+
+        .ej-finish-btn {
+            padding: 12px 24px;
+            border-radius: 22px;
+            border: 1.5px solid var(--card-border);
+            background: var(--card);
+            color: var(--text);
+            font-family: 'Nunito', sans-serif;
+            font-size: 13px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all .2s;
+        }
+
+        .ej-finish-btn:hover {
+            background: var(--blue-pale);
+            border-color: #42a5f5;
+            color: var(--blue);
+        }
+
+        .ej-finish-repeat {
+            background: linear-gradient(135deg, #42a5f5, #1565c0);
+            color: #fff;
+            border-color: #1565c0;
+        }
+
+        .ej-finish-repeat:hover {
+            transform: scale(1.03);
+            color: #fff;
+            background: linear-gradient(135deg, #42a5f5, #1565c0);
+        }
+
+        /* ══════════════════════════════════════════
+           WELCOME MODAL — Pantalla de bienvenida
+           ══════════════════════════════════════════ */
+        #welcomeModal {
+            position: fixed;
+            inset: 0;
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+            background: rgba(8, 20, 48, 0.65);
+            backdrop-filter: blur(6px);
+            -webkit-backdrop-filter: blur(6px);
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity .4s ease;
+        }
+
+        #welcomeModal.visible {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        .welcome-card {
+            background: var(--card);
+            border-radius: 28px;
+            padding: 32px 28px 28px;
+            width: 100%;
+            max-width: 360px;
+            box-shadow: 0 24px 64px rgba(0, 0, 0, .22);
+            border: 1px solid var(--card-border);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0;
+            animation: welcomePop .45s cubic-bezier(.34, 1.56, .64, 1) both;
+        }
+
+        @keyframes welcomePop {
+            from {
+                transform: scale(.82) translateY(24px);
+                opacity: 0;
+            }
+
+            to {
+                transform: scale(1) translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .wc-baymax-mini {
+            position: relative;
+            width: 90px;
+            height: 98px;
+            margin-bottom: 16px;
+            flex-shrink: 0;
+        }
+
+        .wc-body {
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 68px;
+            height: 72px;
+            background: var(--bx-body);
+            border-radius: 34px 34px 26px 26px;
+            box-shadow: 0 6px 22px var(--bx-shadow);
+            animation: breathe 3.2s ease-in-out infinite;
+        }
+
+        .wc-head {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 46px;
+            height: 44px;
+            background: var(--bx-body);
+            border-radius: 24px;
+            box-shadow: 0 3px 12px var(--bx-shadow);
+            z-index: 2;
+            animation: breathe 3.2s ease-in-out infinite;
+        }
+
+        .wc-eyes {
+            position: absolute;
+            top: 18px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 8px;
+            align-items: center;
+        }
+
+        .wc-eye {
+            width: 6px;
+            height: 3px;
+            background: #263238;
+            border-radius: 50%;
+            animation: blink 4.5s ease-in-out infinite;
+        }
+
+        .wc-eye-line {
+            width: 12px;
+            height: 1.5px;
+            background: #263238;
+            border-radius: 2px;
+        }
+
+        .wc-chest {
+            position: absolute;
+            bottom: 26px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 22px;
+            height: 22px;
+            background: radial-gradient(circle at 38% 36%, #90caf9, #1e88e5);
+            border-radius: 50%;
+            box-shadow: 0 0 10px rgba(30, 136, 229, .45);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 9px;
+            font-weight: 700;
+            color: #1565c0;
+            animation: pulse-chest 2s ease-in-out infinite;
+        }
+
+        .wc-title {
+            font-family: 'Space Mono', monospace;
+            font-size: 22px;
+            font-weight: 700;
+            color: var(--blue);
+            letter-spacing: 3px;
+            margin-bottom: 6px;
+        }
+
+        .wc-subtitle {
+            font-size: 13px;
+            color: var(--text-muted);
+            text-align: center;
+            line-height: 1.55;
+            margin-bottom: 22px;
+        }
+
+        .wc-subtitle strong {
+            color: var(--blue);
+        }
+
+        .wc-label {
+            font-size: 11px;
+            font-weight: 700;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: .5px;
+            align-self: flex-start;
+            margin-bottom: 8px;
+        }
+
+        .wc-input-wrap {
+            width: 100%;
+            position: relative;
+            margin-bottom: 14px;
+        }
+
+        .wc-input {
+            width: 100%;
+            padding: 14px 20px;
+            border: 2px solid var(--card-border);
+            border-radius: 22px;
+            font-size: 16px;
+            font-family: 'Nunito', sans-serif;
+            font-weight: 700;
+            background: var(--card);
+            color: var(--text);
+            outline: none;
+            transition: border-color .2s, box-shadow .2s;
+            text-align: center;
+        }
+
+        .wc-input:focus {
+            border-color: #42a5f5;
+            box-shadow: 0 0 0 3px rgba(66, 165, 245, .18);
+        }
+
+        body.dark .wc-input {
+            background: rgba(14, 28, 52, .85);
+        }
+
+        .wc-btn {
+            width: 100%;
+            padding: 14px;
+            border: none;
+            border-radius: 22px;
+            background: linear-gradient(135deg, #42a5f5, #1565c0);
+            color: #fff;
+            font-family: 'Nunito', sans-serif;
+            font-size: 15px;
+            font-weight: 800;
+            cursor: pointer;
+            transition: all .2s;
+            box-shadow: 0 6px 20px rgba(21, 101, 192, .3);
+            letter-spacing: .3px;
+        }
+
+        .wc-btn:hover {
+            transform: scale(1.02);
+            box-shadow: 0 8px 24px rgba(21, 101, 192, .4);
+        }
+
+        .wc-btn:active {
+            transform: scale(.98);
+        }
+
+        .wc-btn:disabled {
+            background: linear-gradient(135deg, #b0bec5, #90a4ae);
+            box-shadow: none;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .wc-skip {
+            margin-top: 10px;
+            font-size: 11px;
+            color: var(--text-muted);
+            cursor: pointer;
+            text-decoration: underline;
+            text-underline-offset: 2px;
+            background: none;
+            border: none;
+            font-family: 'Nunito', sans-serif;
+        }
+
+        .wc-skip:hover {
+            color: var(--blue);
+        }
+
+        /* Animación de salida del modal */
+        @keyframes welcomeDismiss {
+            to {
+                transform: scale(.9) translateY(-20px);
+                opacity: 0;
+            }
+        }
+
+        .welcome-card.dismissing {
+            animation: welcomeDismiss .3s ease forwards;
+        }
+
+        /* Chip de nombre en el top */
+        .user-name-chip {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            background: var(--blue-pale);
+            border: 1px solid rgba(66, 165, 245, .35);
+            border-radius: 20px;
+            padding: 3px 10px 3px 8px;
+            font-size: 11px;
+            font-weight: 700;
+            color: var(--blue);
+            cursor: pointer;
+            transition: all .2s;
+            max-width: 130px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .user-name-chip:hover {
+            background: rgba(66, 165, 245, .2);
+        }
     </style>
 </head>
 
@@ -2789,6 +4041,35 @@
         <div id="inflateStatus">Inicializando…</div>
     </div>
 
+    <!-- WELCOME MODAL -->
+    <div id="welcomeModal" role="dialog" aria-modal="true" aria-label="Bienvenida a Baymax">
+        <div class="welcome-card" id="welcomeCard">
+            <div class="wc-baymax-mini" aria-hidden="true">
+                <div class="wc-body">
+                    <div class="wc-chest">+</div>
+                </div>
+                <div class="wc-head">
+                    <div class="wc-eyes">
+                        <div class="wc-eye"></div>
+                        <div class="wc-eye-line"></div>
+                        <div class="wc-eye"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="wc-title">BAYMAX</div>
+            <p class="wc-subtitle">Hola, soy tu <strong>asistente médico personal</strong>.<br />¿Cómo te llamas?</p>
+            <span class="wc-label">Tu nombre</span>
+            <div class="wc-input-wrap">
+                <input class="wc-input" id="wcNameInput" type="text" placeholder="Escribe tu nombre…" maxlength="30"
+                    autocomplete="given-name" autocorrect="off" spellcheck="false" />
+            </div>
+            <button class="wc-btn" id="wcConfirmBtn" onclick="confirmWelcome()" disabled>
+                ¡Hola, Baymax! 🤍
+            </button>
+            <button class="wc-skip" onclick="skipWelcome()">Continuar sin nombre</button>
+        </div>
+    </div>
+
     <!-- TOAST -->
     <div class="toast" id="toast">🔔 Recordatorio</div>
 
@@ -2797,6 +4078,10 @@
         <!-- Top Controls -->
         <div class="top-controls">
             <span class="top-brand">⚕️ Baymax v3</span>
+            <button class="user-name-chip" id="userNameChip" onclick="openChangeName()" title="Cambiar nombre"
+                style="display:none">
+                👤 <span id="userNameChipText"></span>
+            </button>
             <div class="top-right">
                 <button class="icon-btn" onclick="toggleDark()" id="darkBtn" title="Modo oscuro">🌙</button>
                 <button class="icon-btn" onclick="exportHistory()" title="Exportar historial">💾</button>
@@ -2842,6 +4127,15 @@
         <div class="status-chip state-sleeping" id="statusChip">
             <div class="status-dot"></div>
             <span id="statusLabel">Esperando activación…</span>
+        </div>
+
+        <!-- TIP DEL DÍA -->
+        <div class="tip-card" id="tipCard">
+            <span class="tip-icon" id="tipIcon">💡</span>
+            <div class="tip-content">
+                <div class="tip-label">💊 Tip del día</div>
+                <div class="tip-text" id="tipText">Cargando…</div>
+            </div>
         </div>
 
         <!-- Burbuja -->
@@ -2898,10 +4192,13 @@
                 <span class="tab-icon">⚙️</span> Ajustes
             </button>
             <button class="tab" onclick="switchTab('camara')" id="tab-camara">
-                <span class="tab-icon">📷</span> Cámara
+                <span class="tab-icon">🔬</span> Análisis
             </button>
             <button class="tab" onclick="switchTab('bienestar')" id="tab-bienestar">
                 <span class="tab-icon">🌿</span> Bienestar
+            </button>
+            <button class="tab" onclick="switchTab('ejercicios')" id="tab-ejercicios">
+                <span class="tab-icon">🏃</span> Ejercicios
             </button>
         </div>
 
@@ -3037,6 +4334,34 @@
                 📋 Historial de registros <span class="toggle-arrow">▼</span>
             </button>
             <div class="vitals-history" id="vitalsHistPanel"></div>
+
+            <!-- CALCULADORA IMC -->
+            <div class="imc-panel">
+                <button class="section-toggle" onclick="toggleSection('imcBody','imcToggle')" id="imcToggle">
+                    📏 Calculadora de IMC <span class="toggle-arrow">▼</span>
+                </button>
+                <div id="imcBody">
+                    <div class="imc-inputs">
+                        <div class="imc-field">
+                            <label>Altura (cm)</label>
+                            <input type="number" id="imcHeight" placeholder="ej: 170" min="100" max="250" />
+                        </div>
+                        <div class="imc-field">
+                            <label>Peso (kg)</label>
+                            <input type="number" id="imcWeight" placeholder="ej: 70" min="20" max="300" />
+                        </div>
+                    </div>
+                    <button class="vital-save-btn" style="width:100%;" onclick="calcIMC()">📊 Calcular IMC</button>
+                    <div class="imc-result" id="imcResult">
+                        <div class="imc-value" id="imcValue">--</div>
+                        <div class="imc-cat" id="imcCat">--</div>
+                        <div class="imc-bar-wrap">
+                            <div class="imc-bar-marker" id="imcMarker" style="left:0%"></div>
+                        </div>
+                        <div class="imc-tip" id="imcTip"></div>
+                    </div>
+                </div>
+            </div>
         </div>
 
         <!-- PANEL: RECORDATORIOS (nuevo) -->
@@ -3065,6 +4390,35 @@
             <p style="font-size:11px;color:var(--text-muted);text-align:center;line-height:1.5;">
                 ⚠️ Las alarmas solo suenan mientras esta página esté abierta.
             </p>
+
+            <!-- RECORDATORIO DE POSTURA -->
+            <div class="posture-panel">
+                <button class="section-toggle" onclick="toggleSection('postureBody','postureToggle')"
+                    id="postureToggle">
+                    🪑 Recordatorio de postura <span class="toggle-arrow">▼</span>
+                </button>
+                <div id="postureBody">
+                    <p style="font-size:11px;color:var(--text-muted);margin-bottom:10px;text-align:center;">
+                        Baymax te avisará para que cambies de postura o te estires.
+                    </p>
+                    <div class="posture-intervals">
+                        <button class="posture-int-btn active" data-min="15" onclick="selectPostureInterval(this)">15
+                            min</button>
+                        <button class="posture-int-btn" data-min="30" onclick="selectPostureInterval(this)">30
+                            min</button>
+                        <button class="posture-int-btn" data-min="45" onclick="selectPostureInterval(this)">45
+                            min</button>
+                        <button class="posture-int-btn" data-min="60" onclick="selectPostureInterval(this)">1
+                            hora</button>
+                    </div>
+                    <div class="posture-controls">
+                        <button class="posture-start" id="postureStart" onclick="startPostureTimer()">▶ Iniciar</button>
+                        <button class="posture-stop" id="postureStop" onclick="stopPostureTimer()">⏹ Detener</button>
+                    </div>
+                    <div class="posture-countdown" id="postureCountdown"></div>
+                    <div class="posture-status" id="postureStatus">Selecciona un intervalo y presiona Iniciar</div>
+                </div>
+            </div>
         </div>
 
         <!-- PANEL: HISTORIAL -->
@@ -3114,60 +4468,74 @@
                 <div style="font-size:12px; font-weight:700; color:var(--blue); margin-bottom:6px;">🤖 Inteligencia
                     Artificial</div>
                 <div style="font-size:11px; color:var(--text-muted);">Baymax usa IA real (Gemini 2.5) mediante un
-                    servidor seguro. Cada usuario tiene un límite de <strong>300 mensajes por día</strong> para cuidar el
+                    servidor seguro. Cada usuario tiene un límite de <strong>300 mensajes por día</strong> para cuidar
+                    el
                     servicio.</div>
             </div>
 
             <!-- Botones de ajuste extra -->
             <div class="quick-wrap">
+                <button class="q-btn" onclick="openChangeName()">✏️ Cambiar mi nombre</button>
                 <button class="q-btn" onclick="resetSettings()">🔄 Restablecer ajustes</button>
                 <button class="q-btn" onclick="exportHistory()">💾 Exportar historial</button>
             </div>
         </div>
 
-        <!-- PANEL: CÁMARA -->
+        <!-- PANEL: ANÁLISIS VISUAL IA -->
         <div class="panel" id="panel-camara">
-            <div class="camera-panel-inner">
+            <div class="scan-intro-card">
+                <div class="scan-intro-icon">🔬</div>
+                <div>
+                    <div class="scan-intro-title">Análisis Visual de Síntomas</div>
+                    <div class="scan-intro-sub">Sube una foto de una herida, erupción, piel u otro síntoma visible y
+                        Baymax lo examinará con IA.</div>
+                </div>
+            </div>
 
-                <!-- Vista previa -->
-                <div class="camera-preview-wrap">
-                    <video id="cameraVideo" autoplay playsinline muted></video>
-                    <div class="camera-placeholder" id="cameraPlaceholder">
-                        <span>📷</span>
-                        <p>Presiona "Activar Cámara" para comenzar</p>
+            <!-- Zona de carga de imagen -->
+            <div class="scan-drop-zone" id="scanDropZone" onclick="document.getElementById('scanFileInput').click()">
+                <input type="file" id="scanFileInput" accept="image/*" capture="environment" style="display:none"
+                    onchange="onScanFileSelected(event)" />
+                <div class="scan-drop-content" id="scanDropContent">
+                    <span class="scan-drop-icon">📂</span>
+                    <span class="scan-drop-label">Toca para subir foto o capturar con cámara</span>
+                    <span class="scan-drop-hint">JPG, PNG, WEBP — max 10 MB</span>
+                </div>
+                <img id="scanPreview" class="scan-preview-img" style="display:none" />
+            </div>
+
+            <!-- Contexto adicional -->
+            <div class="scan-context-wrap">
+                <label class="scan-context-label">📝 Contexto adicional (opcional)</label>
+                <input class="scan-context-input" id="scanContext" type="text"
+                    placeholder="ej: herida en el pie de 2 días, piel con picazón, quemadura leve…" />
+            </div>
+
+            <!-- Botón analizar -->
+            <button class="scan-analyze-btn" id="scanAnalyzeBtn" onclick="analyzeScan()" disabled>
+                <span id="scanBtnText">🔬 Analizar con Baymax IA</span>
+            </button>
+
+            <!-- Resultado -->
+            <div class="scan-result-box" id="scanResultBox" style="display:none">
+                <div class="scan-result-header">
+                    <span>⚕️ Diagnóstico de Baymax</span>
+                    <div style="display:flex;gap:6px;align-items:center;">
+                        <button class="scan-result-copy" onclick="speakScanResult()"
+                            title="Narrar resultado">🔊</button>
+                        <button class="scan-result-copy" onclick="copyScanResult()" title="Copiar resultado">📋</button>
                     </div>
-                    <span class="rec-badge" id="recBadge">● REC</span>
                 </div>
+                <div class="scan-result-text" id="scanResultText"></div>
+            </div>
 
-                <!-- Selector cámara frontal/trasera -->
-                <div class="cam-switch-row">
-                    <button class="cam-btn secondary" id="btnSwitchCam" onclick="switchCamera()" disabled>🔄 Cambiar
-                        cámara</button>
+            <!-- Historial de análisis -->
+            <div class="scan-history-wrap" id="scanHistoryWrap" style="display:none">
+                <div class="scan-history-header">
+                    <span class="scan-hist-title">📁 Análisis anteriores</span>
+                    <button class="sl-clear" onclick="clearScanHistory()">🗑️ Limpiar</button>
                 </div>
-
-                <!-- Controles principales -->
-                <div class="camera-controls">
-                    <button class="cam-btn primary" id="btnOpenCam" onclick="openCamera()">📷 Activar Cámara</button>
-                    <button class="cam-btn secondary" id="btnCloseCam" onclick="closeCamera()" disabled>✕
-                        Cerrar</button>
-                </div>
-
-                <div class="camera-controls">
-                    <button class="cam-btn success" id="btnPhoto" onclick="takePhoto()" disabled>📸 Tomar Foto</button>
-                    <button class="cam-btn danger" id="btnRecord" onclick="toggleRecord()" disabled>⏺ Grabar
-                        Video</button>
-                </div>
-
-                <!-- Galería -->
-                <div class="camera-gallery">
-                    <div class="gallery-label">📁 Galería de sesión</div>
-                    <div class="gallery-grid" id="cameraGallery">
-                        <div class="gallery-empty">Aquí aparecerán tus fotos y videos.</div>
-                    </div>
-                </div>
-
-                <p class="cam-info">⚠️ Las fotos y videos se guardan solo durante esta sesión.<br>Descárgalos antes de
-                    cerrar la página.</p>
+                <div class="scan-history-list" id="scanHistoryList"></div>
             </div>
         </div>
 
@@ -3240,6 +4608,150 @@
                     </div>
                 </div>
             </div>
+
+            <!-- RESPIRACIÓN GUIADA -->
+            <div class="breath-panel">
+                <button class="section-toggle" onclick="toggleSection('breathBody','breathToggle')" id="breathToggle">
+                    🫁 Respiración guiada <span class="toggle-arrow">▼</span>
+                </button>
+                <div id="breathBody"
+                    style="display:flex;flex-direction:column;align-items:center;gap:12px;padding-top:10px;">
+                    <div class="breath-select-row">
+                        <button class="breath-pattern-btn active" data-pattern="box"
+                            onclick="selectBreathPattern(this)">📦 Cuadrada 4-4-4</button>
+                        <button class="breath-pattern-btn" data-pattern="478" onclick="selectBreathPattern(this)">😴
+                            4-7-8 Relajación</button>
+                        <button class="breath-pattern-btn" data-pattern="24" onclick="selectBreathPattern(this)">⚡ 2-4
+                            Rápida</button>
+                    </div>
+                    <div class="breath-circle-wrap">
+                        <div class="breath-ring"></div>
+                        <div class="breath-circle" id="breathCircle">🫁</div>
+                    </div>
+                    <div class="breath-phase" id="breathPhase">Listo</div>
+                    <div class="breath-countdown" id="breathCountdown">–</div>
+                    <div class="breath-cycles" id="breathCycles">Ciclos completados: <strong
+                            id="breathCycleCount">0</strong></div>
+                    <div style="display:flex;gap:8px;">
+                        <button class="posture-start" id="breathStart" onclick="toggleBreathing()">▶ Iniciar</button>
+                    </div>
+                    <div class="breath-info" id="breathInfo">La respiración cuadrada reduce el estrés y mejora la
+                        concentración.</div>
+                </div>
+            </div>
+
+            <!-- CALCULADORA DE SUEÑO -->
+            <div class="sleep-panel">
+                <button class="section-toggle" onclick="toggleSection('sleepBody','sleepToggle')" id="sleepToggle">
+                    💤 Calculadora de sueño <span class="toggle-arrow">▼</span>
+                </button>
+                <div id="sleepBody">
+                    <p style="font-size:11px;color:var(--text-muted);margin-bottom:10px;">
+                        Ingresa a qué hora quieres despertar y Baymax calculará los mejores horarios para acostarte
+                        (ciclos de 90 min).
+                    </p>
+                    <div class="sleep-row">
+                        <input class="sleep-input" type="time" id="sleepWakeTime" />
+                        <button class="sleep-btn" onclick="calcSleep()">💤 Calcular</button>
+                    </div>
+                    <div class="sleep-times" id="sleepTimes"></div>
+                    <div class="sleep-info" id="sleepInfo"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- PANEL: EJERCICIOS GUIADOS -->
+        <div class="panel" id="panel-ejercicios">
+
+            <!-- Selector de rutina -->
+            <div class="ej-routines-grid" id="ejRoutinesGrid">
+                <button class="ej-routine-card" data-routine="calentamiento" onclick="selectRoutine('calentamiento')">
+                    <span class="ej-routine-icon">🔥</span>
+                    <span class="ej-routine-name">Calentamiento</span>
+                    <span class="ej-routine-meta">5 min · 6 pasos</span>
+                </button>
+                <button class="ej-routine-card" data-routine="estiramientos" onclick="selectRoutine('estiramientos')">
+                    <span class="ej-routine-icon">🧘</span>
+                    <span class="ej-routine-name">Estiramientos</span>
+                    <span class="ej-routine-meta">7 min · 6 pasos</span>
+                </button>
+                <button class="ej-routine-card" data-routine="pausa" onclick="selectRoutine('pausa')">
+                    <span class="ej-routine-icon">💺</span>
+                    <span class="ej-routine-name">Pausa activa</span>
+                    <span class="ej-routine-meta">3 min · 5 pasos</span>
+                </button>
+                <button class="ej-routine-card" data-routine="relajacion" onclick="selectRoutine('relajacion')">
+                    <span class="ej-routine-icon">🌙</span>
+                    <span class="ej-routine-name">Relajación</span>
+                    <span class="ej-routine-meta">6 min · 5 pasos</span>
+                </button>
+            </div>
+
+            <!-- Reproductor de ejercicio -->
+            <div class="ej-player" id="ejPlayer" style="display:none">
+
+                <!-- Header del player -->
+                <div class="ej-player-header">
+                    <button class="ej-back-btn" onclick="exitRoutine()">← Volver</button>
+                    <span class="ej-player-title" id="ejPlayerTitle">Calentamiento</span>
+                    <span class="ej-player-steps" id="ejPlayerSteps">1 / 6</span>
+                </div>
+
+                <!-- Barra de progreso -->
+                <div class="ej-progress-track">
+                    <div class="ej-progress-fill" id="ejProgressFill" style="width:0%"></div>
+                </div>
+
+                <!-- Ilustración del ejercicio -->
+                <div class="ej-exercise-display">
+                    <div class="ej-exercise-emoji" id="ejExerciseEmoji">🔥</div>
+                    <div class="ej-exercise-name" id="ejExerciseName">Marcha en el lugar</div>
+                    <div class="ej-exercise-desc" id="ejExerciseDesc">Levanta las rodillas alternadamente al ritmo de tu
+                        respiración.</div>
+                </div>
+
+                <!-- Temporizador circular -->
+                <div class="ej-timer-wrap">
+                    <svg class="ej-timer-svg" viewBox="0 0 120 120">
+                        <circle class="ej-timer-bg" cx="60" cy="60" r="52" />
+                        <circle class="ej-timer-ring" id="ejTimerRing" cx="60" cy="60" r="52" stroke-dasharray="326.7"
+                            stroke-dashoffset="0" />
+                    </svg>
+                    <div class="ej-timer-inner">
+                        <div class="ej-timer-count" id="ejTimerCount">30</div>
+                        <div class="ej-timer-unit">seg</div>
+                    </div>
+                </div>
+
+                <!-- Controles -->
+                <div class="ej-controls">
+                    <button class="ej-ctrl-btn ej-skip" onclick="skipExerciseStep()" title="Saltar paso">⏭</button>
+                    <button class="ej-ctrl-btn ej-play" id="ejPlayBtn" onclick="toggleExercise()">▶</button>
+                    <button class="ej-ctrl-btn ej-voice" id="ejVoiceBtn" onclick="toggleExerciseVoice()"
+                        title="Narración de voz">🔊</button>
+                </div>
+
+                <!-- Chip de voz -->
+                <div class="ej-voice-chip" id="ejVoiceChip">🔊 Narración activada</div>
+
+                <!-- Preview siguiente paso -->
+                <div class="ej-next-preview" id="ejNextPreview" style="display:none">
+                    <span class="ej-next-label">Siguiente →</span>
+                    <span class="ej-next-name" id="ejNextName"></span>
+                </div>
+            </div>
+
+            <!-- Pantalla de fin de rutina -->
+            <div class="ej-finish" id="ejFinish" style="display:none">
+                <div class="ej-finish-emoji">🎉</div>
+                <div class="ej-finish-title">¡Rutina completada!</div>
+                <div class="ej-finish-sub" id="ejFinishSub">Has completado tu rutina de calentamiento. ¡Excelente
+                    trabajo!</div>
+                <div class="ej-finish-stats" id="ejFinishStats"></div>
+                <button class="ej-finish-btn" onclick="exitRoutine()">← Ver rutinas</button>
+                <button class="ej-finish-btn ej-finish-repeat" onclick="repeatRoutine()">🔁 Repetir</button>
+            </div>
+
         </div>
 
         <!-- PANEL: SÍNTOMAS LOG (sub-panel extra dentro de síntomas) -->
@@ -3265,6 +4777,16 @@
                 onclick="event.stopPropagation();document.getElementById('pwaBanner').classList.remove('show')">✕</button>
         </div>
     </main>
+
+    <!-- SVG defs para gradiente del timer de ejercicios -->
+    <svg width="0" height="0" style="position:absolute">
+        <defs>
+            <linearGradient id="ejGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+                <stop offset="0%" style="stop-color:#42a5f5" />
+                <stop offset="100%" style="stop-color:#1565c0" />
+            </linearGradient>
+        </defs>
+    </svg>
 
     <script>
         /* ══════════════════════════════════════════════════════
@@ -3995,173 +5517,256 @@ REGLAS IMPORTANTES:
         loadVoices();
 
         /* ══════════════════════════════════════════════════════
-           CÁMARA — 100% gratis, Web API nativa
+           ANALIZADOR VISUAL DE SÍNTOMAS — IA (Anthropic API)
         ══════════════════════════════════════════════════════ */
-        let cameraStream = null;
-        let mediaRecorder = null;
-        let recordedChunks = [];
-        let isRecording = false;
-        let facingMode = 'user'; // 'user' = frontal, 'environment' = trasera
-        let galleryItems = []; // { type:'photo'|'video', url, blob, name }
+        let scanImageBase64 = null;
+        let scanImageMime = 'image/jpeg';
+        let scanHistory = JSON.parse(localStorage.getItem('baymax-scan-history') || '[]');
 
-        async function openCamera() {
+        const SCAN_SYSTEM = `Eres Baymax, un asistente médico personal de la película Big Hero 6. El usuario te ha enviado una fotografía de un síntoma físico visible (herida, erupción, piel, ojo, quemadura, hinchazón, etc.) para que lo analices.
+
+INSTRUCCIONES ESTRICTAS:
+- Responde SIEMPRE en español, con tono cálido y profesional.
+- Usa frases características: "He analizado la imagen.", "Mi protocolo recomienda...", "He detectado..."
+- Estructura tu respuesta así (usa estos encabezados exactos):
+  🔍 OBSERVACIÓN: [describe lo que ves en la imagen de forma objetiva]
+  📋 POSIBLE CAUSA: [posibles causas médicas ordenadas por probabilidad]
+  💊 RECOMENDACIÓN INMEDIATA: [qué hacer ahora mismo: limpieza, medicamento OTC, reposo, etc. con dosis si aplica]
+  🩺 CUÁNDO VER AL MÉDICO: [señales de alerta que requieren consulta profesional]
+- Máximo 5 oraciones por sección. Sé conciso pero completo.
+- Para emergencias visibles (hemorragia severa, quemadura extensa, necrosis) indica llamar al 123.
+- NO diagnostiques enfermedades graves como cáncer. Para lesiones sospechosas di "requiere evaluación profesional urgente".
+- Termina con: "⚕️ Recuerda: soy orientativo y no reemplazo al médico."
+- Si el mensaje del usuario incluye su nombre, úsalo de forma cálida en la respuesta.`;
+
+        function onScanFileSelected(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+            if (file.size > 10 * 1024 * 1024) { showToast('⚠️ La imagen supera los 10 MB'); return; }
+            scanImageMime = file.type || 'image/jpeg';
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                const dataUrl = e.target.result;
+                scanImageBase64 = dataUrl.split(',')[1];
+                const preview = document.getElementById('scanPreview');
+                preview.src = dataUrl;
+                preview.style.display = 'block';
+                const dropContent = document.getElementById('scanDropContent');
+                dropContent.style.display = 'none';
+                document.getElementById('scanDropZone').classList.add('has-img');
+                // Add change button
+                if (!document.getElementById('scanChangeBtn')) {
+                    const btn = document.createElement('button');
+                    btn.id = 'scanChangeBtn';
+                    btn.className = 'scan-change-overlay';
+                    btn.textContent = '🔄 Cambiar foto';
+                    btn.onclick = (ev) => { ev.stopPropagation(); document.getElementById('scanFileInput').click(); };
+                    document.getElementById('scanDropZone').appendChild(btn);
+                }
+                document.getElementById('scanAnalyzeBtn').disabled = false;
+                document.getElementById('scanResultBox').style.display = 'none';
+                showToast('📸 Imagen lista para analizar');
+            };
+            reader.readAsDataURL(file);
+        }
+
+        async function analyzeScan() {
+            if (!scanImageBase64) { showToast('⚠️ Sube una imagen primero'); return; }
+            const btn = document.getElementById('scanAnalyzeBtn');
+            const btnText = document.getElementById('scanBtnText');
+            btn.disabled = true;
+            btn.classList.add('loading');
+            btnText.textContent = '🔬 Baymax analizando…';
+
+            const context = document.getElementById('scanContext').value.trim();
+            const userName = getUserName();
+            const nameCtx = userName ? `El usuario se llama ${userName}. ` : '';
+            const userMsg = context
+                ? `${nameCtx}Analiza esta imagen médica. Contexto adicional del usuario: ${context}`
+                : `${nameCtx}Analiza esta imagen médica y dime qué observas.`;
+
+            setAppState('responding');
+            showTyping();
+
             try {
-                if (cameraStream) closeCamera();
-                const constraints = { video: { facingMode }, audio: true };
-                cameraStream = await navigator.mediaDevices.getUserMedia(constraints);
-                const video = document.getElementById('cameraVideo');
-                video.srcObject = cameraStream;
-                video.style.display = 'block';
-                document.getElementById('cameraPlaceholder').style.display = 'none';
-                // Habilitar botones
-                document.getElementById('btnCloseCam').disabled = false;
-                document.getElementById('btnPhoto').disabled = false;
-                document.getElementById('btnRecord').disabled = false;
-                document.getElementById('btnSwitchCam').disabled = false;
-                document.getElementById('btnOpenCam').disabled = true;
-                showToast('📷 Cámara activada');
-                if (appState !== 'sleeping') respond('Cámara activada. Puedes tomar fotos o grabar video.', false);
+                // Usamos el Worker de Gemini con soporte de imagen inline
+                const scanMessages = [{
+                    role: 'user',
+                    parts: [
+                        { inlineData: { mimeType: scanImageMime, data: scanImageBase64 } },
+                        { text: userMsg }
+                    ]
+                }];
+
+                const response = await fetch(WORKER_URL, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        messages: scanMessages,
+                        system: SCAN_SYSTEM
+                    })
+                });
+
+                if (response.status === 429) {
+                    const d = await response.json();
+                    showReply('😴 ' + (d.error || 'Límite de mensajes alcanzado por hoy.'));
+                    setAppState('standby');
+                    return;
+                }
+
+                const data = await response.json();
+                if (!response.ok || data.error) throw new Error(data.error || 'Error del servidor');
+
+                const result = data.reply || 'No pude procesar la imagen. Intenta de nuevo.';
+
+                // Renderizar resultado formateado con secciones
+                renderScanResult(result);
+                document.getElementById('scanResultBox').style.display = 'block';
+
+                showReply('He analizado la imagen. Revisa el diagnóstico a continuación.');
+                setAppState('standby');
+
+                // Guardar en historial
+                const entry = {
+                    timestamp: new Date().toLocaleString('es-CO'),
+                    fullThumb: 'data:' + scanImageMime + ';base64,' + scanImageBase64,
+                    context: context || '(sin contexto)',
+                    result
+                };
+                scanHistory.unshift(entry);
+                if (scanHistory.length > 10) scanHistory.pop();
+                localStorage.setItem('baymax-scan-history', JSON.stringify(
+                    scanHistory.map(h => ({ ...h, fullThumb: h.fullThumb?.substring(0, 5000) }))
+                ));
+                renderScanHistory();
+
+                // Narrar resumen con voz
+                const cleanResult = result.replace(/[🔍📋💊🩺⚕️#*_]/g, '').trim();
+                const firstSentence = cleanResult.split(/[.!?]/)[0].trim().substring(0, 150);
+                speak('He analizado tu imagen. ' + firstSentence + '.', null);
+
+                if (typeof data.remaining === 'number' && data.remaining <= 5) {
+                    showToast(`💬 Te quedan ${data.remaining} mensajes hoy`);
+                }
+
             } catch (err) {
-                let msg = '❌ No se pudo acceder a la cámara.';
-                if (err.name === 'NotAllowedError') msg = '🔒 Permiso denegado. Permite el acceso a la cámara en tu navegador.';
-                else if (err.name === 'NotFoundError') msg = '📷 No se encontró ninguna cámara en este dispositivo.';
-                showToast(msg);
+                console.error('Scan error:', err);
+                showReply('No pude conectar con el servidor de análisis. Verifica tu conexión.');
+                setAppState('standby');
+                showToast('❌ Error al analizar. Intenta de nuevo.');
+            } finally {
+                btn.disabled = false;
+                btn.classList.remove('loading');
+                btnText.textContent = '🔬 Analizar de nuevo';
             }
         }
 
-        function closeCamera() {
-            if (isRecording) stopRecording();
-            if (cameraStream) {
-                cameraStream.getTracks().forEach(t => t.stop());
-                cameraStream = null;
+        function renderScanResult(text) {
+            const container = document.getElementById('scanResultText');
+
+            // Parsear secciones con íconos
+            const sections = [
+                { key: 'OBSERVACIÓN', icon: '🔍', label: 'Observación' },
+                { key: 'POSIBLE CAUSA', icon: '📋', label: 'Posible causa' },
+                { key: 'RECOMENDACIÓN INMEDIATA', icon: '💊', label: 'Recomendación inmediata' },
+                { key: 'CUÁNDO VER AL MÉDICO', icon: '🩺', label: 'Cuándo ver al médico' },
+            ];
+
+            let html = '';
+            let remaining = text;
+
+            sections.forEach(({ key, icon, label }) => {
+                // Buscar la sección por el ícono o el texto
+                const regex = new RegExp(
+                    `[${icon}]?\s*${key}\s*:?\s*([\s\S]*?)(?=[🔍📋💊🩺⚕️]|$)`, 'i'
+                );
+                const match = remaining.match(regex);
+                if (match) {
+                    const sectionText = match[1].trim()
+                        .replace(/^[-–•·]\s*/gm, '')
+                        .replace(/\n{2,}/g, '\n');
+                    html += `
+                        <div class="scan-section">
+                            <div class="scan-section-header">
+                                <span class="scan-section-icon">${icon}</span>
+                                <span class="scan-section-label">${label}</span>
+                            </div>
+                            <div class="scan-section-body">${sectionText.replace(/\n/g, '<br>')}</div>
+                        </div>`;
+                    remaining = remaining.replace(match[0], '');
+                }
+            });
+
+            // Si no se parsearon secciones, mostrar texto plano con párrafos
+            if (!html) {
+                html = '<div class="scan-section-body">' +
+                    text.replace(/\n{2,}/g, '</p><p>').replace(/\n/g, '<br>') +
+                    '</div>';
             }
-            const video = document.getElementById('cameraVideo');
-            video.srcObject = null;
-            video.style.display = 'none';
-            document.getElementById('cameraPlaceholder').style.display = 'flex';
-            document.getElementById('btnCloseCam').disabled = true;
-            document.getElementById('btnPhoto').disabled = true;
-            document.getElementById('btnRecord').disabled = true;
-            document.getElementById('btnSwitchCam').disabled = true;
-            document.getElementById('btnOpenCam').disabled = false;
-            showToast('📷 Cámara cerrada');
+
+            // Aviso final si lo tiene
+            if (text.includes('⚕️')) {
+                html += `<div class="scan-disclaimer">⚕️ Orientativo · No reemplaza la consulta médica profesional</div>`;
+            }
+
+            container.innerHTML = html;
         }
 
-        async function switchCamera() {
-            facingMode = (facingMode === 'user') ? 'environment' : 'user';
-            if (cameraStream) await openCamera();
+        function copyScanResult() {
+            const text = document.getElementById('scanResultText').textContent;
+            navigator.clipboard.writeText(text).then(() => showToast('📋 Resultado copiado'));
         }
 
-        function takePhoto() {
-            const video = document.getElementById('cameraVideo');
-            if (!video.srcObject) return;
-            const canvas = document.createElement('canvas');
-            canvas.width = video.videoWidth || 640;
-            canvas.height = video.videoHeight || 480;
-            canvas.getContext('2d').drawImage(video, 0, 0, canvas.width, canvas.height);
-            canvas.toBlob(blob => {
-                const url = URL.createObjectURL(blob);
-                const name = `baymax_foto_${Date.now()}.jpg`;
-                galleryItems.unshift({ type: 'photo', url, blob, name });
-                renderGallery();
-                showToast('📸 Foto tomada');
-            }, 'image/jpeg', 0.92);
+        function speakScanResult() {
+            const text = document.getElementById('scanResultText').textContent;
+            if (!text.trim()) return;
+            // Limpiar emojis y caracteres especiales para TTS
+            const clean = text
+                .replace(/[🔍📋💊🩺⚕️🔊📋#*_→•·–]/g, '')
+                .replace(/\s{2,}/g, ' ')
+                .trim()
+                .substring(0, 800);
+            speak(clean, null);
+            showToast('🔊 Leyendo diagnóstico…');
         }
 
-        function toggleRecord() {
-            if (isRecording) stopRecording();
-            else startRecording();
-        }
-
-        function startRecording() {
-            if (!cameraStream) return;
-            recordedChunks = [];
-            const options = MediaRecorder.isTypeSupported('video/webm;codecs=vp9')
-                ? { mimeType: 'video/webm;codecs=vp9' }
-                : MediaRecorder.isTypeSupported('video/webm')
-                    ? { mimeType: 'video/webm' }
-                    : {};
-            mediaRecorder = new MediaRecorder(cameraStream, options);
-            mediaRecorder.ondataavailable = e => { if (e.data.size > 0) recordedChunks.push(e.data); };
-            mediaRecorder.onstop = saveVideo;
-            mediaRecorder.start(100);
-            isRecording = true;
-            document.getElementById('recBadge').style.display = 'block';
-            document.getElementById('btnRecord').innerHTML = '⏹ Detener';
-            document.getElementById('btnRecord').style.background = 'linear-gradient(135deg,#78909c,#37474f)';
-            document.getElementById('btnPhoto').disabled = true;
-            showToast('⏺ Grabando video…');
-        }
-
-        function stopRecording() {
-            if (mediaRecorder && mediaRecorder.state !== 'inactive') mediaRecorder.stop();
-            isRecording = false;
-            document.getElementById('recBadge').style.display = 'none';
-            document.getElementById('btnRecord').innerHTML = '⏺ Grabar Video';
-            document.getElementById('btnRecord').style.background = '';
-            document.getElementById('btnPhoto').disabled = false;
-            showToast('✅ Video guardado en galería');
-        }
-
-        function saveVideo() {
-            const mimeType = recordedChunks[0] ? recordedChunks[0].type : 'video/webm';
-            const blob = new Blob(recordedChunks, { type: mimeType });
-            const ext = mimeType.includes('mp4') ? 'mp4' : 'webm';
-            const url = URL.createObjectURL(blob);
-            const name = `baymax_video_${Date.now()}.${ext}`;
-            galleryItems.unshift({ type: 'video', url, blob, name });
-            renderGallery();
-        }
-
-        function renderGallery() {
-            const grid = document.getElementById('cameraGallery');
-            grid.innerHTML = '';
-            if (!galleryItems.length) {
-                grid.innerHTML = '<div class="gallery-empty">Aquí aparecerán tus fotos y videos.</div>';
+        function renderScanHistory() {
+            if (!scanHistory.length) {
+                document.getElementById('scanHistoryWrap').style.display = 'none';
                 return;
             }
-            galleryItems.forEach((item, idx) => {
+            document.getElementById('scanHistoryWrap').style.display = 'block';
+            const list = document.getElementById('scanHistoryList');
+            list.innerHTML = '';
+            scanHistory.forEach((item, idx) => {
                 const div = document.createElement('div');
-                div.className = 'gallery-item';
-                if (item.type === 'photo') {
-                    div.innerHTML = `<img src="${item.url}" loading="lazy" onclick="previewItem(${idx})" />`;
-                } else {
-                    div.innerHTML = `<video src="${item.url}" onclick="previewItem(${idx})" loop></video>`;
-                }
-                div.innerHTML += `
-                    <button class="gallery-dl" onclick="downloadItem(${idx})" title="Descargar">⬇</button>
-                    <button class="gallery-del" onclick="deleteItem(${idx})" title="Eliminar">✕</button>
-                `;
-                grid.appendChild(div);
+                div.className = 'scan-hist-item';
+                div.innerHTML = `
+                    <img class="scan-hist-thumb" src="${item.fullThumb || item.thumb + '…'}" alt="scan" />
+                    <div class="scan-hist-info">
+                        <span class="scan-hist-time">🕐 ${item.timestamp} · ${item.context}</span>
+                        <span class="scan-hist-preview">${item.result.replace(/[🔍📋💊🩺⚕️]/g, '').trim()}</span>
+                        <button class="scan-hist-expand" onclick="expandScanHistory(${idx})">Ver diagnóstico completo ▼</button>
+                    </div>`;
+                list.appendChild(div);
             });
         }
 
-        function previewItem(idx) {
-            const item = galleryItems[idx];
-            const win = window.open('', '_blank', 'width=800,height=600');
-            if (!win) { showToast('⚠️ Permite ventanas emergentes para previsualizar'); return; }
-            if (item.type === 'photo') {
-                win.document.write(`<html><body style="margin:0;background:#000;display:flex;align-items:center;justify-content:center;height:100vh;"><img src="${item.url}" style="max-width:100%;max-height:100%;"/></body></html>`);
-            } else {
-                win.document.write(`<html><body style="margin:0;background:#000;display:flex;align-items:center;justify-content:center;height:100vh;"><video src="${item.url}" controls autoplay style="max-width:100%;max-height:100%;"></video></body></html>`);
-            }
+        function expandScanHistory(idx) {
+            document.getElementById('scanResultText').textContent = scanHistory[idx].result;
+            document.getElementById('scanResultBox').style.display = 'block';
+            document.getElementById('scanResultBox').scrollIntoView({ behavior: 'smooth' });
         }
 
-        function downloadItem(idx) {
-            const item = galleryItems[idx];
-            const a = document.createElement('a');
-            a.href = item.url;
-            a.download = item.name;
-            a.click();
-            showToast('⬇ Descargando…');
+        function clearScanHistory() {
+            scanHistory = [];
+            localStorage.removeItem('baymax-scan-history');
+            renderScanHistory();
+            showToast('🗑️ Historial de análisis limpiado');
         }
 
-        function deleteItem(idx) {
-            URL.revokeObjectURL(galleryItems[idx].url);
-            galleryItems.splice(idx, 1);
-            renderGallery();
-            showToast('🗑️ Eliminado de la galería');
-        }
+        // Init history on load
+        renderScanHistory();
 
         /* ══════════════════════════════════════════════════════
            NUEVAS FUNCIONES v3 — TODAS GRATUITAS
@@ -4487,6 +6092,244 @@ REGLAS IMPORTANTES:
         // Mood chart redraw on resize
         window.addEventListener('resize', () => { if (document.getElementById('panel-bienestar').classList.contains('active')) drawMoodChart(); });
 
+        /* ══════════════════════════════════════════════
+           MEJORAS GRATUITAS v4
+        ══════════════════════════════════════════════ */
+
+        /* ── 1. TIP DEL DÍA ── */
+        const DAILY_TIPS = [
+            { icon: '💧', text: 'Bebe un vaso de agua nada más levantarte. Reactiva tu metabolismo y mejora la concentración desde el primer minuto del día.' },
+            { icon: '🚶', text: 'Caminar 30 minutos al día reduce el riesgo de enfermedades cardíacas hasta en un 35%. No necesitas ir al gym.' },
+            { icon: '🥦', text: 'Incluye una porción de verduras verdes en cada comida principal. Son ricas en fibra, vitaminas y antioxidantes.' },
+            { icon: '😴', text: 'Dormir entre 7 y 9 horas es tan importante como la dieta y el ejercicio. El sueño repara células y consolida la memoria.' },
+            { icon: '📱', text: 'Evita las pantallas al menos 30 minutos antes de dormir. La luz azul suprime la melatonina y dificulta conciliar el sueño.' },
+            { icon: '🧘', text: '5 minutos de respiración profunda al día reducen el cortisol (hormona del estrés) de manera medible.' },
+            { icon: '🦷', text: 'Usa hilo dental una vez al día. La salud bucal está directamente relacionada con la salud cardiovascular.' },
+            { icon: '☀️', text: '15 minutos de sol en la mañana regulan el ritmo circadiano y aumentan los niveles de vitamina D naturalmente.' },
+            { icon: '🥚', text: 'Las proteínas en el desayuno reducen el hambre a lo largo del día y estabilizan el azúcar en sangre.' },
+            { icon: '🪑', text: 'Levántate y muévete por al menos 2 minutos cada hora si trabajas sentado. Mejora la circulación y la postura.' },
+            { icon: '🫀', text: 'Reír genuinamente 15 minutos al día reduce la presión arterial y libera endorfinas naturales.' },
+            { icon: '🫐', text: 'Los arándanos, fresas y moras son superalimentos: mejoran la memoria y protegen el cerebro del envejecimiento.' },
+            { icon: '🧂', text: 'El exceso de sal eleva la presión arterial. Intenta no superar los 5 gramos (1 cucharadita) de sal total al día.' },
+            { icon: '🤸', text: 'Estirar los músculos 10 minutos al despertar activa la circulación, mejora la flexibilidad y reduce dolores crónicos.' },
+            { icon: '🎶', text: 'Escuchar música que te gusta libera dopamina, el neurotransmisor del bienestar y la motivación.' },
+            { icon: '🍋', text: 'El limón con agua tibia en ayunas ayuda a la digestión y aporta vitamina C para reforzar el sistema inmunológico.' },
+            { icon: '🧠', text: 'Aprender algo nuevo cada día (idioma, instrumento, habilidad) genera nuevas conexiones neuronales y retrasa el envejecimiento cerebral.' },
+            { icon: '👣', text: 'Subir escaleras en lugar de usar el ascensor suma pasos sin esfuerzo extra y tonifica las piernas.' },
+            { icon: '🥑', text: 'Las grasas saludables del aguacate, aceite de oliva y frutos secos protegen el corazón y son esenciales para el cerebro.' },
+            { icon: '🫁', text: 'Respirar por la nariz (no por la boca) filtra el aire, aumenta el óxido nítrico y mejora la absorción de oxígeno.' },
+            { icon: '🌿', text: 'El jengibre fresco es un antiinflamatorio natural poderoso. Úsalo en tés, jugos o comidas.' },
+            { icon: '🩺', text: 'Hazte un chequeo médico completo al menos una vez al año, aunque te sientas bien. La prevención salva vidas.' },
+            { icon: '💊', text: 'Toma tus medicamentos siempre a la misma hora. La consistencia es clave para que funcionen correctamente.' },
+            { icon: '🥗', text: 'El arco iris en el plato: cuanto más variados sean los colores de tus frutas y verduras, mayor variedad de nutrientes consumes.' },
+            { icon: '🤝', text: 'Las conexiones sociales fuertes reducen el riesgo de depresión y aumentan la longevidad. Llama hoy a alguien que quieras.' },
+            { icon: '🏃', text: 'El ejercicio aeróbico durante 20 minutos produce BDNF, una proteína que "fertiliza" el cerebro y mejora el estado de ánimo.' },
+            { icon: '🫶', text: 'Practicar la gratitud 5 minutos al día, escribiendo 3 cosas positivas, mejora la salud mental de manera demostrada.' },
+            { icon: '🧊', text: 'Alternar agua fría y caliente en la ducha mejora la circulación y activa el sistema inmunológico.' },
+            { icon: '🥛', text: 'El calcio no solo está en la leche: las sardinas, el brócoli y las almendras son excelentes fuentes vegetales.' },
+            { icon: '⏰', text: 'Comer a horarios regulares regula el metabolismo y mejora la calidad del sueño. Tu cuerpo ama la rutina.' },
+        ];
+        (function showTipOfDay() {
+            const dayIndex = Math.floor(Date.now() / 86400000) % DAILY_TIPS.length;
+            const tip = DAILY_TIPS[dayIndex];
+            document.getElementById('tipIcon').textContent = tip.icon;
+            document.getElementById('tipText').textContent = tip.text;
+        })();
+
+        /* ── 2. CALCULADORA DE IMC ── */
+        function calcIMC() {
+            const h = parseFloat(document.getElementById('imcHeight').value);
+            const w = parseFloat(document.getElementById('imcWeight').value);
+            if (!h || !w || h < 100 || h > 250 || w < 20 || w > 300) {
+                showToast('⚠️ Ingresa altura y peso válidos');
+                return;
+            }
+            const bmi = w / Math.pow(h / 100, 2);
+            const bmiRound = bmi.toFixed(1);
+            const resultEl = document.getElementById('imcResult');
+            const valueEl = document.getElementById('imcValue');
+            const catEl = document.getElementById('imcCat');
+            const markerEl = document.getElementById('imcMarker');
+            const tipEl = document.getElementById('imcTip');
+
+            let cat, color, tip, pct;
+            if (bmi < 18.5) {
+                cat = 'Bajo peso'; color = '#42a5f5'; tip = 'Considera aumentar tu ingesta calórica con alimentos nutritivos. Consulta a un nutricionista.'; pct = Math.max(2, (bmi / 18.5) * 20);
+            } else if (bmi < 25) {
+                cat = '✅ Peso normal'; color = '#66bb6a'; tip = '¡Excelente! Mantén una dieta equilibrada y actividad física regular.'; pct = 20 + ((bmi - 18.5) / 6.5) * 25;
+            } else if (bmi < 30) {
+                cat = '⚠️ Sobrepeso'; color = '#ffa726'; tip = 'Pequeños cambios en la dieta y 30 min de ejercicio diario marcan una gran diferencia.'; pct = 45 + ((bmi - 25) / 5) * 25;
+            } else {
+                cat = '🚨 Obesidad'; color = '#ef5350'; tip = 'Te recomiendo consultar a un médico o nutricionista para un plan personalizado.'; pct = Math.min(98, 70 + ((bmi - 30) / 10) * 30);
+            }
+            valueEl.textContent = bmiRound;
+            valueEl.style.color = color;
+            catEl.textContent = cat;
+            catEl.style.color = color;
+            markerEl.style.left = pct + '%';
+            tipEl.textContent = tip;
+            resultEl.classList.add('show');
+            showToast(`📏 Tu IMC es ${bmiRound}`);
+            speak(`He calculado tu índice de masa corporal. Tu IMC es ${bmiRound}. Categoría: ${cat.replace(/[✅⚠️🚨]/g, '').trim()}.`);
+        }
+
+        /* ── 3. RESPIRACIÓN GUIADA ── */
+        const BREATH_PATTERNS = {
+            box: { phases: [{ n: 'Inhala', s: 'inhale', d: 4 }, { n: 'Sostén', s: 'hold', d: 4 }, { n: 'Exhala', s: 'exhale', d: 4 }, { n: 'Sostén', s: 'hold', d: 4 }], info: 'La respiración cuadrada reduce el estrés y mejora la concentración.', emoji: '📦' },
+            '478': { phases: [{ n: 'Inhala', s: 'inhale', d: 4 }, { n: 'Sostén', s: 'hold', d: 7 }, { n: 'Exhala', s: 'exhale', d: 8 }], info: 'La técnica 4-7-8 activa el sistema parasimpático y te prepara para dormir.', emoji: '😴' },
+            '24': { phases: [{ n: 'Inhala', s: 'inhale', d: 2 }, { n: 'Exhala', s: 'exhale', d: 4 }], info: 'Respiración rápida: ideal para calmar la ansiedad en momentos de urgencia.', emoji: '⚡' },
+        };
+        let breathActive = false, breathInterval = null, breathPhaseIdx = 0, breathTick = 0, breathCycles = 0, breathPatternKey = 'box';
+
+        function selectBreathPattern(btn) {
+            if (breathActive) return;
+            document.querySelectorAll('.breath-pattern-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            breathPatternKey = btn.dataset.pattern;
+            document.getElementById('breathInfo').textContent = BREATH_PATTERNS[breathPatternKey].info;
+            resetBreathUI();
+        }
+
+        function resetBreathUI() {
+            const circle = document.getElementById('breathCircle');
+            circle.className = 'breath-circle';
+            circle.textContent = BREATH_PATTERNS[breathPatternKey].emoji;
+            document.getElementById('breathPhase').textContent = 'Listo';
+            document.getElementById('breathCountdown').textContent = '–';
+        }
+
+        function toggleBreathing() {
+            if (breathActive) stopBreathing();
+            else startBreathing();
+        }
+
+        function startBreathing() {
+            breathActive = true; breathPhaseIdx = 0; breathTick = 0; breathCycles = 0;
+            document.getElementById('breathStart').textContent = '⏹ Detener';
+            document.getElementById('breathCycleCount').textContent = '0';
+            runBreathPhase();
+        }
+
+        function runBreathPhase() {
+            if (!breathActive) return;
+            const pattern = BREATH_PATTERNS[breathPatternKey];
+            const phase = pattern.phases[breathPhaseIdx];
+            const circle = document.getElementById('breathCircle');
+            circle.className = 'breath-circle ' + phase.s;
+            circle.textContent = phase.s === 'inhale' ? '🌬️' : phase.s === 'exhale' ? '😮‍💨' : '🫧';
+            document.getElementById('breathPhase').textContent = phase.n;
+            breathTick = phase.d;
+            document.getElementById('breathCountdown').textContent = breathTick;
+            breathInterval = setInterval(() => {
+                breathTick--;
+                document.getElementById('breathCountdown').textContent = breathTick;
+                if (breathTick <= 0) {
+                    clearInterval(breathInterval);
+                    breathPhaseIdx++;
+                    if (breathPhaseIdx >= pattern.phases.length) {
+                        breathPhaseIdx = 0; breathCycles++;
+                        document.getElementById('breathCycleCount').textContent = breathCycles;
+                    }
+                    runBreathPhase();
+                }
+            }, 1000);
+        }
+
+        function stopBreathing() {
+            breathActive = false;
+            clearInterval(breathInterval);
+            document.getElementById('breathStart').textContent = '▶ Iniciar';
+            resetBreathUI();
+            if (breathCycles > 0) showToast(`🫁 ${breathCycles} ciclo(s) completado(s) ¡Bien hecho!`);
+        }
+
+        /* ── 4. CALCULADORA DE SUEÑO ── */
+        function calcSleep() {
+            const wakeInput = document.getElementById('sleepWakeTime').value;
+            if (!wakeInput) { showToast('⚠️ Selecciona tu hora de despertar'); return; }
+            const [wh, wm] = wakeInput.split(':').map(Number);
+            const wakeMinutes = wh * 60 + wm;
+            const fallAsleep = 14; // avg minutes to fall asleep
+            const cycleMin = 90;
+            const cycles = [6, 5, 4, 3, 2, 1]; // preferred to less preferred
+            const timesEl = document.getElementById('sleepTimes');
+            timesEl.innerHTML = '';
+            cycles.forEach(c => {
+                const bedMinutes = wakeMinutes - (c * cycleMin) - fallAsleep;
+                const adj = ((bedMinutes % 1440) + 1440) % 1440;
+                const bh = Math.floor(adj / 60);
+                const bm = adj % 60;
+                const timeStr = `${String(bh).padStart(2, '0')}:${String(bm).padStart(2, '0')}`;
+                const chip = document.createElement('div');
+                chip.className = 'sleep-time-chip';
+                chip.innerHTML = `<strong>${timeStr}</strong><span class="sc-cycles">${c} ciclo${c > 1 ? 's' : ''} · ${c * 1.5}h</span>`;
+                timesEl.appendChild(chip);
+            });
+            document.getElementById('sleepInfo').textContent = `Los horarios en verde (5–6 ciclos) son los más recomendados. Incluye ~14 min para quedarte dormido.`;
+            showToast('💤 Horarios de sueño calculados');
+        }
+
+        /* ── 5. RECORDATORIO DE POSTURA ── */
+        let postureIntervalMin = 15, postureTimer = null, postureSecondsLeft = 0, postureCounterInterval = null;
+
+        function selectPostureInterval(btn) {
+            document.querySelectorAll('.posture-int-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            postureIntervalMin = parseInt(btn.dataset.min);
+        }
+
+        function playPostureBeep() {
+            try {
+                const ctx = new (window.AudioContext || window.webkitAudioContext)();
+                [440, 550, 660].forEach((f, i) => {
+                    const o = ctx.createOscillator(), g = ctx.createGain();
+                    o.type = 'sine'; o.frequency.value = f;
+                    g.gain.setValueAtTime(0, ctx.currentTime + i * 0.15);
+                    g.gain.linearRampToValueAtTime(0.15, ctx.currentTime + i * 0.15 + 0.02);
+                    g.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + i * 0.15 + 0.2);
+                    o.connect(g); g.connect(ctx.destination);
+                    o.start(ctx.currentTime + i * 0.15);
+                    o.stop(ctx.currentTime + i * 0.15 + 0.25);
+                });
+                setTimeout(() => ctx.close(), 800);
+            } catch (e) { }
+        }
+
+        function updatePostureCountdown() {
+            const m = Math.floor(postureSecondsLeft / 60);
+            const s = postureSecondsLeft % 60;
+            document.getElementById('postureCountdown').textContent = `${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}`;
+        }
+
+        function startPostureTimer() {
+            postureSecondsLeft = postureIntervalMin * 60;
+            updatePostureCountdown();
+            document.getElementById('postureStart').style.display = 'none';
+            document.getElementById('postureStop').style.display = 'block';
+            document.getElementById('postureStatus').textContent = `⏱️ Próximo recordatorio en ${postureIntervalMin} min`;
+            postureCounterInterval = setInterval(() => {
+                postureSecondsLeft--;
+                updatePostureCountdown();
+                if (postureSecondsLeft <= 0) {
+                    playPostureBeep();
+                    showToast('🪑 ¡Es hora de cambiar de postura y estirarte!');
+                    speak('Es hora de cambiar de postura. Levántate, estírate y mueve el cuello suavemente.');
+                    postureSecondsLeft = postureIntervalMin * 60;
+                    document.getElementById('postureStatus').textContent = `✅ Recordatorio enviado. Siguiente en ${postureIntervalMin} min.`;
+                    setTimeout(() => { document.getElementById('postureStatus').textContent = `⏱️ Próximo recordatorio en ${postureIntervalMin} min`; }, 3000);
+                }
+            }, 1000);
+        }
+
+        function stopPostureTimer() {
+            clearInterval(postureCounterInterval);
+            postureTimer = null;
+            document.getElementById('postureStart').style.display = 'block';
+            document.getElementById('postureStop').style.display = 'none';
+            document.getElementById('postureCountdown').textContent = '';
+            document.getElementById('postureStatus').textContent = 'Recordatorio detenido.';
+        }
+
         /* ══════════════════════════════════════════════════════
            INFLATE INTRO SEQUENCE — Big Hero 6 style
            Secuencia completa de inflado al cargar la página
@@ -4676,9 +6519,418 @@ REGLAS IMPORTANTES:
             steps.forEach(([delay, fn]) => setTimeout(fn, delay));
         })();
 
+        /* ══════════════════════════════════════════════════════
+           EJERCICIOS GUIADOS POR VOZ
+        ══════════════════════════════════════════════════════ */
+
+        const EJERCICIOS_DB = {
+            calentamiento: {
+                nombre: 'Calentamiento',
+                emoji: '🔥',
+                color: '#e65100',
+                pasos: [
+                    { emoji: '🚶', nombre: 'Marcha en el lugar', desc: 'Levanta las rodillas alternadamente al ritmo de tu respiración.', duracion: 30, voz: 'Marcha en el lugar. Levanta las rodillas alternadamente durante treinta segundos.' },
+                    { emoji: '🙆', nombre: 'Rotación de hombros', desc: 'Gira los hombros hacia adelante y hacia atrás, 10 veces cada lado.', duracion: 25, voz: 'Rotación de hombros. Gira los hombros hacia adelante y hacia atrás.' },
+                    { emoji: '🤸', nombre: 'Círculos de cuello', desc: 'Mueve el cuello suavemente de lado a lado. No hagas círculos completos.', duracion: 20, voz: 'Círculos de cuello. Mueve el cuello suavemente de lado a lado.' },
+                    { emoji: '🦵', nombre: 'Elevación de talones', desc: 'Párate en puntas de pie, sube y baja lentamente. Mantén el equilibrio.', duracion: 30, voz: 'Elevación de talones. Párate en puntas de pie y baja lentamente.' },
+                    { emoji: '💪', nombre: 'Círculos de brazos', desc: 'Extiende los brazos y haz círculos grandes, primero hacia adelante, luego atrás.', duracion: 25, voz: 'Círculos de brazos. Extiende los brazos y haz círculos grandes.' },
+                    { emoji: '🕺', nombre: 'Flexión lateral', desc: 'Inclínate suavemente a cada lado, deslizando la mano por la pierna.', duracion: 30, voz: 'Flexión lateral. Inclínate suavemente a cada lado.' },
+                ]
+            },
+            estiramientos: {
+                nombre: 'Estiramientos',
+                emoji: '🧘',
+                color: '#6a1b9a',
+                pasos: [
+                    { emoji: '🙏', nombre: 'Estiramiento de cuello', desc: 'Inclina la oreja hacia el hombro, sostén 20 segundos. Cambia de lado.', duracion: 40, voz: 'Estiramiento de cuello. Inclina la oreja hacia el hombro y sostén.' },
+                    { emoji: '🤲', nombre: 'Estiramiento de pecho', desc: 'Lleva los brazos atrás, entrelaza las manos y abre el pecho.', duracion: 35, voz: 'Estiramiento de pecho. Lleva los brazos atrás y abre el pecho.' },
+                    { emoji: '🦴', nombre: 'Estiramiento de espalda', desc: 'Siéntate, cruza una pierna y rota el tronco hacia ese lado.', duracion: 40, voz: 'Estiramiento de espalda. Siéntate, cruza una pierna y rota el tronco.' },
+                    { emoji: '🦶', nombre: 'Estiramiento de isquiotibiales', desc: 'De pie, apoya el talón en una silla y lleva el tronco hacia adelante.', duracion: 40, voz: 'Estiramiento de isquiotibiales. Apoya el talón en una silla y lleva el tronco al frente.' },
+                    { emoji: '🦵', nombre: 'Cuádriceps', desc: 'De pie, dobla una rodilla y lleva el pie hacia los glúteos. Mantén el equilibrio.', duracion: 35, voz: 'Cuádriceps. Dobla una rodilla y lleva el pie hacia los glúteos.' },
+                    { emoji: '🌊', nombre: 'Estiramiento lateral', desc: 'Extiende un brazo sobre la cabeza e inclínate hacia el lado contrario.', duracion: 35, voz: 'Estiramiento lateral. Extiende un brazo y inclínate hacia el lado contrario.' },
+                ]
+            },
+            pausa: {
+                nombre: 'Pausa activa',
+                emoji: '💺',
+                color: '#1565c0',
+                pasos: [
+                    { emoji: '👀', nombre: 'Descanso visual', desc: 'Cierra los ojos 20 segundos. Luego mira un punto lejano por otros 20 segundos.', duracion: 40, voz: 'Descanso visual. Cierra los ojos veinte segundos y luego mira un punto lejano.' },
+                    { emoji: '🙆', nombre: 'Estiramiento de muñecas', desc: 'Extiende el brazo, dobla la mano hacia ti y hacia fuera, 10 veces cada mano.', duracion: 30, voz: 'Estiramiento de muñecas. Extiende el brazo y dobla la mano hacia ti y hacia fuera.' },
+                    { emoji: '🪑', nombre: 'Sentadilla en silla', desc: 'Levántate y siéntate despacio 10 veces, sin usar las manos como apoyo.', duracion: 35, voz: 'Sentadilla en silla. Levántate y siéntate despacio diez veces.' },
+                    { emoji: '💆', nombre: 'Masaje de cuello', desc: 'Masajea los músculos del cuello y hombros con movimientos circulares suaves.', duracion: 30, voz: 'Masaje de cuello. Masajea los músculos del cuello con movimientos circulares.' },
+                    { emoji: '🚶', nombre: 'Caminar en el lugar', desc: 'Camina activamente en el lugar, levantando bien las rodillas durante 30 segundos.', duracion: 30, voz: 'Caminar en el lugar. Levanta bien las rodillas durante treinta segundos.' },
+                ]
+            },
+            relajacion: {
+                nombre: 'Relajación',
+                emoji: '🌙',
+                color: '#2e7d32',
+                pasos: [
+                    { emoji: '😮‍💨', nombre: 'Respiración profunda', desc: 'Inhala 4 segundos, retén 4 y exhala lentamente en 6. Repite 5 veces.', duracion: 60, voz: 'Respiración profunda. Inhala cuatro segundos, retén cuatro y exhala en seis. Repite.' },
+                    { emoji: '😌', nombre: 'Relajación progresiva', desc: 'Tensa y suelta cada grupo muscular empezando por los pies y subiendo.', duracion: 50, voz: 'Relajación progresiva. Tensa y suelta cada grupo muscular de abajo hacia arriba.' },
+                    { emoji: '🧘', nombre: 'Postura de montaña', desc: 'De pie, pies juntos, brazos al costado. Respira profundo y siente tu cuerpo enraizado.', duracion: 40, voz: 'Postura de montaña. De pie, respira profundo y siente tu cuerpo enraizado.' },
+                    { emoji: '🌬️', nombre: 'Exhalación larga', desc: 'Inhala por la nariz y exhala muy lentamente por la boca en 8 segundos. Repite.', duracion: 45, voz: 'Exhalación larga. Inhala por la nariz y exhala muy lentamente por la boca.' },
+                    { emoji: '💤', nombre: 'Escaneo corporal', desc: 'Cierra los ojos. Recorre mentalmente tu cuerpo de la cabeza a los pies y suelta la tensión.', duracion: 60, voz: 'Escaneo corporal. Cierra los ojos y recorre mentalmente tu cuerpo de la cabeza a los pies.' },
+                ]
+            }
+        };
+
+        // Estado del reproductor
+        let ejCurrentRoutine = null;
+        let ejCurrentStep = 0;
+        let ejTimer = null;
+        let ejSecondsLeft = 0;
+        let ejRunning = false;
+        let ejVoiceOn = true;
+        let ejStartTime = null;
+        let ejTotalSeconds = 0;
+        const EJ_CIRCUMFERENCE = 2 * Math.PI * 52; // 326.7
+
+        function selectRoutine(name) {
+            ejCurrentRoutine = name;
+            ejCurrentStep = 0;
+            ejRunning = false;
+
+            const routine = EJERCICIOS_DB[name];
+
+            // Mostrar player, ocultar grid y finish
+            document.getElementById('ejRoutinesGrid').style.display = 'none';
+            document.getElementById('ejFinish').style.display = 'none';
+            document.getElementById('ejPlayer').style.display = 'flex';
+
+            // Título y contador
+            document.getElementById('ejPlayerTitle').textContent = routine.nombre.toUpperCase();
+            updateExerciseStep();
+
+            // Calcular total de segundos para estadísticas
+            ejTotalSeconds = routine.pasos.reduce((sum, p) => sum + p.duracion, 0);
+            ejStartTime = Date.now();
+
+            // Narrar intro
+            const userName = getUserName();
+            const introMsg = userName
+                ? `${userName}, vamos a comenzar la rutina de ${routine.nombre}. Prepárate y sigue mis instrucciones.`
+                : `Vamos a comenzar la rutina de ${routine.nombre}. Prepárate y sigue mis instrucciones.`;
+            if (ejVoiceOn) speak(introMsg, null);
+        }
+
+        function updateExerciseStep() {
+            const routine = EJERCICIOS_DB[ejCurrentRoutine];
+            const paso = routine.pasos[ejCurrentStep];
+            const total = routine.pasos.length;
+
+            document.getElementById('ejPlayerSteps').textContent = `${ejCurrentStep + 1} / ${total}`;
+            document.getElementById('ejExerciseEmoji').textContent = paso.emoji;
+            document.getElementById('ejExerciseName').textContent = paso.nombre;
+            document.getElementById('ejExerciseDesc').textContent = paso.desc;
+            document.getElementById('ejTimerCount').textContent = paso.duracion;
+            document.getElementById('ejPlayBtn').textContent = '▶';
+            document.getElementById('ejPlayBtn').classList.remove('paused');
+
+            // Barra de progreso
+            const pct = (ejCurrentStep / total) * 100;
+            document.getElementById('ejProgressFill').style.width = pct + '%';
+
+            // Ring del timer — reset
+            const ring = document.getElementById('ejTimerRing');
+            ring.style.strokeDashoffset = '0';
+
+            // Preview del siguiente paso
+            const nextPreview = document.getElementById('ejNextPreview');
+            if (ejCurrentStep < total - 1) {
+                nextPreview.style.display = 'flex';
+                document.getElementById('ejNextName').textContent = routine.pasos[ejCurrentStep + 1].nombre;
+            } else {
+                nextPreview.style.display = 'none';
+            }
+
+            ejSecondsLeft = paso.duracion;
+            ejRunning = false;
+            clearInterval(ejTimer);
+        }
+
+        function toggleExercise() {
+            if (ejRunning) {
+                pauseExercise();
+            } else {
+                startExercise();
+            }
+        }
+
+        function startExercise() {
+            ejRunning = true;
+            const btn = document.getElementById('ejPlayBtn');
+            btn.textContent = '⏸';
+            btn.classList.remove('paused');
+
+            const paso = EJERCICIOS_DB[ejCurrentRoutine].pasos[ejCurrentStep];
+            const totalDur = paso.duracion;
+
+            // Narrar el paso con voz
+            if (ejVoiceOn) {
+                speak(paso.voz, null);
+            }
+
+            ejTimer = setInterval(() => {
+                ejSecondsLeft--;
+                document.getElementById('ejTimerCount').textContent = ejSecondsLeft;
+
+                // Actualizar ring circular
+                const pct = ejSecondsLeft / totalDur;
+                const offset = EJ_CIRCUMFERENCE * (1 - pct);
+                document.getElementById('ejTimerRing').style.strokeDashoffset = offset;
+
+                if (ejSecondsLeft <= 3 && ejSecondsLeft > 0 && ejVoiceOn) {
+                    // Cuenta regresiva final
+                    speak(String(ejSecondsLeft), null);
+                }
+
+                if (ejSecondsLeft <= 0) {
+                    clearInterval(ejTimer);
+                    ejRunning = false;
+                    advanceStep();
+                }
+            }, 1000);
+        }
+
+        function pauseExercise() {
+            ejRunning = false;
+            clearInterval(ejTimer);
+            const btn = document.getElementById('ejPlayBtn');
+            btn.textContent = '▶';
+            btn.classList.add('paused');
+            if (window.speechSynthesis) window.speechSynthesis.pause();
+        }
+
+        function advanceStep() {
+            const routine = EJERCICIOS_DB[ejCurrentRoutine];
+            if (ejCurrentStep < routine.pasos.length - 1) {
+                ejCurrentStep++;
+                updateExerciseStep();
+                // Pausa de 2 segundos entre pasos antes de narrar el siguiente
+                setTimeout(() => {
+                    if (ejVoiceOn) {
+                        const nextPaso = routine.pasos[ejCurrentStep];
+                        speak(`Siguiente: ${nextPaso.nombre}`, () => {
+                            startExercise();
+                        });
+                    } else {
+                        startExercise();
+                    }
+                }, 1800);
+            } else {
+                finishRoutine();
+            }
+        }
+
+        function skipExerciseStep() {
+            clearInterval(ejTimer);
+            ejRunning = false;
+            if (window.speechSynthesis) window.speechSynthesis.cancel();
+            advanceStep();
+        }
+
+        function finishRoutine() {
+            clearInterval(ejTimer);
+            const routine = EJERCICIOS_DB[ejCurrentRoutine];
+            const elapsed = Math.round((Date.now() - ejStartTime) / 1000);
+            const mins = Math.floor(elapsed / 60);
+            const secs = elapsed % 60;
+
+            document.getElementById('ejPlayer').style.display = 'none';
+            document.getElementById('ejFinish').style.display = 'flex';
+
+            const userName = getUserName();
+            const subMsg = userName
+                ? `¡Excelente, ${userName}! Completaste tu rutina de ${routine.nombre}. Tu bienestar es mi prioridad.`
+                : `¡Excelente trabajo! Completaste la rutina de ${routine.nombre}. Tu bienestar es mi prioridad.`;
+
+            document.getElementById('ejFinishSub').textContent = subMsg;
+            document.getElementById('ejFinishStats').innerHTML = `
+                <span class="ej-stat-chip">⏱ ${mins}:${String(secs).padStart(2, '0')} min</span>
+                <span class="ej-stat-chip">✅ ${routine.pasos.length} pasos</span>
+                <span class="ej-stat-chip">${routine.emoji} ${routine.nombre}</span>
+            `;
+
+            // Mensaje final de voz
+            if (ejVoiceOn) {
+                const finalMsg = userName
+                    ? `¡Felicitaciones, ${userName}! Has completado la rutina de ${routine.nombre}. Recuerda hidratarte bien.`
+                    : `¡Felicitaciones! Has completado la rutina de ${routine.nombre}. Recuerda hidratarte bien.`;
+                speak(finalMsg, null);
+            }
+        }
+
+        function exitRoutine() {
+            clearInterval(ejTimer);
+            ejRunning = false;
+            if (window.speechSynthesis) window.speechSynthesis.cancel();
+            document.getElementById('ejPlayer').style.display = 'none';
+            document.getElementById('ejFinish').style.display = 'none';
+            document.getElementById('ejRoutinesGrid').style.display = 'grid';
+        }
+
+        function repeatRoutine() {
+            if (ejCurrentRoutine) selectRoutine(ejCurrentRoutine);
+        }
+
+        function toggleExerciseVoice() {
+            ejVoiceOn = !ejVoiceOn;
+            const btn = document.getElementById('ejVoiceBtn');
+            const chip = document.getElementById('ejVoiceChip');
+            btn.classList.toggle('muted', !ejVoiceOn);
+            chip.classList.toggle('muted', !ejVoiceOn);
+            chip.textContent = ejVoiceOn ? '🔊 Narración activada' : '🔇 Narración silenciada';
+            if (!ejVoiceOn && window.speechSynthesis) window.speechSynthesis.cancel();
+        }
+
+        /* ══════════════════════════════════════════════════════
+           WELCOME — Pantalla de bienvenida con nombre
+        ══════════════════════════════════════════════════════ */
+        const BAYMAX_NAME_KEY = 'baymax-user-name';
+
+        function getUserName() {
+            return localStorage.getItem(BAYMAX_NAME_KEY) || '';
+        }
+
+        function saveUserName(name) {
+            if (name && name.trim()) {
+                localStorage.setItem(BAYMAX_NAME_KEY, name.trim());
+            } else {
+                localStorage.removeItem(BAYMAX_NAME_KEY);
+            }
+        }
+
+        function applyUserName() {
+            const name = getUserName();
+            const chip = document.getElementById('userNameChip');
+            const chipText = document.getElementById('userNameChipText');
+
+            if (name) {
+                chip.style.display = 'inline-flex';
+                chipText.textContent = name;
+                // Personalizar el saludo inicial en la burbuja
+                const greeting = getPersonalizedGreeting(name);
+                document.getElementById('speechText').innerHTML = greeting;
+                // Personalizar subtítulo
+                document.querySelector('.baymax-sub').textContent = `Asistente de ${name}`;
+            } else {
+                chip.style.display = 'none';
+                document.querySelector('.baymax-sub').textContent = 'Asistente Médico Personal';
+            }
+        }
+
+        function getPersonalizedGreeting(name) {
+            const hour = new Date().getHours();
+            let timeGreeting = 'Buenos días';
+            if (hour >= 12 && hour < 18) timeGreeting = 'Buenas tardes';
+            else if (hour >= 18) timeGreeting = 'Buenas noches';
+
+            const greetings = [
+                `${timeGreeting}, <strong>${name}</strong>. Soy Baymax, tu asistente médico personal. ¿Cómo te sientes hoy?`,
+                `¡Hola de nuevo, <strong>${name}</strong>! 🤍 Tu bienestar es mi prioridad. Cuéntame tus síntomas.`,
+                `${timeGreeting}, <strong>${name}</strong>. He activado mis protocolos médicos. ¿En qué puedo ayudarte?`,
+                `Hola, <strong>${name}</strong>. Estoy listo para cuidarte. Dime cómo te encuentras.`,
+            ];
+            return greetings[Math.floor(Math.random() * greetings.length)];
+        }
+
+        function showWelcomeModal() {
+            const modal = document.getElementById('welcomeModal');
+            modal.classList.add('visible');
+            // Focus en el input después de la animación
+            setTimeout(() => {
+                const input = document.getElementById('wcNameInput');
+                input.focus();
+            }, 200);
+        }
+
+        function hideWelcomeModal(animate) {
+            const modal = document.getElementById('welcomeModal');
+            const card = document.getElementById('welcomeCard');
+            if (animate) {
+                card.classList.add('dismissing');
+                setTimeout(() => {
+                    modal.classList.remove('visible');
+                    card.classList.remove('dismissing');
+                }, 320);
+            } else {
+                modal.classList.remove('visible');
+            }
+        }
+
+        function confirmWelcome() {
+            const input = document.getElementById('wcNameInput');
+            const name = input.value.trim();
+            if (!name) return;
+            saveUserName(name);
+            hideWelcomeModal(true);
+            setTimeout(() => {
+                applyUserName();
+                // Hablar el saludo personalizado con voz
+                const greeting = `¡Hola, ${name}! Soy Baymax, tu asistente médico personal. Me alegra conocerte.`;
+                if (typeof speak === 'function') speak(greeting, null);
+            }, 350);
+        }
+
+        function skipWelcome() {
+            saveUserName('');
+            hideWelcomeModal(true);
+        }
+
+        function openChangeName() {
+            const currentName = getUserName();
+            const input = document.getElementById('wcNameInput');
+            input.value = currentName;
+            // Actualizar el texto del botón para contexto de edición
+            const btn = document.getElementById('wcConfirmBtn');
+            btn.textContent = currentName ? '✏️ Actualizar nombre' : '¡Hola, Baymax! 🤍';
+            btn.disabled = false;
+            document.querySelector('.wc-subtitle').innerHTML =
+                currentName
+                    ? `Actualmente te llamo <strong>${currentName}</strong>.<br />¿Quieres cambiar tu nombre?`
+                    : 'Hola, soy tu <strong>asistente médico personal</strong>.<br />¿Cómo me gustaría llamarte?';
+            showWelcomeModal();
+        }
+
+        // Input listener para habilitar/deshabilitar el botón
+        document.getElementById('wcNameInput').addEventListener('input', function () {
+            const btn = document.getElementById('wcConfirmBtn');
+            btn.disabled = this.value.trim().length === 0;
+            if (this.value.trim().length > 0) {
+                btn.textContent = '¡Hola, Baymax! 🤍';
+            }
+        });
+
+        // Enter para confirmar
+        document.getElementById('wcNameInput').addEventListener('keydown', function (e) {
+            if (e.key === 'Enter' && this.value.trim()) confirmWelcome();
+        });
+
+        // Cerrar modal al click fuera de la card
+        document.getElementById('welcomeModal').addEventListener('click', function (e) {
+            if (e.target === this) skipWelcome();
+        });
+
+        /* ── INIT: decidir si mostrar el modal ── */
+        (function initWelcome() {
+            const stored = localStorage.getItem(BAYMAX_NAME_KEY);
+            // null = nunca visitó → mostrar modal después del inflate
+            // '' = eligió skip → no mostrar
+            // 'nombre' = ya tiene nombre → aplicar directamente
+            if (stored === null) {
+                // Mostrar modal cuando termine el inflate (t=3900 + 600ms de fade)
+                setTimeout(showWelcomeModal, 4600);
+            } else {
+                // Ya tiene preferencia guardada, aplicar nombre directamente
+                applyUserName();
+            }
+        })();
+
+
     </script>
 </body>
 
 </html>
-       
            
