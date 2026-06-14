@@ -170,8 +170,9 @@
         .eye-line {
             width: 32px;
             height: 2px;
-            background: #263238;
+            background: var(--chip-c2, #263238);
             border-radius: 2px;
+            transition: background .4s;
         }
 
         .baymax-chest {
@@ -181,15 +182,15 @@
             transform: translateX(-50%);
             width: 56px;
             height: 56px;
-            background: radial-gradient(circle at 38% 36%, #90caf9, #1e88e5);
+            background: radial-gradient(circle at 38% 36%, var(--chip-c1, #90caf9), var(--chip-c2, #1e88e5));
             border-radius: 50%;
-            box-shadow: 0 0 22px rgba(30, 136, 229, .45);
+            box-shadow: 0 0 22px var(--chip-glow, rgba(30, 136, 229, .45));
             display: flex;
             align-items: center;
             justify-content: center;
             animation: pulse-chest 2s ease-in-out infinite;
             cursor: pointer;
-            transition: transform .15s;
+            transition: transform .15s, background .4s, box-shadow .4s;
         }
 
         .baymax-chest:hover {
@@ -204,9 +205,10 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 14px;
+            font-size: 13px;
             font-weight: 700;
-            color: #1565c0;
+            color: var(--chip-c2, #1565c0);
+            transition: color .4s;
         }
 
         .baymax-arm-l {
@@ -364,6 +366,65 @@
             background: radial-gradient(circle at 40% 38%, #ef9a9a, #c62828);
             box-shadow: 0 0 26px rgba(198, 40, 40, .6);
             animation: pulse-chest .5s ease-in-out infinite;
+        }
+
+        /* ── CHIPS DE PERSONALIDAD — temas de color del pecho ── */
+        .app.chip-medico {
+            --chip-c1: #90caf9;
+            --chip-c2: #1e88e5;
+            --chip-glow: rgba(30, 136, 229, .45);
+        }
+
+        .app.chip-fitness {
+            --chip-c1: #ffcc80;
+            --chip-c2: #ef6c00;
+            --chip-glow: rgba(239, 108, 0, .45);
+        }
+
+        .app.chip-ninos {
+            --chip-c1: #f8bbd0;
+            --chip-c2: #ec407a;
+            --chip-glow: rgba(236, 64, 122, .4);
+        }
+
+        .app.chip-psicologo {
+            --chip-c1: #ce93d8;
+            --chip-c2: #7b1fa2;
+            --chip-glow: rgba(123, 31, 162, .4);
+        }
+
+        .app.chip-chef {
+            --chip-c1: #c5e1a5;
+            --chip-c2: #558b2f;
+            --chip-glow: rgba(85, 139, 47, .4);
+        }
+
+        .app.chip-cine {
+            --chip-c1: #b39ddb;
+            --chip-c2: #512da8;
+            --chip-glow: rgba(81, 45, 168, .4);
+        }
+
+        /* Pequeño destello cuando se inserta un chip nuevo */
+        @keyframes chipInsertFlash {
+            0% {
+                box-shadow: 0 0 22px var(--chip-glow, rgba(30, 136, 229, .45));
+                transform: translateX(-50%) scale(1);
+            }
+
+            40% {
+                box-shadow: 0 0 40px var(--chip-glow, rgba(30, 136, 229, .45));
+                transform: translateX(-50%) scale(1.28);
+            }
+
+            100% {
+                box-shadow: 0 0 22px var(--chip-glow, rgba(30, 136, 229, .45));
+                transform: translateX(-50%) scale(1);
+            }
+        }
+
+        .baymax-chest.chip-insert {
+            animation: chipInsertFlash .7s ease-in-out;
         }
 
         /* TÍTULO */
@@ -688,6 +749,44 @@
             display: flex;
             flex-direction: column;
             gap: 10px;
+        }
+
+        /* BANNER DE CHIP ACTIVO */
+        .active-chip-banner {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            width: 100%;
+            background: linear-gradient(135deg, var(--chip-c1, #90caf9), var(--chip-c2, #1e88e5));
+            color: #fff;
+            border-radius: 14px;
+            padding: 8px 12px;
+            font-size: 12px;
+            font-weight: 700;
+            margin-bottom: 10px;
+            cursor: pointer;
+            transition: filter .2s, transform .15s;
+        }
+
+        .active-chip-banner:hover {
+            filter: brightness(1.06);
+            transform: translateY(-1px);
+        }
+
+        .active-chip-banner span:first-child {
+            font-size: 16px;
+        }
+
+        .active-chip-banner #activeChipBannerText {
+            flex: 1;
+        }
+
+        .acb-change {
+            font-size: 10px;
+            font-weight: 700;
+            opacity: .85;
+            text-transform: uppercase;
+            letter-spacing: .5px;
         }
 
         /* QUICK BUTTONS */
@@ -3988,6 +4087,156 @@
             animation: welcomeDismiss .3s ease forwards;
         }
 
+        /* ══════════════════════════════════════════
+           CHIPS DE PERSONALIDAD — modal de selección
+           ══════════════════════════════════════════ */
+        #chipModal {
+            position: fixed;
+            inset: 0;
+            z-index: 9998;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 18px;
+            background: rgba(8, 20, 48, 0.65);
+            backdrop-filter: blur(6px);
+            -webkit-backdrop-filter: blur(6px);
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity .35s ease;
+        }
+
+        #chipModal.visible {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        .chip-modal-card {
+            background: var(--card);
+            border-radius: 26px;
+            padding: 26px 20px;
+            width: 100%;
+            max-width: 420px;
+            max-height: 86vh;
+            overflow-y: auto;
+            box-shadow: 0 24px 64px rgba(0, 0, 0, .22);
+            border: 1px solid var(--card-border);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            animation: welcomePop .45s cubic-bezier(.34, 1.56, .64, 1) both;
+        }
+
+        .chip-modal-card.dismissing {
+            animation: welcomeDismiss .3s ease forwards;
+        }
+
+        .chip-slot-visual {
+            width: 54px;
+            height: 30px;
+            border-radius: 8px;
+            background: linear-gradient(135deg, #42a5f5, #1565c0);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            margin-bottom: 10px;
+            box-shadow: 0 4px 14px rgba(21, 101, 192, .3);
+        }
+
+        .chip-modal-title {
+            font-family: 'Space Mono', monospace;
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--blue);
+            letter-spacing: 2px;
+            margin-bottom: 4px;
+            text-align: center;
+        }
+
+        .chip-modal-subtitle {
+            font-size: 12px;
+            color: var(--text-muted);
+            text-align: center;
+            line-height: 1.5;
+            margin-bottom: 16px;
+        }
+
+        .chip-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            width: 100%;
+            margin-bottom: 14px;
+        }
+
+        .chip-card {
+            position: relative;
+            border: 2px solid var(--card-border);
+            border-radius: 18px;
+            padding: 12px 10px;
+            background: var(--bg2);
+            cursor: pointer;
+            transition: all .2s;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .chip-card:hover {
+            transform: translateY(-2px);
+            border-color: var(--chip-card-c2, #1e88e5);
+            box-shadow: 0 6px 16px var(--shadow);
+        }
+
+        .chip-card.active {
+            border-color: var(--chip-card-c2, #1e88e5);
+            background: linear-gradient(160deg, var(--chip-card-c1, #e3f2fd) 0%, var(--card) 100%);
+        }
+
+        .chip-card-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 19px;
+            background: radial-gradient(circle at 38% 36%, var(--chip-card-c1, #90caf9), var(--chip-card-c2, #1e88e5));
+            box-shadow: 0 0 12px var(--chip-card-glow, rgba(30, 136, 229, .4));
+            margin-bottom: 2px;
+        }
+
+        .chip-card-name {
+            font-size: 12.5px;
+            font-weight: 800;
+            color: var(--text);
+        }
+
+        .chip-card-tag {
+            font-size: 10px;
+            color: var(--text-muted);
+            line-height: 1.35;
+        }
+
+        .chip-card-active-badge {
+            position: absolute;
+            top: 6px;
+            right: 8px;
+            font-size: 10px;
+            font-weight: 800;
+            color: var(--chip-card-c2, #1e88e5);
+        }
+
+        .chip-modal-actions {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            width: 100%;
+        }
+
         /* Chip de nombre en el top */
         .user-name-chip {
             display: inline-flex;
@@ -4070,6 +4319,21 @@
         </div>
     </div>
 
+    <!-- ══ MODAL: RANURA DE CHIPS DE PERSONALIDAD ══ -->
+    <div id="chipModal" role="dialog" aria-modal="true" aria-label="Ranura de chips de Baymax">
+        <div class="chip-modal-card" id="chipModalCard">
+            <div class="chip-slot-visual">🔌</div>
+            <div class="chip-modal-title">RANURA DE CHIPS</div>
+            <p class="chip-modal-subtitle">Inserta un chip para cambiar la personalidad, voz y colores de
+                Baymax.</p>
+            <div class="chip-grid" id="chipGrid"></div>
+            <div class="chip-modal-actions">
+                <button class="q-btn" onclick="quickScanFromChipModal()">🔍 Escaneo rápido de bienestar</button>
+                <button class="wc-skip" onclick="closeChipModal()">Cerrar</button>
+            </div>
+        </div>
+    </div>
+
     <!-- TOAST -->
     <div class="toast" id="toast">🔔 Recordatorio</div>
 
@@ -4105,8 +4369,9 @@
             <div class="baymax-arm-r"></div>
             <div class="baymax-body">
                 <div class="voice-ring"></div>
-                <div class="baymax-chest" onclick="scanHealth()" title="Escaneo de bienestar" role="button">
-                    <div class="chest-inner">+</div>
+                <div class="baymax-chest" id="baymaxChest" onclick="openChipModal()"
+                    title="Ranura de chips — cambiar personalidad" role="button">
+                    <div class="chest-inner" id="chestIcon">+</div>
                 </div>
                 <div class="baymax-foot left"></div>
                 <div class="baymax-foot right"></div>
@@ -4204,7 +4469,13 @@
 
         <!-- PANEL: SÍNTOMAS -->
         <div class="panel active" id="panel-sintomas">
-            <div class="quick-wrap">
+            <div class="active-chip-banner" id="activeChipBanner" onclick="openChipModal()" role="button"
+                title="Cambiar chip de personalidad">
+                <span id="activeChipBannerIcon">🩺</span>
+                <span id="activeChipBannerText">Chip Médico activo</span>
+                <span class="acb-change">Cambiar ▸</span>
+            </div>
+            <div class="quick-wrap" id="quickActionsWrap">
                 <button class="q-btn" onclick="manualActivate('dolor de cabeza')">🤕 Cabeza</button>
                 <button class="q-btn" onclick="manualActivate('fiebre')">🌡️ Fiebre</button>
                 <button class="q-btn" onclick="manualActivate('cansancio')">😴 Cansancio</button>
@@ -4982,7 +5253,20 @@
         // Reemplaza esta URL con la de tu Cloudflare Worker después de desplegarlo
         const WORKER_URL = 'https://baymaxproxy.togeinumaki1227.workers.dev';
 
-        const GEMINI_SYSTEM = `Eres Baymax, un asistente médico personal amigable y empático inspirado en Big Hero 6.
+        /* ══════════════════════════════════════════════════════
+           CHIPS DE PERSONALIDAD — estilo Big Hero 6
+           Cada chip define: prompt de IA, voz, colores y accesos rápidos
+        ══════════════════════════════════════════════════════ */
+        const CHIP_DB = {
+            medico: {
+                id: 'medico',
+                name: 'Médico',
+                emoji: '⚕️',
+                tag: 'Tu asistente de salud de siempre.',
+                colors: { c1: '#90caf9', c2: '#1e88e5', glow: 'rgba(30, 136, 229, .45)' },
+                voice: { rate: 0.80, pitch: 0.65 },
+                greeting: 'Chip Médico insertado ⚕️. Diagnóstico activado. Cuéntame, ¿cómo te sientes hoy?',
+                system: `Eres Baymax, un asistente médico personal amigable y empático inspirado en Big Hero 6.
 Ayudas al usuario con síntomas, consejos de salud y orientación médica general.
 REGLAS IMPORTANTES:
 - Responde SIEMPRE en español, de forma cálida y concisa (máximo 4 oraciones).
@@ -5000,7 +5284,313 @@ REGLAS IMPORTANTES:
 - Solo recomienda consultar al médico cuando los síntomas son graves, duran más de 3 días, o son una posible emergencia.
 - Para emergencias graves (dolor en el pecho, dificultad para respirar, convulsiones) indica SIEMPRE llamar al 123.
 - Si te preguntan quién eres, responde que eres Baymax, el asistente médico personal.
-- Termina cada respuesta con: "⚕️ Soy informativo y no reemplazo al médico profesional."`;
+- Termina cada respuesta con: "⚕️ Soy informativo y no reemplazo al médico profesional."`,
+                quickActions: [
+                    { icon: '🤕', label: 'Cabeza', action: () => manualActivate('dolor de cabeza') },
+                    { icon: '🌡️', label: 'Fiebre', action: () => manualActivate('fiebre') },
+                    { icon: '😴', label: 'Cansancio', action: () => manualActivate('cansancio') },
+                    { icon: '😷', label: 'Tos', action: () => manualActivate('tos') },
+                    { icon: '🤢', label: 'Estómago', action: () => manualActivate('dolor de estómago') },
+                    { icon: '🌙', label: 'Insomnio', action: () => manualActivate('insomnio') },
+                    { icon: '😰', label: 'Ansiedad', action: () => manualActivate('ansiedad') },
+                    { icon: '🤧', label: 'Resfriado', action: () => manualActivate('resfriado') },
+                    { icon: '🦴', label: 'Espalda', action: () => manualActivate('dolor de espalda') },
+                    { icon: '💢', label: 'Presión', action: () => manualActivate('presión alta') },
+                    { icon: '💙', label: 'Ánimo', action: () => manualActivate('depresión') },
+                    { icon: '🌿', label: 'Alergia', action: () => manualActivate('alergia') },
+                    { icon: '😵', label: 'Mareo', action: () => manualActivate('mareo') },
+                    { icon: '🗣️', label: 'Garganta', action: () => manualActivate('dolor de garganta') },
+                    { icon: '🔥', label: 'Quemadura', action: () => manualActivate('quemadura') },
+                    { icon: '🩹', label: 'Herida', action: () => manualActivate('herida') },
+                    { icon: '🩸', label: 'Glucosa', action: () => manualActivate('diabetes') },
+                    { icon: '💪', label: 'Consejos', action: () => manualActivate('consejos de salud') },
+                ]
+            },
+
+            fitness: {
+                id: 'fitness',
+                name: 'Entrenador',
+                emoji: '💪',
+                tag: 'Motivación, ejercicio y recuperación.',
+                colors: { c1: '#ffcc80', c2: '#ef6c00', glow: 'rgba(239, 108, 0, .45)' },
+                voice: { rate: 1.00, pitch: 0.80 },
+                greeting: '¡Chip de Entrenador insertado! 💪 Listo para ponernos en movimiento. ¿Qué entrenamos hoy?',
+                system: `Eres Baymax, pero ahora tienes el CHIP DE ENTRENADOR FÍSICO insertado. Conservas tu calidez de Baymax, pero hablas con la energía de un coach de fitness.
+REGLAS:
+- Responde SIEMPRE en español, con energía y entusiasmo, sin perder la calidez de Baymax (máximo 4-5 oraciones).
+- Usa frases como "¡Vamos, tú puedes!", "Tu cuerpo es una máquina increíble", "He registrado tu progreso", "Mi protocolo de entrenamiento indica...".
+- Si preguntan por síntomas médicos (dolor, fiebre, etc.) sigue dando orientación médica básica con medicamentos OTC y dosis como Baymax normalmente, pero enmárcalo desde el cuidado del rendimiento físico.
+- Para temas de ejercicio recomienda calentamiento, hidratación, buena técnica, estiramientos y descanso/recuperación. Sugiere usar la pestaña "Ejercicios" de la app para rutinas guiadas.
+- Si el dolor parece una lesión (esguince, desgarro, dolor articular agudo) recomienda reposo, hielo, compresión, elevación (RICE) y consultar a un médico si persiste.
+- Para emergencias graves indica SIEMPRE llamar al 123.
+- Termina cada respuesta con una frase motivadora corta y: "⚕️ Soy informativo y no reemplazo al médico o entrenador profesional."`,
+                quickActions: [
+                    { icon: '🏃', label: 'Rutina guiada', action: () => switchTab('ejercicios') },
+                    { icon: '🔥', label: 'Estiramientos', action: () => manualActivate('cómo hacer estiramientos antes de ejercicio') },
+                    { icon: '💧', label: 'Hidratación', action: () => manualActivate('cuánta agua debo tomar al hacer ejercicio') },
+                    { icon: '🥗', label: 'Snack post-entreno', action: () => manualActivate('qué comer después de entrenar') },
+                    { icon: '🦴', label: 'Dolor muscular', action: () => manualActivate('dolor muscular') },
+                    { icon: '📊', label: 'Mis signos', action: () => switchTab('vitales') },
+                    { icon: '😴', label: 'Recuperación', action: () => manualActivate('cómo dormir mejor para recuperarme del ejercicio') },
+                    { icon: '🚀', label: 'Motívame', action: () => manualActivate('necesito motivación para hacer ejercicio') },
+                ]
+            },
+
+            ninos: {
+                id: 'ninos',
+                name: 'Modo Niños',
+                emoji: '🧸',
+                tag: 'Explicaciones sencillas y cariñosas.',
+                colors: { c1: '#f8bbd0', c2: '#ec407a', glow: 'rgba(236, 64, 122, .4)' },
+                voice: { rate: 0.78, pitch: 1.05 },
+                greeting: '¡Hola, amiguito! 🧸 Chip de amigo activado. Cuéntame qué te pasa y lo resolvemos juntos.',
+                system: `Eres Baymax, pero ahora tienes el CHIP DE MODO NIÑOS insertado. Hablas con niños de forma muy sencilla, cariñosa y tranquilizadora, como un peluche que cuida.
+REGLAS:
+- Responde SIEMPRE en español, con palabras simples y frases cortas (máximo 3 oraciones), usando emojis amigables.
+- Usa un tono dulce y juguetón. Frases como "¡No te preocupes, aquí estoy!", "Vamos a sentirnos mejor juntos 🤍".
+- Evita términos médicos complicados; usa palabras como "pancita", "cabecita", "rasponcito".
+- Para malestares simples, sugiere remedios suaves y caseros apropiados para niños (agua, descanso, paños tibios o fríos, dieta blanda) y SIEMPRE recuerda avisar a un adulto.
+- NUNCA recomiendes medicamentos ni dosis directamente; en su lugar di "pídele a un adulto que te ayude con tu medicina".
+- Si algo suena grave o como una emergencia, di con calma que debe avisar a un adulto de inmediato y, si es muy urgente, que el adulto llame al 123.
+- Termina cada respuesta con un mensaje cariñoso y: "🤍 Cuéntale esto a un adulto que te cuide."`,
+                quickActions: [
+                    { icon: '🤒', label: 'Me duele la cabeza', action: () => manualActivate('dolor de cabeza') },
+                    { icon: '🤢', label: 'Me duele la pancita', action: () => manualActivate('dolor de estómago') },
+                    { icon: '🤧', label: 'Estoy resfriado', action: () => manualActivate('resfriado') },
+                    { icon: '🩹', label: 'Me raspé jugando', action: () => manualActivate('herida') },
+                    { icon: '😢', label: 'Estoy triste', action: () => manualActivate('me siento triste') },
+                    { icon: '🌙', label: 'No puedo dormir', action: () => manualActivate('insomnio') },
+                    { icon: '🦷', label: 'Cuidar mis dientes', action: () => manualActivate('cómo cuidar bien mis dientes') },
+                    { icon: '🧼', label: 'Lavar mis manos', action: () => manualActivate('por qué debo lavarme las manos') },
+                ]
+            },
+
+            psicologo: {
+                id: 'psicologo',
+                name: 'Psicólogo',
+                emoji: '🧠',
+                tag: 'Escucha activa y bienestar emocional.',
+                colors: { c1: '#ce93d8', c2: '#7b1fa2', glow: 'rgba(123, 31, 162, .4)' },
+                voice: { rate: 0.72, pitch: 0.62 },
+                greeting: 'Chip de Bienestar Emocional insertado 🧠💜. Estoy aquí para escucharte sin juzgar. ¿Cómo te sientes hoy?',
+                system: `Eres Baymax, pero ahora tienes el CHIP DE BIENESTAR EMOCIONAL insertado. Tu prioridad es escuchar y acompañar emocionalmente.
+REGLAS:
+- Responde SIEMPRE en español, con un tono cálido, calmado y sin juzgar (máximo 4-5 oraciones).
+- Practica escucha activa: valida lo que la persona siente antes de dar consejos ("Entiendo que te sientas así...", "Es válido sentirte de esa manera...").
+- Sugiere técnicas simples: respiración profunda (4-7-8), técnica de los 5 sentidos para conectar con el presente, diario emocional, rutinas de sueño, caminar al aire libre.
+- Si la persona menciona síntomas físicos, igual ofrece orientación médica básica de Baymax (puedes recomendar medicamentos OTC si aplica) pero conecta también con cómo se siente emocionalmente.
+- Si detectas señales de crisis (ideas de daño a sí mismo, desesperanza extrema), responde con calma, valida sus emociones, y recomienda con firmeza contactar la Línea de Salud Mental 106 o el 123, y hablar con alguien de confianza. No minimices la situación.
+- Termina cada respuesta con algo alentador y: "💜 Tu bienestar emocional también es mi prioridad. No estás solo/a."`,
+                quickActions: [
+                    { icon: '😔', label: 'Me siento triste', action: () => manualActivate('depresión') },
+                    { icon: '😰', label: 'Tengo ansiedad', action: () => manualActivate('ansiedad') },
+                    { icon: '😡', label: 'Estoy molesto/a', action: () => manualActivate('me siento muy enojado y no sé cómo manejarlo') },
+                    { icon: '🌬️', label: 'Respiración guiada', action: () => manualActivate('guíame en un ejercicio de respiración') },
+                    { icon: '💤', label: 'No puedo dormir', action: () => manualActivate('insomnio') },
+                    { icon: '📓', label: 'Diario emocional', action: () => switchTab('bienestar') },
+                    { icon: '🧘', label: 'Necesito calmarme', action: () => manualActivate('me siento muy estresado y necesito calmarme') },
+                    { icon: '🤝', label: 'Hablar con alguien', action: () => manualActivate('necesito hablar con alguien sobre cómo me siento') },
+                ]
+            },
+
+            chef: {
+                id: 'chef',
+                name: 'Chef',
+                emoji: '👨‍🍳',
+                tag: 'La nutrición como medicina.',
+                colors: { c1: '#c5e1a5', c2: '#558b2f', glow: 'rgba(85, 139, 47, .4)' },
+                voice: { rate: 0.85, pitch: 0.72 },
+                greeting: '¡Chip de Nutrición activado! 👨‍🍳🥦 Hoy cocinamos para tu salud. Cuéntame qué síntoma tienes o qué se te antoja.',
+                system: `Eres Baymax, pero ahora tienes el CHIP DE NUTRICIÓN / CHEF insertado. Ves el bienestar a través de la buena alimentación.
+REGLAS:
+- Responde SIEMPRE en español, con un tono cálido y un toque de entusiasmo culinario (máximo 4-5 oraciones).
+- Usa frases como "Mi receta médica de hoy es...", "He preparado un menú para tu recuperación...", "La cocina también es medicina."
+- Para cada síntoma o consulta, recomienda alimentos, bebidas o recetas sencillas que ayuden (ej: caldo de pollo e hidratación para gripa, dieta blanda para malestar estomacal, alimentos ricos en hierro para el cansancio, alimentos antiinflamatorios para dolor muscular).
+- También puedes mencionar medicamentos de venta libre con dosis cuando sea apropiado, como Baymax normalmente.
+- Para condiciones como diabetes o presión alta, da recomendaciones nutricionales generales (sin reemplazar al nutricionista).
+- Para emergencias graves indica SIEMPRE llamar al 123.
+- Termina cada respuesta con un pequeño "tip de cocina saludable" y: "⚕️ Soy informativo y no reemplazo al médico o nutricionista profesional."`,
+                quickActions: [
+                    { icon: '🤢', label: 'Malestar estomacal', action: () => manualActivate('qué comer si tengo malestar estomacal') },
+                    { icon: '🌡️', label: 'Comer con fiebre', action: () => manualActivate('qué comer y beber si tengo fiebre') },
+                    { icon: '💪', label: 'Más energía', action: () => manualActivate('qué comer para tener más energía') },
+                    { icon: '🩸', label: 'Comer con diabetes', action: () => manualActivate('diabetes') },
+                    { icon: '😴', label: 'Cenar para dormir', action: () => manualActivate('qué cenar para dormir mejor') },
+                    { icon: '🥗', label: 'Receta del día', action: () => manualActivate('dame una receta saludable para hoy') },
+                    { icon: '🤧', label: 'Comer con gripa', action: () => manualActivate('qué comer si tengo gripa') },
+                    { icon: '💧', label: 'Hidratación', action: () => manualActivate('cuánta agua debo tomar al día') },
+                ]
+            },
+
+            cine: {
+                id: 'cine',
+                name: 'Modo Cine',
+                emoji: '🎬',
+                tag: 'Entretenimiento para el alma. Próx.: video integrado.',
+                colors: { c1: '#b39ddb', c2: '#512da8', glow: 'rgba(81, 45, 168, .4)' },
+                voice: { rate: 0.82, pitch: 0.68 },
+                greeting: '¡Chip de Entretenimiento activado! 🎬🍿 La diversión también cuida tu mente. Pronto podré recomendarte videos aquí mismo. ¿Cómo te sientes?',
+                system: `Eres Baymax, pero ahora tienes el CHIP DE ENTRETENIMIENTO / MODO CINE insertado. Crees que la diversión y el descanso mental son parte del cuidado de la salud.
+REGLAS:
+- Responde SIEMPRE en español, con un tono relajado, cálido y un poco lúdico (máximo 4-5 oraciones).
+- Usa frases como "Mi protocolo de bienestar incluye divertirse", "He preparado una recomendación para ti", "Un buen descanso mental también cura".
+- Para cada consulta, además de tu orientación de salud habitual (puedes seguir dando recomendaciones médicas básicas y de venta libre como Baymax), sugiere una actividad de entretenimiento o relajación apropiada según el estado de ánimo o síntoma (ej: música relajante para la ansiedad, comedia ligera para el ánimo, contenido tranquilo para el insomnio, distracciones breves para el dolor).
+- Aclara amablemente, solo si es relevante, que pronto podrás recomendar y mostrar videos de YouTube/TikTok directamente en la app, pero por ahora das sugerencias en texto.
+- Para emergencias graves indica SIEMPRE llamar al 123.
+- Termina cada respuesta con: "🎬 Recuerda: el descanso y la diversión también cuidan tu salud. ⚕️ Soy informativo y no reemplazo al médico profesional."`,
+                quickActions: [
+                    { icon: '🎵', label: 'Música relajante', action: () => openYouTubeSearch('música relajante para calmar la ansiedad') },
+                    { icon: '😂', label: 'Algo para reír', action: () => openYouTubeSearch('videos cortos de comedia para reír') },
+                    { icon: '🧘', label: 'Meditación guiada', action: () => openYouTubeSearch('meditación guiada 10 minutos en español') },
+                    { icon: '😴', label: 'Sonidos para dormir', action: () => openYouTubeSearch('sonidos relajantes para dormir') },
+                    { icon: '🎬', label: 'Recomiéndame algo', action: () => manualActivate('recomiéndame algo de entretenimiento para sentirme mejor') },
+                    { icon: '📺', label: 'Próximamente: video aquí', action: () => showToast('🎬 Próximamente: videos de YouTube y TikTok integrados directamente en Baymax') },
+                ]
+            },
+        };
+
+        // ── ESTADO DEL CHIP ACTIVO ──────────────────────────────
+        let activeChip = localStorage.getItem('baymax-chip') || 'medico';
+        if (!CHIP_DB[activeChip]) activeChip = 'medico';
+
+        function getActiveSystem() { return CHIP_DB[activeChip].system; }
+
+        function openYouTubeSearch(query) {
+            window.open('https://www.youtube.com/results?search_query=' + encodeURIComponent(query), '_blank');
+        }
+
+        /* ── Renderiza los botones rápidos según el chip activo ── */
+        function renderQuickActions() {
+            const wrap = document.getElementById('quickActionsWrap');
+            if (!wrap) return;
+            wrap.innerHTML = '';
+            CHIP_DB[activeChip].quickActions.forEach(qa => {
+                const btn = document.createElement('button');
+                btn.className = 'q-btn';
+                btn.textContent = `${qa.icon} ${qa.label}`;
+                btn.onclick = qa.action;
+                wrap.appendChild(btn);
+            });
+        }
+
+        /* ── Renderiza las tarjetas del modal de chips ── */
+        function renderChipGrid() {
+            const grid = document.getElementById('chipGrid');
+            if (!grid) return;
+            grid.innerHTML = '';
+            Object.values(CHIP_DB).forEach(chip => {
+                const card = document.createElement('div');
+                card.className = 'chip-card' + (chip.id === activeChip ? ' active' : '');
+                card.style.setProperty('--chip-card-c1', chip.colors.c1);
+                card.style.setProperty('--chip-card-c2', chip.colors.c2);
+                card.style.setProperty('--chip-card-glow', chip.colors.glow);
+                card.innerHTML = `
+                    ${chip.id === activeChip ? '<span class="chip-card-active-badge">ACTIVO</span>' : ''}
+                    <div class="chip-card-icon">${chip.emoji}</div>
+                    <div class="chip-card-name">${chip.name}</div>
+                    <div class="chip-card-tag">${chip.tag}</div>
+                `;
+                card.onclick = () => selectChip(chip.id);
+                grid.appendChild(card);
+            });
+        }
+
+        /* ── Selecciona un chip desde el modal: lo aplica y cierra la ranura ── */
+        function selectChip(id) {
+            if (id === activeChip) { closeChipModal(); return; }
+            applyChip(id, { announce: true });
+            closeChipModal();
+        }
+
+        /* ── Abre / cierra el modal de la ranura de chips ── */
+        function openChipModal() {
+            renderChipGrid();
+            document.getElementById('chipModal').classList.add('visible');
+        }
+
+        function closeChipModal() {
+            const modal = document.getElementById('chipModal');
+            const card = document.getElementById('chipModalCard');
+            card.classList.add('dismissing');
+            setTimeout(() => {
+                modal.classList.remove('visible');
+                card.classList.remove('dismissing');
+            }, 280);
+        }
+
+        function quickScanFromChipModal() {
+            closeChipModal();
+            setTimeout(scanHealth, 200);
+        }
+
+        document.getElementById('chipModal').addEventListener('click', function (e) {
+            if (e.target === this) closeChipModal();
+        });
+
+        /* ── Inserta un chip nuevo: cambia personalidad, voz, colores y avisa ── */
+        function applyChip(id, opts = {}) {
+            const chip = CHIP_DB[id];
+            if (!chip) return;
+            activeChip = id;
+            localStorage.setItem('baymax-chip', id);
+
+            // Tema de color del pecho/ojos
+            Object.keys(CHIP_DB).forEach(k => appEl.classList.remove('chip-' + k));
+            appEl.classList.add('chip-' + id);
+
+            // Ícono del pecho y banner
+            const chestIcon = document.getElementById('chestIcon');
+            if (chestIcon) chestIcon.textContent = chip.emoji;
+            const bannerIcon = document.getElementById('activeChipBannerIcon');
+            const bannerText = document.getElementById('activeChipBannerText');
+            if (bannerIcon) bannerIcon.textContent = chip.emoji;
+            if (bannerText) bannerText.textContent = `Chip ${chip.name} activo`;
+
+            // Voz
+            voiceRate = chip.voice.rate;
+            voicePitch = chip.voice.pitch;
+            const rateSlider = document.getElementById('rateSlider');
+            const pitchSlider = document.getElementById('pitchSlider');
+            const rateLabel = document.getElementById('rateLabel');
+            const pitchLabel = document.getElementById('pitchLabel');
+            if (rateSlider) rateSlider.value = Math.round(voiceRate * 100);
+            if (rateLabel) rateLabel.textContent = voiceRate.toFixed(2) + '×';
+            if (pitchSlider) pitchSlider.value = Math.round(voicePitch * 100);
+            if (pitchLabel) pitchLabel.textContent = voicePitch.toFixed(2);
+
+            // Accesos rápidos según la nueva personalidad
+            renderQuickActions();
+
+            // Nueva personalidad → nueva conversación con la IA
+            geminiConversation = [];
+
+            if (opts.announce) {
+                // Animación de "inserción" en el pecho
+                const chest = document.getElementById('baymaxChest');
+                if (chest) {
+                    chest.classList.remove('chip-insert');
+                    requestAnimationFrame(() => chest.classList.add('chip-insert'));
+                    setTimeout(() => chest.classList.remove('chip-insert'), 700);
+                }
+                head.classList.add('happy');
+                setTimeout(() => head.classList.remove('happy'), 700);
+
+                showToast(`${chip.emoji} Chip ${chip.name} insertado`);
+
+                if (appState === 'sleeping') setAppState('standby');
+                showTyping();
+                setTimeout(() => {
+                    showReply(chip.greeting);
+                    addToHistory(chip.greeting, 'bot');
+                    busy = true;
+                    speak(chip.greeting, () => {
+                        busy = false;
+                        setAppState('standby');
+                        if (continuousListening) restartRecognition();
+                    });
+                }, 250);
+            }
+        }
 
         let geminiConversation = [];
 
@@ -5029,7 +5619,7 @@ REGLAS IMPORTANTES:
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
                         messages: geminiConversation,
-                        system: GEMINI_SYSTEM
+                        system: getActiveSystem()
                     })
                 });
 
@@ -5337,9 +5927,8 @@ REGLAS IMPORTANTES:
         setTimeout(populateVoiceSelector, 400);
 
         /* ── AJUSTES DE VOZ ── */
-        function updateRate(val) { voiceRate = val / 100; document.getElementById('rateLabel') = (val / 100).toFixed(2) + '×'; }
-        document.getElementById('rateSlider').addEventListener('input', function () { voiceRate = this.value / 100; document.getElementById('rateLabel').textContent = (this.value / 100).toFixed(2) + '×'; });
-        document.getElementById('pitchSlider').addEventListener('input', function () { voicePitch = this.value / 100; document.getElementById('pitchLabel').textContent = (this.value / 100).toFixed(2); });
+        function updateRate(val) { voiceRate = val / 100; document.getElementById('rateLabel').textContent = (val / 100).toFixed(2) + '×'; }
+        function updatePitch(val) { voicePitch = val / 100; document.getElementById('pitchLabel').textContent = (val / 100).toFixed(2); }
 
         function resetSettings() {
             voiceRate = 0.80; voicePitch = 0.65;
@@ -6928,9 +7517,11 @@ INSTRUCCIONES ESTRICTAS:
             }
         })();
 
+        /* ── INIT: aplicar el chip de personalidad guardado (o Médico por defecto) ── */
+        applyChip(activeChip);
+
 
     </script>
 </body>
 
 </html>
-           
