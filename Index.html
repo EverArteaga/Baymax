@@ -4438,34 +4438,8 @@
             <span class="mic-label" id="micLabel">ACTIVAR MICRÓFONO</span>
         </div>
 
-        <!-- TABS -->
-        <div class="tabs">
-            <button class="tab active" onclick="switchTab('sintomas')" id="tab-sintomas">
-                <span class="tab-icon">🩺</span> Síntomas
-            </button>
-            <button class="tab" onclick="switchTab('vitales')" id="tab-vitales">
-                <span class="tab-icon">📊</span> Signos
-            </button>
-            <button class="tab" onclick="switchTab('recordatorios')" id="tab-recordatorios">
-                <span class="tab-icon tab-wrap">⏰ <span class="rm-badge" id="rmBadge"
-                        style="display:none">0</span></span> Alarmas
-            </button>
-            <button class="tab" onclick="switchTab('historial')" id="tab-historial">
-                <span class="tab-icon">💬</span> Historial
-            </button>
-            <button class="tab" onclick="switchTab('ajustes')" id="tab-ajustes">
-                <span class="tab-icon">⚙️</span> Ajustes
-            </button>
-            <button class="tab" onclick="switchTab('camara')" id="tab-camara">
-                <span class="tab-icon">🔬</span> Análisis
-            </button>
-            <button class="tab" onclick="switchTab('bienestar')" id="tab-bienestar">
-                <span class="tab-icon">🌿</span> Bienestar
-            </button>
-            <button class="tab" onclick="switchTab('ejercicios')" id="tab-ejercicios">
-                <span class="tab-icon">🏃</span> Ejercicios
-            </button>
-        </div>
+        <!-- TABS — se renderizan dinámicamente según el chip activo -->
+        <div class="tabs" id="tabsBar"></div>
 
         <!-- PANEL: SÍNTOMAS -->
         <div class="panel active" id="panel-sintomas">
@@ -5561,6 +5535,9 @@ REGLAS:
             // Accesos rápidos según la nueva personalidad
             renderQuickActions();
 
+            // Barra de tabs adaptada a la nueva personalidad
+            renderTabs();
+
             // Nueva personalidad → nueva conversación con la IA
             geminiConversation = [];
 
@@ -5590,6 +5567,103 @@ REGLAS:
                     });
                 }, 250);
             }
+        }
+
+        /* ══════════════════════════════════════════════════════
+           TABS POR CHIP — cada personalidad tiene su propia barra
+        ══════════════════════════════════════════════════════ */
+        const CHIP_TABS = {
+            medico: [
+                { id: 'sintomas',      icon: '🩺',  label: 'Síntomas' },
+                { id: 'vitales',       icon: '📊',  label: 'Signos'   },
+                { id: 'recordatorios', icon: '⏰',  label: 'Alarmas', badge: 'rmBadge' },
+                { id: 'camara',        icon: '🔬',  label: 'Análisis' },
+                { id: 'bienestar',     icon: '🌿',  label: 'Bienestar'},
+                { id: 'ejercicios',    icon: '🏃',  label: 'Ejercicios'},
+                { id: 'historial',     icon: '💬',  label: 'Historial'},
+                { id: 'ajustes',       icon: '⚙️', label: 'Ajustes'  },
+            ],
+            fitness: [
+                { id: 'ejercicios',    icon: '🏃',  label: 'Rutinas'  },
+                { id: 'bienestar',     icon: '💪',  label: 'Bienestar'},
+                { id: 'vitales',       icon: '📊',  label: 'Signos'   },
+                { id: 'recordatorios', icon: '⏰',  label: 'Alarmas', badge: 'rmBadge' },
+                { id: 'historial',     icon: '📈',  label: 'Progreso' },
+                { id: 'ajustes',       icon: '⚙️', label: 'Ajustes'  },
+            ],
+            ninos: [
+                { id: 'sintomas',      icon: '🤒',  label: 'Síntomas' },
+                { id: 'bienestar',     icon: '🎮',  label: 'Bienestar'},
+                { id: 'vitales',       icon: '📊',  label: 'Signos'   },
+                { id: 'recordatorios', icon: '⏰',  label: 'Alarmas', badge: 'rmBadge' },
+                { id: 'historial',     icon: '💬',  label: 'Historial'},
+                { id: 'ajustes',       icon: '⚙️', label: 'Ajustes'  },
+            ],
+            psicologo: [
+                { id: 'bienestar',     icon: '🧘',  label: 'Bienestar'},
+                { id: 'historial',     icon: '💬',  label: 'Sesiones' },
+                { id: 'sintomas',      icon: '🧠',  label: 'Emociones'},
+                { id: 'recordatorios', icon: '⏰',  label: 'Alarmas', badge: 'rmBadge' },
+                { id: 'ajustes',       icon: '⚙️', label: 'Ajustes'  },
+            ],
+            chef: [
+                { id: 'sintomas',      icon: '🥗',  label: 'Consulta' },
+                { id: 'bienestar',     icon: '🌿',  label: 'Bienestar'},
+                { id: 'vitales',       icon: '📊',  label: 'Signos'   },
+                { id: 'recordatorios', icon: '⏰',  label: 'Alarmas', badge: 'rmBadge' },
+                { id: 'historial',     icon: '📋',  label: 'Historial'},
+                { id: 'ajustes',       icon: '⚙️', label: 'Ajustes'  },
+            ],
+            cine: [
+                { id: 'sintomas',      icon: '🎬',  label: 'Consulta' },
+                { id: 'bienestar',     icon: '🌿',  label: 'Bienestar'},
+                { id: 'historial',     icon: '🎞️', label: 'Historial'},
+                { id: 'recordatorios', icon: '⏰',  label: 'Alarmas', badge: 'rmBadge' },
+                { id: 'ajustes',       icon: '⚙️', label: 'Ajustes'  },
+            ],
+        };
+
+        /* Pestaña activa actual */
+        let currentTab = 'sintomas';
+
+        /* Renderiza la barra de tabs según el chip activo */
+        function renderTabs() {
+            const bar = document.getElementById('tabsBar');
+            if (!bar) return;
+            const tabs = CHIP_TABS[activeChip] || CHIP_TABS.medico;
+            bar.innerHTML = '';
+
+            // Si la pestaña actual no existe en el nuevo chip, ir a la primera
+            const ids = tabs.map(t => t.id);
+            if (!ids.includes(currentTab)) currentTab = tabs[0].id;
+
+            tabs.forEach(tab => {
+                const btn = document.createElement('button');
+                btn.className = 'tab' + (tab.id === currentTab ? ' active' : '');
+                btn.id = 'tab-' + tab.id;
+
+                // Badge especial para alarmas
+                const badgeHTML = tab.badge
+                    ? `<span class="rm-badge" id="${tab.badge}" style="display:none">0</span>`
+                    : '';
+
+                btn.innerHTML = `<span class="tab-icon">${tab.icon}${badgeHTML}</span>${tab.label}`;
+                btn.onclick = () => switchTab(tab.id);
+                bar.appendChild(btn);
+            });
+
+            // Asegurar que el panel correcto esté visible
+            document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+            const activePanel = document.getElementById('panel-' + currentTab);
+            if (activePanel) activePanel.classList.add('active');
+
+            // Restaurar badge de recordatorios (se recrea en cada renderTabs)
+            if (typeof updateRmBadge === 'function') updateRmBadge();
+        }
+
+        /* Actualiza el número del badge de recordatorios en la barra actual */
+        function updateReminderBadge() {
+            if (typeof updateRmBadge === 'function') updateRmBadge();
         }
 
         let geminiConversation = [];
@@ -5885,10 +5959,13 @@ REGLAS:
 
         /* ── TABS ── */
         function switchTab(name) {
+            currentTab = name;
             document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
             document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
-            document.getElementById('tab-' + name).classList.add('active');
-            document.getElementById('panel-' + name).classList.add('active');
+            const tabBtn = document.getElementById('tab-' + name);
+            if (tabBtn) tabBtn.classList.add('active');
+            const panel = document.getElementById('panel-' + name);
+            if (panel) panel.classList.add('active');
         }
 
         /* ── MODO OSCURO ── */
@@ -6081,6 +6158,7 @@ REGLAS:
 
         function updateRmBadge() {
             const badge = document.getElementById('rmBadge');
+            if (!badge) return;
             if (reminders.length > 0) { badge.textContent = reminders.length; badge.style.display = ''; }
             else { badge.style.display = 'none'; }
         }
@@ -7519,6 +7597,7 @@ INSTRUCCIONES ESTRICTAS:
 
         /* ── INIT: aplicar el chip de personalidad guardado (o Médico por defecto) ── */
         applyChip(activeChip);
+        renderTabs();
 
 
     </script>
