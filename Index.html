@@ -5,6 +5,18 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Baymax – Asistente Médico Personal</title>
+
+    <!-- PWA: manifest e íconos -->
+    <link rel="manifest" href="manifest.json" />
+    <link rel="icon" type="image/png" sizes="32x32" href="icons/icon-32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="icons/icon-16.png" />
+    <link rel="shortcut icon" href="icons/favicon.ico" />
+    <link rel="apple-touch-icon" sizes="180x180" href="icons/icon-180.png" />
+    <meta name="theme-color" content="#1e88e5" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="Baymax" />
+
     <link
         href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap"
         rel="stylesheet" />
@@ -828,6 +840,190 @@
             flex-direction: column;
             gap: 8px;
             box-shadow: 0 2px 10px var(--shadow);
+        }
+
+        /* ── MODO CINE: reproductor de video (YouTube / TikTok) ── */
+        .cine-video-panel {
+            background: var(--card);
+            border-radius: 16px;
+            border: 1px solid var(--card-border);
+            padding: 12px 16px 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            box-shadow: 0 2px 10px var(--shadow);
+        }
+
+        .cvp-title {
+            font-size: 11px;
+            font-weight: 700;
+            color: var(--text-muted);
+            letter-spacing: .4px;
+        }
+
+        .cvp-source-toggle {
+            display: flex;
+            gap: 6px;
+        }
+
+        .cvp-source-btn {
+            flex: 1;
+            border: 1.5px solid var(--card-border);
+            background: transparent;
+            color: var(--text-muted);
+            font-weight: 700;
+            font-size: 12.5px;
+            padding: 8px 6px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all .18s ease;
+        }
+
+        .cvp-source-btn.active {
+            background: linear-gradient(135deg, var(--chip-c1, #b39ddb), var(--chip-c2, #512da8));
+            border-color: transparent;
+            color: #fff;
+            box-shadow: 0 2px 8px var(--chip-glow, rgba(81, 45, 168, .35));
+        }
+
+        .cvp-input-row {
+            display: flex;
+            gap: 6px;
+        }
+
+        .cvp-input-row input {
+            flex: 1;
+            border: 1.5px solid var(--card-border);
+            background: var(--card);
+            color: var(--text);
+            border-radius: 10px;
+            padding: 9px 12px;
+            font-size: 13px;
+            outline: none;
+        }
+
+        .cvp-input-row input:focus {
+            border-color: var(--chip-c2, #512da8);
+        }
+
+        .cvp-go-btn {
+            border: none;
+            background: linear-gradient(135deg, var(--chip-c1, #b39ddb), var(--chip-c2, #512da8));
+            color: #fff;
+            font-weight: 700;
+            font-size: 13px;
+            padding: 0 16px;
+            border-radius: 10px;
+            cursor: pointer;
+            white-space: nowrap;
+        }
+
+        .cvp-go-btn:active {
+            transform: scale(.96);
+        }
+
+        .cvp-hint {
+            font-size: 10.5px;
+            color: var(--text-muted);
+            line-height: 1.4;
+        }
+
+        .cvp-player-wrap {
+            position: relative;
+            width: 100%;
+            border-radius: 14px;
+            overflow: hidden;
+            background: #000;
+            display: none;
+        }
+
+        .cvp-player-wrap.yt-mode {
+            aspect-ratio: 16 / 9;
+        }
+
+        .cvp-player-wrap.tt-mode {
+            aspect-ratio: unset;
+            background: transparent;
+            max-height: 620px;
+            overflow-y: auto;
+            display: flex;
+            justify-content: center;
+        }
+
+        .cvp-player-wrap.visible {
+            display: flex;
+        }
+
+        .cvp-player-wrap iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        .cvp-empty {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            padding: 30px 10px;
+            color: var(--text-muted);
+            font-size: 12.5px;
+            text-align: center;
+            border: 1.5px dashed var(--card-border);
+            border-radius: 14px;
+        }
+
+        .cvp-empty span:first-child {
+            font-size: 26px;
+        }
+
+        .cvp-fallback-link {
+            display: block;
+            text-align: center;
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--chip-c2, #512da8);
+            text-decoration: none;
+            padding: 4px 0 2px;
+        }
+
+        .cvp-fallback-link:hover {
+            text-decoration: underline;
+        }
+
+        .cvp-history {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .cvp-history-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--card);
+            border: 1px solid var(--card-border);
+            border-radius: 10px;
+            padding: 7px 10px;
+            font-size: 12px;
+            color: var(--text);
+            cursor: pointer;
+        }
+
+        .cvp-history-item:hover {
+            border-color: var(--chip-c2, #512da8);
+        }
+
+        .cvp-history-item .cvp-hist-icon {
+            font-size: 14px;
+        }
+
+        .cvp-history-item span:nth-child(2) {
+            flex: 1;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
         }
 
         .pain-header {
@@ -4999,6 +5195,37 @@
 
         </div>
 
+        <!-- PANEL: VIDEOS (Modo Cine) — YouTube y TikTok integrados -->
+        <div class="panel" id="panel-video">
+            <div class="cine-video-panel">
+                <div class="cvp-title">🎬 REPRODUCTOR — elige la fuente</div>
+                <div class="cvp-source-toggle">
+                    <button class="cvp-source-btn active" id="cvpBtnYoutube" onclick="cvpSetSource('youtube')">▶️
+                        YouTube</button>
+                    <button class="cvp-source-btn" id="cvpBtnTiktok" onclick="cvpSetSource('tiktok')">🎵 TikTok</button>
+                </div>
+
+                <div class="cvp-input-row">
+                    <input type="text" id="cvpInput" placeholder="Pega el link del video o búscalo en YouTube…"
+                        autocomplete="off" onkeydown="if(event.key==='Enter') cvpGo();" />
+                    <button class="cvp-go-btn" onclick="cvpGo()">Ver</button>
+                </div>
+                <div class="cvp-hint" id="cvpHint">Pega un enlace de YouTube (o escribe lo que quieras buscar) y
+                    presiona “Ver”.</div>
+
+                <div class="cvp-player-wrap yt-mode" id="cvpPlayerYoutube"></div>
+                <div class="cvp-player-wrap tt-mode" id="cvpPlayerTiktok"></div>
+                <a class="cvp-fallback-link" id="cvpFallbackLink" href="#" target="_blank" rel="noopener"
+                    style="display:none">▶️ ¿No carga? Abrir este video en YouTube</a>
+                <div class="cvp-empty" id="cvpEmpty">
+                    <span>🍿</span>
+                    <span>Aún no has cargado ningún video. Pega un link arriba para empezar.</span>
+                </div>
+
+                <div class="cvp-history" id="cvpHistory"></div>
+            </div>
+        </div>
+
         <!-- PANEL: SÍNTOMAS LOG (sub-panel extra dentro de síntomas) -->
 
         <!-- Input texto -->
@@ -5400,16 +5627,16 @@ REGLAS:
                 id: 'cine',
                 name: 'Modo Cine',
                 emoji: '🎬',
-                tag: 'Entretenimiento para el alma. Próx.: video integrado.',
+                tag: 'Entretenimiento para el alma. Ve YouTube y TikTok aquí mismo.',
                 colors: { c1: '#b39ddb', c2: '#512da8', glow: 'rgba(81, 45, 168, .4)' },
                 voice: { rate: 0.82, pitch: 0.68 },
-                greeting: '¡Chip de Entretenimiento activado! 🎬🍿 La diversión también cuida tu mente. Pronto podré recomendarte videos aquí mismo. ¿Cómo te sientes?',
+                greeting: '¡Chip de Entretenimiento activado! 🎬🍿 La diversión también cuida tu mente. Ve a la pestaña "Videos" para ver YouTube o TikTok sin salir de la app. ¿Cómo te sientes?',
                 system: `Eres Baymax, pero ahora tienes el CHIP DE ENTRETENIMIENTO / MODO CINE insertado. Crees que la diversión y el descanso mental son parte del cuidado de la salud.
 REGLAS:
 - Responde SIEMPRE en español, con un tono relajado, cálido y un poco lúdico (máximo 4-5 oraciones).
 - Usa frases como "Mi protocolo de bienestar incluye divertirse", "He preparado una recomendación para ti", "Un buen descanso mental también cura".
 - Para cada consulta, además de tu orientación de salud habitual (puedes seguir dando recomendaciones médicas básicas y de venta libre como Baymax), sugiere una actividad de entretenimiento o relajación apropiada según el estado de ánimo o síntoma (ej: música relajante para la ansiedad, comedia ligera para el ánimo, contenido tranquilo para el insomnio, distracciones breves para el dolor).
-- Aclara amablemente, solo si es relevante, que pronto podrás recomendar y mostrar videos de YouTube/TikTok directamente en la app, pero por ahora das sugerencias en texto.
+- Si es relevante, recuerda que en la pestaña "Videos" (📺) puede pegar un link de YouTube o TikTok y verlo directamente dentro de Baymax.
 - Para emergencias graves indica SIEMPRE llamar al 123.
 - Termina cada respuesta con: "🎬 Recuerda: el descanso y la diversión también cuidan tu salud. ⚕️ Soy informativo y no reemplazo al médico profesional."`,
                 quickActions: [
@@ -5418,7 +5645,7 @@ REGLAS:
                     { icon: '🧘', label: 'Meditación guiada', action: () => openYouTubeSearch('meditación guiada 10 minutos en español') },
                     { icon: '😴', label: 'Sonidos para dormir', action: () => openYouTubeSearch('sonidos relajantes para dormir') },
                     { icon: '🎬', label: 'Recomiéndame algo', action: () => manualActivate('recomiéndame algo de entretenimiento para sentirme mejor') },
-                    { icon: '📺', label: 'Próximamente: video aquí', action: () => showToast('🎬 Próximamente: videos de YouTube y TikTok integrados directamente en Baymax') },
+                    { icon: '📺', label: 'Ver YouTube / TikTok aquí', action: () => switchTab('video') },
                 ]
             },
         };
@@ -5432,6 +5659,165 @@ REGLAS:
         function openYouTubeSearch(query) {
             window.open('https://www.youtube.com/results?search_query=' + encodeURIComponent(query), '_blank');
         }
+
+        /* ══════════════════════════════════════════════════════
+           MODO CINE — reproductor embebido de YouTube y TikTok
+        ══════════════════════════════════════════════════════ */
+        let cvpSource = 'youtube';
+        let cvpTikTokScriptLoaded = false;
+
+        function cvpGetHistory() {
+            try { return JSON.parse(localStorage.getItem('baymax-cine-history') || '[]'); }
+            catch { return []; }
+        }
+
+        function cvpSaveHistory(list) {
+            localStorage.setItem('baymax-cine-history', JSON.stringify(list.slice(0, 12)));
+        }
+
+        function cvpAddToHistory(source, value, label) {
+            const list = cvpGetHistory().filter(h => !(h.source === source && h.value === value));
+            list.unshift({ source, value, label: label || value });
+            cvpSaveHistory(list);
+            cvpRenderHistory();
+        }
+
+        function cvpRenderHistory() {
+            const wrap = document.getElementById('cvpHistory');
+            if (!wrap) return;
+            const list = cvpGetHistory();
+            wrap.innerHTML = '';
+            if (!list.length) return;
+            list.forEach(item => {
+                const el = document.createElement('div');
+                el.className = 'cvp-history-item';
+                el.innerHTML = `<span class="cvp-hist-icon">${item.source === 'youtube' ? '▶️' : '🎵'}</span><span>${item.label}</span>`;
+                el.onclick = () => {
+                    cvpSetSource(item.source);
+                    document.getElementById('cvpInput').value = item.value;
+                    cvpGo(true);
+                };
+                wrap.appendChild(el);
+            });
+        }
+
+        /* Cambia entre pestaña YouTube y TikTok dentro del reproductor */
+        function cvpSetSource(source) {
+            cvpSource = source;
+            document.getElementById('cvpBtnYoutube').classList.toggle('active', source === 'youtube');
+            document.getElementById('cvpBtnTiktok').classList.toggle('active', source === 'tiktok');
+            const input = document.getElementById('cvpInput');
+            const hint = document.getElementById('cvpHint');
+            if (source === 'youtube') {
+                input.placeholder = 'Pega el link del video o búscalo en YouTube…';
+                hint.textContent = 'Pega un enlace de YouTube (o escribe lo que quieras buscar) y presiona “Ver”.';
+            } else {
+                input.placeholder = 'Pega el link de un video de TikTok…';
+                hint.textContent = 'Pega la URL completa del video de TikTok (ej: https://www.tiktok.com/@usuario/video/1234567890123456789).';
+            }
+        }
+
+        /* Extrae el ID de video de una URL de YouTube (varios formatos) */
+        function cvpExtractYouTubeId(text) {
+            const patterns = [
+                /(?:youtube\.com\/watch\?v=|youtube\.com\/shorts\/|youtu\.be\/|youtube\.com\/embed\/)([\w-]{11})/,
+            ];
+            for (const p of patterns) {
+                const m = text.match(p);
+                if (m) return m[1];
+            }
+            // Si ya parece un ID puro de 11 caracteres
+            if (/^[\w-]{11}$/.test(text.trim())) return text.trim();
+            return null;
+        }
+
+        function cvpShowPlayer(which) {
+            document.getElementById('cvpEmpty').style.display = 'none';
+            document.getElementById('cvpPlayerYoutube').classList.toggle('visible', which === 'youtube');
+            document.getElementById('cvpPlayerTiktok').classList.toggle('visible', which === 'tiktok');
+        }
+
+        /* Reproduce un video de YouTube embebido dentro de la app */
+        function cvpPlayYouTube(idOrQuery) {
+            const id = cvpExtractYouTubeId(idOrQuery);
+            const holder = document.getElementById('cvpPlayerYoutube');
+            const fallback = document.getElementById('cvpFallbackLink');
+            if (id) {
+                holder.innerHTML = `<iframe src="https://www.youtube.com/embed/${id}?autoplay=1&rel=0"
+                    title="Reproductor de YouTube" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowfullscreen></iframe>`;
+                cvpShowPlayer('youtube');
+                fallback.href = 'https://www.youtube.com/watch?v=' + id;
+                fallback.style.display = 'block';
+                cvpAddToHistory('youtube', idOrQuery.trim(), 'YouTube: ' + id);
+            } else {
+                // No es un link directo → abrimos la búsqueda de YouTube en una pestaña nueva
+                showToast('🔎 Buscando en YouTube… pega un link directo para verlo aquí dentro');
+                openYouTubeSearch(idOrQuery);
+            }
+        }
+
+        /* Inserta el embed oficial de TikTok (usa el script público embed.js de TikTok) */
+        function cvpPlayTikTok(url) {
+            const match = url.match(/tiktok\.com\/.*?\/video\/(\d+)/) || url.match(/^(\d{5,})$/);
+            if (!match) {
+                showToast('⚠️ Pega una URL válida de TikTok, ej: tiktok.com/@usuario/video/1234567890');
+                return;
+            }
+            const videoId = match[1];
+            const holder = document.getElementById('cvpPlayerTiktok');
+            holder.innerHTML = `<blockquote class="tiktok-embed" cite="${url}" data-video-id="${videoId}" style="max-width:325px;min-width:280px;margin:0;">
+                <section></section>
+            </blockquote>`;
+            cvpShowPlayer('tiktok');
+            document.getElementById('cvpFallbackLink').style.display = 'none';
+            cvpAddToHistory('tiktok', url.trim(), 'TikTok: ' + videoId);
+
+            const reloadEmbed = () => {
+                if (window.tiktokEmbed && typeof window.tiktokEmbed.lib?.render === 'function') {
+                    window.tiktokEmbed.lib.render([holder.querySelector('.tiktok-embed')]);
+                } else if (window.__tiktokLoadEmbeds) {
+                    window.__tiktokLoadEmbeds();
+                }
+            };
+
+            if (!cvpTikTokScriptLoaded) {
+                cvpTikTokScriptLoaded = true;
+                const script = document.createElement('script');
+                script.src = 'https://www.tiktok.com/embed.js';
+                script.async = true;
+                document.body.appendChild(script);
+            } else {
+                // Si el script ya existe, forzamos que TikTok vuelva a escanear los blockquotes
+                const existing = document.querySelector('script[src="https://www.tiktok.com/embed.js"]');
+                if (existing) {
+                    existing.remove();
+                    const script = document.createElement('script');
+                    script.src = 'https://www.tiktok.com/embed.js';
+                    script.async = true;
+                    document.body.appendChild(script);
+                }
+            }
+        }
+
+        /* Botón "Ver": decide qué reproducir según la fuente activa */
+        function cvpGo(fromHistory = false) {
+            const val = document.getElementById('cvpInput').value.trim();
+            if (!val) {
+                showToast('✏️ Escribe o pega un link primero');
+                return;
+            }
+            if (cvpSource === 'youtube') {
+                cvpPlayYouTube(val);
+            } else {
+                cvpPlayTikTok(val);
+            }
+        }
+
+        // Pinta el historial guardado al cargar la página
+        document.addEventListener('DOMContentLoaded', () => {
+            if (document.getElementById('cvpHistory')) cvpRenderHistory();
+        });
 
         /* ── Renderiza los botones rápidos según el chip activo ── */
         function renderQuickActions() {
@@ -5574,52 +5960,53 @@ REGLAS:
         ══════════════════════════════════════════════════════ */
         const CHIP_TABS = {
             medico: [
-                { id: 'sintomas',      icon: '🩺',  label: 'Síntomas' },
-                { id: 'vitales',       icon: '📊',  label: 'Signos'   },
-                { id: 'recordatorios', icon: '⏰',  label: 'Alarmas', badge: 'rmBadge' },
-                { id: 'camara',        icon: '🔬',  label: 'Análisis' },
-                { id: 'bienestar',     icon: '🌿',  label: 'Bienestar'},
-                { id: 'ejercicios',    icon: '🏃',  label: 'Ejercicios'},
-                { id: 'historial',     icon: '💬',  label: 'Historial'},
-                { id: 'ajustes',       icon: '⚙️', label: 'Ajustes'  },
+                { id: 'sintomas', icon: '🩺', label: 'Síntomas' },
+                { id: 'vitales', icon: '📊', label: 'Signos' },
+                { id: 'recordatorios', icon: '⏰', label: 'Alarmas', badge: 'rmBadge' },
+                { id: 'camara', icon: '🔬', label: 'Análisis' },
+                { id: 'bienestar', icon: '🌿', label: 'Bienestar' },
+                { id: 'ejercicios', icon: '🏃', label: 'Ejercicios' },
+                { id: 'historial', icon: '💬', label: 'Historial' },
+                { id: 'ajustes', icon: '⚙️', label: 'Ajustes' },
             ],
             fitness: [
-                { id: 'ejercicios',    icon: '🏃',  label: 'Rutinas'  },
-                { id: 'bienestar',     icon: '💪',  label: 'Bienestar'},
-                { id: 'vitales',       icon: '📊',  label: 'Signos'   },
-                { id: 'recordatorios', icon: '⏰',  label: 'Alarmas', badge: 'rmBadge' },
-                { id: 'historial',     icon: '📈',  label: 'Progreso' },
-                { id: 'ajustes',       icon: '⚙️', label: 'Ajustes'  },
+                { id: 'ejercicios', icon: '🏃', label: 'Rutinas' },
+                { id: 'bienestar', icon: '💪', label: 'Bienestar' },
+                { id: 'vitales', icon: '📊', label: 'Signos' },
+                { id: 'recordatorios', icon: '⏰', label: 'Alarmas', badge: 'rmBadge' },
+                { id: 'historial', icon: '📈', label: 'Progreso' },
+                { id: 'ajustes', icon: '⚙️', label: 'Ajustes' },
             ],
             ninos: [
-                { id: 'sintomas',      icon: '🤒',  label: 'Síntomas' },
-                { id: 'bienestar',     icon: '🎮',  label: 'Bienestar'},
-                { id: 'vitales',       icon: '📊',  label: 'Signos'   },
-                { id: 'recordatorios', icon: '⏰',  label: 'Alarmas', badge: 'rmBadge' },
-                { id: 'historial',     icon: '💬',  label: 'Historial'},
-                { id: 'ajustes',       icon: '⚙️', label: 'Ajustes'  },
+                { id: 'sintomas', icon: '🤒', label: 'Síntomas' },
+                { id: 'bienestar', icon: '🎮', label: 'Bienestar' },
+                { id: 'vitales', icon: '📊', label: 'Signos' },
+                { id: 'recordatorios', icon: '⏰', label: 'Alarmas', badge: 'rmBadge' },
+                { id: 'historial', icon: '💬', label: 'Historial' },
+                { id: 'ajustes', icon: '⚙️', label: 'Ajustes' },
             ],
             psicologo: [
-                { id: 'bienestar',     icon: '🧘',  label: 'Bienestar'},
-                { id: 'historial',     icon: '💬',  label: 'Sesiones' },
-                { id: 'sintomas',      icon: '🧠',  label: 'Emociones'},
-                { id: 'recordatorios', icon: '⏰',  label: 'Alarmas', badge: 'rmBadge' },
-                { id: 'ajustes',       icon: '⚙️', label: 'Ajustes'  },
+                { id: 'bienestar', icon: '🧘', label: 'Bienestar' },
+                { id: 'historial', icon: '💬', label: 'Sesiones' },
+                { id: 'sintomas', icon: '🧠', label: 'Emociones' },
+                { id: 'recordatorios', icon: '⏰', label: 'Alarmas', badge: 'rmBadge' },
+                { id: 'ajustes', icon: '⚙️', label: 'Ajustes' },
             ],
             chef: [
-                { id: 'sintomas',      icon: '🥗',  label: 'Consulta' },
-                { id: 'bienestar',     icon: '🌿',  label: 'Bienestar'},
-                { id: 'vitales',       icon: '📊',  label: 'Signos'   },
-                { id: 'recordatorios', icon: '⏰',  label: 'Alarmas', badge: 'rmBadge' },
-                { id: 'historial',     icon: '📋',  label: 'Historial'},
-                { id: 'ajustes',       icon: '⚙️', label: 'Ajustes'  },
+                { id: 'sintomas', icon: '🥗', label: 'Consulta' },
+                { id: 'bienestar', icon: '🌿', label: 'Bienestar' },
+                { id: 'vitales', icon: '📊', label: 'Signos' },
+                { id: 'recordatorios', icon: '⏰', label: 'Alarmas', badge: 'rmBadge' },
+                { id: 'historial', icon: '📋', label: 'Historial' },
+                { id: 'ajustes', icon: '⚙️', label: 'Ajustes' },
             ],
             cine: [
-                { id: 'sintomas',      icon: '🎬',  label: 'Consulta' },
-                { id: 'bienestar',     icon: '🌿',  label: 'Bienestar'},
-                { id: 'historial',     icon: '🎞️', label: 'Historial'},
-                { id: 'recordatorios', icon: '⏰',  label: 'Alarmas', badge: 'rmBadge' },
-                { id: 'ajustes',       icon: '⚙️', label: 'Ajustes'  },
+                { id: 'sintomas', icon: '🎬', label: 'Consulta' },
+                { id: 'video', icon: '📺', label: 'Videos' },
+                { id: 'bienestar', icon: '🌿', label: 'Bienestar' },
+                { id: 'historial', icon: '🎞️', label: 'Historial' },
+                { id: 'recordatorios', icon: '⏰', label: 'Alarmas', badge: 'rmBadge' },
+                { id: 'ajustes', icon: '⚙️', label: 'Ajustes' },
             ],
         };
 
@@ -6715,6 +7102,13 @@ INSTRUCCIONES ESTRICTAS:
             });
         }
         window.addEventListener('appinstalled', () => { showToast('✅ Baymax instalado'); document.getElementById('pwaBanner').classList.remove('show'); });
+
+        // Registro del Service Worker (necesario para que el navegador considere la app instalable)
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('sw.js').catch(err => console.warn('SW no registrado:', err));
+            });
+        }
 
         /* ── ACCESIBILIDAD ── */
         let bigText = localStorage.getItem('baymax-bigtext') === '1';
