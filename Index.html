@@ -6140,9 +6140,28 @@ REGLAS:
             return voices.find(v => v.lang.startsWith('es')) || null;
         }
 
+        function stripEmojis(str) {
+            if (!str) return str;
+            return str
+                // Emojis y símbolos pictográficos (rango amplio Unicode)
+                .replace(/[\u{1F000}-\u{1FFFF}]/gu, '')
+                .replace(/[\u{2600}-\u{27BF}]/gu, '')
+                .replace(/[\u{2190}-\u{21FF}]/gu, '')
+                .replace(/[\u{2300}-\u{23FF}]/gu, '')
+                .replace(/[\u{2B00}-\u{2BFF}]/gu, '')
+                .replace(/[\u{FE0F}]/gu, '')
+                .replace(/[\u{200D}]/gu, '')
+                // Variantes de piel (emoji modifiers)
+                .replace(/[\u{1F3FB}-\u{1F3FF}]/gu, '')
+                // Espacios dobles que puedan quedar
+                .replace(/\s{2,}/g, ' ')
+                .trim();
+        }
+
         function speak(text, onEnd) {
             speechSynth.cancel();
-            const utt = new SpeechSynthesisUtterance(text);
+            const cleanText = stripEmojis(text);
+            const utt = new SpeechSynthesisUtterance(cleanText);
             utt.lang = 'es-ES'; utt.rate = voiceRate; utt.pitch = voicePitch; utt.volume = 1;
             const voice = getBaymaxVoice();
             if (voice) { utt.voice = voice; utt.lang = voice.lang; }
