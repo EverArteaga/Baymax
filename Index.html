@@ -6257,9 +6257,20 @@ Si no hay nada nuevo o relevante, devuelve arrays vacíos y resumen vacío. Máx
             return voices.find(v => v.lang.startsWith('es')) || null;
         }
 
+        /* Quita emojis y símbolos "de adorno" para que la voz nunca los lea,
+           sin tocar el texto que se muestra en la burbuja/historial. */
+        function stripForSpeech(text) {
+            return text
+                .replace(/[\u{1F300}-\u{1FAFF}\u{2600}-\u{27BF}\u{2190}-\u{21FF}\u{2B00}-\u{2BFF}\u{FE0F}\u{200D}]/gu, '')
+                .replace(/[*_#>`]/g, '')
+                .replace(/\s{2,}/g, ' ')
+                .trim();
+        }
+
         function speak(text, onEnd) {
             speechSynth.cancel();
-            const utt = new SpeechSynthesisUtterance(text);
+            const cleanText = stripForSpeech(text);
+            const utt = new SpeechSynthesisUtterance(cleanText);
             utt.lang = 'es-ES'; utt.rate = voiceRate; utt.pitch = voicePitch; utt.volume = 1;
             const voice = getBaymaxVoice();
             if (voice) { utt.voice = voice; utt.lang = voice.lang; }
@@ -6901,13 +6912,7 @@ INSTRUCCIONES ESTRICTAS:
         function speakScanResult() {
             const text = document.getElementById('scanResultText').textContent;
             if (!text.trim()) return;
-            // Limpiar emojis y caracteres especiales para TTS
-            const clean = text
-                .replace(/[🔍📋💊🩺⚕️🔊📋#*_→•·–]/g, '')
-                .replace(/\s{2,}/g, ' ')
-                .trim()
-                .substring(0, 800);
-            speak(clean, null);
+            speak(text.substring(0, 800), null);
             showToast('🔊 Leyendo diagnóstico…');
         }
 
