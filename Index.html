@@ -5649,10 +5649,10 @@ REGLAS:
 - Para emergencias graves indica SIEMPRE llamar al 123.
 - Termina cada respuesta con: "🎬 Recuerda: el descanso y la diversión también cuidan tu salud. ⚕️ Soy informativo y no reemplazo al médico profesional."`,
                 quickActions: [
-                    { icon: '🎵', label: 'Música relajante', action: () => openYouTubeSearch('música relajante para calmar la ansiedad') },
-                    { icon: '😂', label: 'Algo para reír', action: () => openYouTubeSearch('videos cortos de comedia para reír') },
-                    { icon: '🧘', label: 'Meditación guiada', action: () => openYouTubeSearch('meditación guiada 10 minutos en español') },
-                    { icon: '😴', label: 'Sonidos para dormir', action: () => openYouTubeSearch('sonidos relajantes para dormir') },
+                    { icon: '🎵', label: 'Música relajante', action: () => cvpQuickSearch('música relajante para calmar la ansiedad') },
+                    { icon: '😂', label: 'Algo para reír', action: () => cvpQuickSearch('videos cortos de comedia para reír') },
+                    { icon: '🧘', label: 'Meditación guiada', action: () => cvpQuickSearch('meditación guiada 10 minutos en español') },
+                    { icon: '😴', label: 'Sonidos para dormir', action: () => cvpQuickSearch('sonidos relajantes para dormir') },
                     { icon: '🎬', label: 'Recomiéndame algo', action: () => manualActivate('recomiéndame algo de entretenimiento para sentirme mejor') },
                     { icon: '📺', label: 'Ver YouTube / TikTok aquí', action: () => switchTab('video') },
                 ]
@@ -5777,6 +5777,34 @@ Si no hay nada nuevo o relevante, devuelve arrays vacíos y resumen vacío. Máx
             window.open('https://www.youtube.com/results?search_query=' + encodeURIComponent(query), '_blank');
         }
 
+        /* Busca y reproduce resultados de YouTube SIN salir de la app,
+           usando el modo "listType=search" del embed oficial de YouTube.
+           Esto carga una mini-playlist de resultados dentro del iframe:
+           el usuario puede pasar de un video a otro con los controles del
+           propio reproductor (▶️⏭️), sin copiar/pegar ningún link. */
+        /* Acceso rápido desde los botones del chip Cine: cambia al panel de
+           Videos y dispara la búsqueda dentro de la app, sin links ni pestañas externas. */
+        function cvpQuickSearch(query) {
+            switchTab('video');
+            cvpSetSource('youtube');
+            const input = document.getElementById('cvpInput');
+            if (input) input.value = query;
+            cvpSearchYouTubeInApp(query);
+        }
+
+        function cvpSearchYouTubeInApp(query) {
+            const holder = document.getElementById('cvpPlayerYoutube');
+            const fallback = document.getElementById('cvpFallbackLink');
+            holder.innerHTML = `<iframe src="https://www.youtube.com/embed?listType=search&list=${encodeURIComponent(query)}&autoplay=1&rel=0"
+                title="Resultados de YouTube" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen></iframe>`;
+            cvpShowPlayer('youtube');
+            fallback.href = 'https://www.youtube.com/results?search_query=' + encodeURIComponent(query);
+            fallback.style.display = 'block';
+            cvpAddToHistory('youtube-search', query.trim(), '🔎 ' + query.trim());
+            showToast('🔎 Mostrando resultados aquí mismo — usa ⏭️ dentro del video para cambiar de resultado');
+        }
+
         /* ══════════════════════════════════════════════════════
            MODO CINE — reproductor embebido de YouTube y TikTok
         ══════════════════════════════════════════════════════ */
@@ -5808,11 +5836,18 @@ Si no hay nada nuevo o relevante, devuelve arrays vacíos y resumen vacío. Máx
             list.forEach(item => {
                 const el = document.createElement('div');
                 el.className = 'cvp-history-item';
-                el.innerHTML = `<span class="cvp-hist-icon">${item.source === 'youtube' ? '▶️' : '🎵'}</span><span>${item.label}</span>`;
+                const icon = item.source === 'tiktok' ? '🎵' : (item.source === 'youtube-search' ? '🔎' : '▶️');
+                el.innerHTML = `<span class="cvp-hist-icon">${icon}</span><span>${item.label}</span>`;
                 el.onclick = () => {
-                    cvpSetSource(item.source);
-                    document.getElementById('cvpInput').value = item.value;
-                    cvpGo(true);
+                    if (item.source === 'youtube-search') {
+                        cvpSetSource('youtube');
+                        document.getElementById('cvpInput').value = item.value;
+                        cvpSearchYouTubeInApp(item.value);
+                    } else {
+                        cvpSetSource(item.source);
+                        document.getElementById('cvpInput').value = item.value;
+                        cvpGo(true);
+                    }
                 };
                 wrap.appendChild(el);
             });
@@ -5826,8 +5861,8 @@ Si no hay nada nuevo o relevante, devuelve arrays vacíos y resumen vacío. Máx
             const input = document.getElementById('cvpInput');
             const hint = document.getElementById('cvpHint');
             if (source === 'youtube') {
-                input.placeholder = 'Pega el link del video o búscalo en YouTube…';
-                hint.textContent = 'Pega un enlace de YouTube (o escribe lo que quieras buscar) y presiona “Ver”.';
+                input.placeholder = 'Escribe lo que quieras ver, o pega un link…';
+                hint.textContent = 'Escribe cualquier tema (ej: "música relajante") y presiona “Ver” — los resultados se reproducen aquí mismo, sin salir de la app.';
             } else {
                 input.placeholder = 'Pega el link de un video de TikTok…';
                 hint.textContent = 'Pega la URL completa del video de TikTok (ej: https://www.tiktok.com/@usuario/video/1234567890123456789).';
@@ -5868,9 +5903,8 @@ Si no hay nada nuevo o relevante, devuelve arrays vacíos y resumen vacío. Máx
                 fallback.style.display = 'block';
                 cvpAddToHistory('youtube', idOrQuery.trim(), 'YouTube: ' + id);
             } else {
-                // No es un link directo → abrimos la búsqueda de YouTube en una pestaña nueva
-                showToast('🔎 Buscando en YouTube… pega un link directo para verlo aquí dentro');
-                openYouTubeSearch(idOrQuery);
+                // No es un link directo → buscamos y reproducimos los resultados AQUÍ MISMO
+                cvpSearchYouTubeInApp(idOrQuery);
             }
         }
 
