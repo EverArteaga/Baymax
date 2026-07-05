@@ -886,75 +886,6 @@
             box-shadow: 0 2px 8px var(--chip-glow, rgba(81, 45, 168, .35));
         }
 
-        .cvp-config-btn {
-            border: 1.5px solid var(--card-border);
-            background: transparent;
-            color: var(--text-muted);
-            font-size: 14px;
-            padding: 8px 10px;
-            border-radius: 10px;
-            cursor: pointer;
-            flex: 0 0 auto;
-        }
-
-        .cvp-config-btn:hover {
-            border-color: var(--chip-c2, #512da8);
-            color: var(--text);
-        }
-
-        .cvp-results-grid {
-            display: none;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 8px;
-        }
-
-        .cvp-results-grid.visible {
-            display: grid;
-        }
-
-        .cvp-results-loading,
-        .cvp-results-empty {
-            grid-column: 1 / -1;
-            text-align: center;
-            font-size: 12.5px;
-            color: var(--text-muted);
-            padding: 18px 0;
-        }
-
-        .cvp-result-card {
-            display: flex;
-            flex-direction: column;
-            gap: 5px;
-            cursor: pointer;
-            background: var(--card);
-            border: 1px solid var(--card-border);
-            border-radius: 10px;
-            padding: 6px;
-            transition: border-color .15s ease;
-        }
-
-        .cvp-result-card:hover {
-            border-color: var(--chip-c2, #512da8);
-        }
-
-        .cvp-result-card img {
-            width: 100%;
-            aspect-ratio: 16 / 9;
-            object-fit: cover;
-            border-radius: 7px;
-            background: #000;
-        }
-
-        .cvp-result-card span {
-            font-size: 11px;
-            color: var(--text);
-            line-height: 1.3;
-            display: -webkit-box;
-            -webkit-line-clamp: 2;
-            -webkit-box-orient: vertical;
-            overflow: hidden;
-        }
-
         .cvp-input-row {
             display: flex;
             gap: 6px;
@@ -5281,8 +5212,6 @@
                     <button class="cvp-source-btn active" id="cvpBtnYoutube" onclick="cvpSetSource('youtube')">▶️
                         YouTube</button>
                     <button class="cvp-source-btn" id="cvpBtnTiktok" onclick="cvpSetSource('tiktok')">🎵 TikTok</button>
-                    <button class="cvp-config-btn" onclick="cvpConfigureApiKey()"
-                        title="Configurar búsqueda de YouTube">⚙️</button>
                 </div>
 
                 <div class="cvp-input-row">
@@ -5290,10 +5219,9 @@
                         autocomplete="off" onkeydown="if(event.key==='Enter') cvpGo();" />
                     <button class="cvp-go-btn" onclick="cvpGo()">Ver</button>
                 </div>
-                <div class="cvp-hint" id="cvpHint">Escribe cualquier tema (ej: "música relajante") y presiona
-                    “Ver” — los resultados se muestran aquí mismo, sin salir de la app.</div>
+                <div class="cvp-hint" id="cvpHint">Pega un enlace de YouTube (o escribe lo que quieras buscar) y
+                    presiona “Ver”.</div>
 
-                <div class="cvp-results-grid" id="cvpResultsGrid"></div>
                 <div class="cvp-player-wrap yt-mode" id="cvpPlayerYoutube"></div>
                 <div class="cvp-player-wrap tt-mode" id="cvpPlayerTiktok"></div>
                 <a class="cvp-fallback-link" id="cvpFallbackLink" href="#" target="_blank" rel="noopener"
@@ -5864,100 +5792,17 @@ Si no hay nada nuevo o relevante, devuelve arrays vacíos y resumen vacío. Máx
             cvpSearchYouTubeInApp(query);
         }
 
-        /* Guarda / actualiza la API key gratuita de YouTube Data API v3
-           (necesaria para poder buscar y mostrar resultados dentro de la app,
-           en vez de depender de trucos de embed que YouTube bloquea). */
-        function cvpConfigureApiKey(autoSearchAfter, pendingQuery) {
-            const current = localStorage.getItem('baymax-yt-api-key') || '';
-            const key = prompt(
-                'Para buscar videos SIN salir de la app, Baymax necesita una API Key gratuita de YouTube Data API v3:\n\n' +
-                '1) Entra a console.cloud.google.com/apis/library/youtube.googleapis.com\n' +
-                '2) Crea un proyecto (o usa uno existente) y actívala\n' +
-                '3) Ve a "Credenciales" → "Crear credenciales" → "Clave de API"\n' +
-                '4) Copia esa clave y pégala aquí (el uso normal de una persona es gratis)\n\n' +
-                'Pega tu API Key:',
-                current
-            );
-            if (key === null) return;
-            const trimmed = key.trim();
-            if (!trimmed) {
-                localStorage.removeItem('baymax-yt-api-key');
-                showToast('🔑 API key eliminada');
-                return;
-            }
-            localStorage.setItem('baymax-yt-api-key', trimmed);
-            showToast('✅ API key guardada — ¡ya puedes buscar aquí mismo!');
-            if (autoSearchAfter && pendingQuery) cvpSearchYouTubeInApp(pendingQuery);
-        }
-
-        function cvpHideResults() {
-            const grid = document.getElementById('cvpResultsGrid');
-            grid.classList.remove('visible');
-            grid.innerHTML = '';
-        }
-
-        /* Busca en YouTube usando la API oficial (YouTube Data API v3) y
-           muestra las miniaturas AQUÍ DENTRO, en una grilla. Al tocar una,
-           se reproduce con el embed normal (100% confiable, sin el error
-           "Este video no está disponible" del truco listType=search). */
-        async function cvpSearchYouTubeInApp(query) {
-            const key = localStorage.getItem('baymax-yt-api-key');
-            const grid = document.getElementById('cvpResultsGrid');
-            document.getElementById('cvpEmpty').style.display = 'none';
-            document.getElementById('cvpPlayerYoutube').classList.remove('visible');
-            document.getElementById('cvpFallbackLink').style.display = 'none';
-
-            if (!key) {
-                cvpConfigureApiKey(true, query);
-                return;
-            }
-
-            grid.classList.add('visible');
-            grid.innerHTML = '<div class="cvp-results-loading">🔎 Buscando…</div>';
-
-            try {
-                const url = `https://www.googleapis.com/youtube/v3/search?part=snippet&type=video&maxResults=8&q=${encodeURIComponent(query)}&key=${encodeURIComponent(key)}`;
-                const res = await fetch(url);
-                const data = await res.json();
-
-                if (data.error) {
-                    grid.innerHTML = '';
-                    grid.classList.remove('visible');
-                    document.getElementById('cvpEmpty').style.display = 'flex';
-                    showToast('⚠️ Error al buscar: ' + (data.error.message || 'revisa tu API key en ⚙️'));
-                    return;
-                }
-
-                const items = data.items || [];
-                if (!items.length) {
-                    grid.innerHTML = '<div class="cvp-results-empty">Sin resultados 😕 prueba con otras palabras.</div>';
-                    return;
-                }
-
-                grid.innerHTML = '';
-                items.forEach(item => {
-                    const videoId = item.id.videoId;
-                    if (!videoId) return;
-                    const title = item.snippet.title;
-                    const thumb = (item.snippet.thumbnails.medium || item.snippet.thumbnails.default).url;
-                    const card = document.createElement('div');
-                    card.className = 'cvp-result-card';
-                    card.innerHTML = `<img src="${thumb}" alt="" loading="lazy"><span></span>`;
-                    card.querySelector('span').textContent = title;
-                    card.onclick = () => {
-                        cvpHideResults();
-                        cvpPlayYouTube(videoId);
-                    };
-                    grid.appendChild(card);
-                });
-
-                cvpAddToHistory('youtube-search', query.trim(), '🔎 ' + query.trim());
-            } catch (e) {
-                grid.innerHTML = '';
-                grid.classList.remove('visible');
-                document.getElementById('cvpEmpty').style.display = 'flex';
-                showToast('⚠️ No se pudo buscar. Revisa tu conexión.');
-            }
+        function cvpSearchYouTubeInApp(query) {
+            const holder = document.getElementById('cvpPlayerYoutube');
+            const fallback = document.getElementById('cvpFallbackLink');
+            holder.innerHTML = `<iframe src="https://www.youtube.com/embed?listType=search&list=${encodeURIComponent(query)}&autoplay=1&rel=0"
+                title="Resultados de YouTube" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen></iframe>`;
+            cvpShowPlayer('youtube');
+            fallback.href = 'https://www.youtube.com/results?search_query=' + encodeURIComponent(query);
+            fallback.style.display = 'block';
+            cvpAddToHistory('youtube-search', query.trim(), '🔎 ' + query.trim());
+            showToast('🔎 Mostrando resultados aquí mismo — usa ⏭️ dentro del video para cambiar de resultado');
         }
 
         /* ══════════════════════════════════════════════════════
@@ -6040,7 +5885,6 @@ Si no hay nada nuevo o relevante, devuelve arrays vacíos y resumen vacío. Máx
 
         function cvpShowPlayer(which) {
             document.getElementById('cvpEmpty').style.display = 'none';
-            cvpHideResults();
             document.getElementById('cvpPlayerYoutube').classList.toggle('visible', which === 'youtube');
             document.getElementById('cvpPlayerTiktok').classList.toggle('visible', which === 'tiktok');
         }
